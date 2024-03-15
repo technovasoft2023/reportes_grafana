@@ -1,0 +1,5101 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 361,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 25,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto",
+                  "filterable": true,
+                  "inspect": true
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "cedula"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 110
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "codigo"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 105
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "telefono"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 112
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "estado"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 119
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "municipio"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 119
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "estatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 97
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "asunto"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 115
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "fechacreacion"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 119
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "ASUNTO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 83
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "ESTATUS"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 155
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "ESTADO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 76
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CEDULA"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 92
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CODIGO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 73
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "FECHA ACT"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 120
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "RESPONSABLE"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 262
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "MUNICIPIO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 92
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "TELF. DENUNCIANTE"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 122
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "PARROQUIA"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 109
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "TELEFONO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 75
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CATEGORIA"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 161
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "SUBCATEG"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 191
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "EXTCATEG"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 111
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CODIGO CASO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 60
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CATEG ADI"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 76
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CODIGO CASO S"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 65
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "DESCRIP"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 135
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "PARROQ"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 91
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "DENUNCIANTE"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 96
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "INSTITUCION"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 181
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "FECHA"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 91
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 10,
+              "w": 24,
+              "x": 0,
+              "y": 1
+            },
+            "id": 110,
+            "options": {
+              "footer": {
+                "enablePagination": true,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": []
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT a.nombre::Text \"CODIGO CASO\",\r\n    \te.cedula::Text \"CEDULA\",\r\n    \te.nombre::TEXT \"DENUNCIANTE\",\r\n    \te.telefono::Text \"TELEFONO\",\r\n    \tb.nombre::Text \"ESTADO\",\r\n    \tc.nombre::Text \"MUNICIPIO\",\r\n    \td.nombre::Text \"PARROQ\",\r\n    \ta.direccion::Text \"DIR\",\r\n    \ta.descripcion::TEXT \"DESCRIP\", \r\n\t  \tf.name::Text \"CATEGORIA\",\r\n\t  \tg.name::Text \"SUBCATEG\",\r\n\t  \tcase when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \r\n\t\ti.nombre::Text \"ESTATUS\",\r\n\t\tto_char(a.fecha, 'dd-mm-YY  hh:mm:ss')::Text \"FECHA\",\r\n\t\t--to_char(h.fecha_registro,'dd-mm-YY hh:mm:ss') as \"FECHA ESTATUS\",\r\n       case when k.nombre is null then 'Analizando' else k.nombre end::Text \"INSTITUCION\",\r\n\t\tk.nombre::Text \"RESPONSABLE\"\r\n        FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            left JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            inner JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            inner JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio\r\n      where  j.id_resolutorio in (503)\r\n      and j.principal is true\r\n      and a.id_estatus in (3,4,8)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "LISTADO DE CASOS  DE LA BASE DE DATOS",
+            "type": "table"
+          }
+        ],
+        "title": "LISTADO DE CASOS  DE PDVSA GAS EN LA BASE DE DATOS ",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 1
+        },
+        "id": 145,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "color-text",
+                  "filterable": false,
+                  "inspect": false,
+                  "minWidth": 4
+                },
+                "mappings": [],
+                "noValue": "0",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "GOBERNACION"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "blue",
+                        "mode": "fixed"
+                      }
+                    },
+                    {
+                      "id": "custom.align",
+                      "value": "auto"
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "% EFECTIVIDAD %"
+                  },
+                  "properties": [
+                    {
+                      "id": "decimals",
+                      "value": 2
+                    },
+                    {
+                      "id": "unit",
+                      "value": "percent"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 20,
+              "w": 24,
+              "x": 0,
+              "y": 2
+            },
+            "id": 143,
+            "options": {
+              "footer": {
+                "enablePagination": false,
+                "fields": [
+                  "RECIBIDO",
+                  "ATENDIDO",
+                  "POR CONFIRMAR",
+                  "EN PROCESO",
+                  "ASIGNADO"
+                ],
+                "reducer": [
+                  "sum"
+                ],
+                "show": true
+              },
+              "frameIndex": 2,
+              "showHeader": true,
+              "sortBy": [
+                {
+                  "desc": true,
+                  "displayName": "% EFECTIVIDAD %"
+                }
+              ]
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select b.nombre::Text \"ESTADOS\",\r\nsum(CASE WHEN a.id_estatus in (3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\nsum(CASE WHEN a.id_estatus in (3) THEN 1 ELSE 0 END) AS \"ASIGNADO\",\r\nsum(CASE WHEN a.id_estatus in (4,8) THEN 1 ELSE 0 END) AS \"EN PROCESO\",\r\nsum(CASE WHEN a.id_estatus in (6) AND ((a.feedback < 2 and a.verificado is null) or (a.feedback is null and a.verificado is null)) THEN 1 ELSE 0 END) AS \"POR CONFIRMAR\",\r\nsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", --, count(a.id) as \"TOTAL\"\r\ntrunc(sum(CASE WHEN a.id_estatus in (6) and z.id_tipo_resolutorio in (4) and  e.id_resolutorio in (503) AND (a.feedback >= 2 or a.verificado = 'SI')\r\nTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\nfrom gestion.caso a\r\ninner join gestion.category c on c.id = a.id_sub_categoria\r\ninner join gestion.responsable e on e.id_caso =  a.id\r\ninner join gestion.resolutorio z on z.id =  e.id_resolutorio\r\ninner join gestion.estado b on b.id = a.id_estado\r\nwhere a.id_estatus in (3,4,6,8)\r\nand z.id_tipo_resolutorio in (4) \r\nand b.id < 25 and  e.id_resolutorio in (503)\r\nand e.principal is true --and z.nombre in ($gobernaciones)\r\ngroup by b.nombre\r\nHAVING count(*) > 1\r\norder by \"% EFECTIVIDAD %\" desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "ESTADOS",
+            "type": "table"
+          }
+        ],
+        "title": "REPORTE - DETALLADO - ESTADOS",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 2
+        },
+        "id": 17,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "#5794f2",
+                  "mode": "fixed"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-yellow"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 10,
+              "w": 8,
+              "x": 0,
+              "y": 3
+            },
+            "id": 21,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "last"
+                ],
+                "fields": "/^count$/",
+                "values": true
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id)\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id \r\nwhere b.id_resolutorio in (503) \r\nand b.principal is true\r\nand a.id_estatus in (3,4,6,8)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS EN EL SISTEMA",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "#be3cff"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 8,
+              "y": 3
+            },
+            "id": 2,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^count$/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": " SELECT count(a.id)\r\n\t  FROM gestion.caso a\r\n    inner join gestion.category c on c.id = a.id_sub_categoria\r\n    where a.id_sub_categoria in (4)\r\n    and a.id_estatus in (5) ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "DEVUELTO A VENAPP",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "#d96207fc"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 8,
+              "x": 12,
+              "y": 3
+            },
+            "id": 3,
+            "options": {
+              "colorMode": "background",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^count$/",
+                "values": true
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "-- Casos Recibidos\r\n SELECT count(a.id)\r\n\t  FROM gestion.caso a\r\n    inner join gestion.category c on c.id = a.id_sub_categoria \r\n    where a.id_sub_categoria in (4)\r\n    and a.id_estatus in (15) ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS RECIBIDO POR PATRIA",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "aaNfPtrnz"
+            },
+            "description": "",
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 20,
+              "y": 3
+            },
+            "id": 90,
+            "options": {
+              "bgColor": "dark-red",
+              "clockType": "12 hour",
+              "countdownSettings": {
+                "endCountdownTime": "2022-06-04T21:53:07-04:00",
+                "endText": "00:00:00"
+              },
+              "countupSettings": {
+                "beginCountupTime": "2022-06-04T21:53:07-04:00",
+                "beginText": "00:00:00"
+              },
+              "dateSettings": {
+                "dateFormat": "DD-MM-YYYY",
+                "fontSize": "25px",
+                "fontWeight": "bold",
+                "locale": "",
+                "showDate": true
+              },
+              "mode": "time",
+              "refresh": "sec",
+              "timeSettings": {
+                "fontSize": "20px",
+                "fontWeight": "bold"
+              },
+              "timezone": "America/Caracas",
+              "timezoneSettings": {
+                "fontSize": "15px",
+                "fontWeight": "bold",
+                "showTimezone": true,
+                "zoneFormat": "nameOffset"
+              }
+            },
+            "pluginVersion": "2.0.0",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "aaNfPtrnz"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "-- Casos Cerrados\n select \n          ec.tx_nom_edo_caso::Text estatus,\n          d.tx_nom_sub_categoria::Text servicio,\n          count(c.id_caso)::Text subtotal,\n          (select count(*) from caso where id_edo_caso in (7))::Text Total\n        from \n            caso c \n            inner join edo_caso ec on c.id_edo_caso = ec.id_edo_caso \n            inner join public.caso_sub_categoria d on d.id_caso_sub_categoria = c.id_caso_subcateg\n        where \n            ec.id_edo_caso in (7)\n            GROUP BY ec.tx_nom_edo_caso, servicio;\n            ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "HORA VENEZUELA",
+            "type": "grafana-clock-panel"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "green"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 8,
+              "y": 8
+            },
+            "id": 128,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^count$/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id)\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id\r\nwhere b.id_resolutorio in (503)\r\nand b.principal is true\r\nand a.id_estatus in (3,4,8)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "EN PROCESO",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "text",
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "noValue": "0",
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "#fa6400"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 12,
+              "y": 8
+            },
+            "id": 141,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/.*/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id)\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id\r\nwhere b.id_resolutorio in (503)\r\nand b.principal is true\r\nand a.id_estatus in (6)\r\nand a.verificado is null \r\nand (a.feedback < 2 or a.feedback is null)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "ATENDIDOS CON VALORACION",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "yellow",
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "text"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 16,
+              "y": 8
+            },
+            "id": 129,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^count$/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id)\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id\r\nwhere b.id_resolutorio in (503)\r\nand b.principal is true\r\nand a.id_estatus in (6)\r\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "ATENDIDOS CON VALORACION",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "decimals": 2,
+                "mappings": [],
+                "noValue": "0",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "text"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "percent"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 20,
+              "y": 8
+            },
+            "id": 130,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / (SELECT count(a.id)\r\n                                           FROM gestion.caso a\r\n                                           inner join gestion.responsable b on b.id_caso =  a.id\r\n                                           where b.id_resolutorio in (503)\r\n                                           and b.principal is true\r\n                                           and a.id_estatus in (3,4,6,8))::Decimal, 2) as porcentaje\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id\r\nwhere b.id_resolutorio in (503)\r\nand b.principal is true\r\nand a.id_estatus in (6)\r\nand (a.feedback >= 2   or  a.verificado = 'SI')",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "PORCENTAJE",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de Casos por Fecha",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "right",
+                  "axisSoftMin": 0,
+                  "axisWidth": 5,
+                  "fillOpacity": 100,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 1,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "short"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 24,
+              "x": 0,
+              "y": 13
+            },
+            "id": 15,
+            "options": {
+              "barRadius": 0,
+              "barWidth": 0.97,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "right"
+              },
+              "orientation": "vertical",
+              "showValue": "auto",
+              "stacking": "none",
+              "text": {
+                "valueSize": 16
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xTickLabelRotation": -30,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "id_caso_ext",
+                "rawQuery": true,
+                "rawSql": "--Total de Casos por Fecha\r\nselect to_char(a.fecha, 'dd-mm-YY') as fecham, to_char(a.fecha, 'mm-dd') as fechaa, count(a.fecha) as total\r\n    \tfrom gestion.caso a \r\n    \t\tinner join gestion.responsable b on b.id_caso = a.id\r\n    \t \tinner join gestion.resolutorio c on c.id = b.id_resolutorio\r\n\twhere a.fecha > CAST(now()::timestamp AS DATE) - CAST('15 days' AS INTERVAL) --and c.id_sub_categoria in (1)\r\n\t  and b.id_resolutorio in (503) \r\n\t\tand a.id_estatus in (1,2,3,4,6,8)\r\n        group by fecham , fechaa\r\n        order by fechaa",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "id_caso"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "table": "caso",
+                "timeColumn": "fe_crea_caso",
+                "timeColumnType": "timestamp",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "HISTÓRICO DE CASOS RECIBIDO EN EL SISTEMA DESDE LA VENAPP (ÚLTIMOS DÍAS)",
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de Casos por Estado",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "fixed"
+                },
+                "custom": {
+                  "axisLabel": "CASOS EN SISTEMA",
+                  "axisPlacement": "left",
+                  "axisSoftMin": 0,
+                  "fillOpacity": 76,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red"
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "short"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 0,
+              "y": 22
+            },
+            "id": 9,
+            "options": {
+              "barRadius": 0.1,
+              "barWidth": 0.82,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "right"
+              },
+              "orientation": "vertical",
+              "showValue": "always",
+              "stacking": "none",
+              "text": {
+                "valueSize": 20
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xField": "estado",
+              "xTickLabelMaxLength": 0,
+              "xTickLabelRotation": -30,
+              "xTickLabelSpacing": 0
+            },
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "-- Total de Casos por Estado\r\nselect \r\n\tb.nombre as estado, count(a.id) as total\r\n    from gestion.caso a\r\n\t inner join gestion.estado b on b.id = a.id_estado \r\n\t inner join gestion.responsable d on d.id_caso = a.id\r\n\t inner join gestion.resolutorio e on e.id = d.id_resolutorio\r\n\t where  d.id_resolutorio in (503) \r\n\t and a.id_estatus in (1,2,3,4,6,8)\r\n    group by estado\r\n    order by total desc\r\n    Limit 10;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "ESTADOS CON MAYOR NUMERO DE CASOS EN EL SISTEMA ",
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de Casos por Estado",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                },
+                "custom": {
+                  "axisLabel": "CASOS ATENDIDOS",
+                  "axisPlacement": "left",
+                  "axisSoftMin": 0,
+                  "fillOpacity": 79,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red"
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "short"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 7,
+              "w": 12,
+              "x": 12,
+              "y": 22
+            },
+            "id": 116,
+            "options": {
+              "barRadius": 0.1,
+              "barWidth": 0.82,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "right"
+              },
+              "orientation": "vertical",
+              "showValue": "always",
+              "stacking": "none",
+              "text": {
+                "valueSize": 20
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xField": "estado",
+              "xTickLabelRotation": -30,
+              "xTickLabelSpacing": 0
+            },
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "-- Total de Casos por Estado\r\nselect \r\n\tb.nombre as estado, count(a.id) as total\r\n    from gestion.caso a\r\n\t inner join gestion.estado b on b.id = a.id_estado  \r\n\t inner join gestion.responsable d on d.id_caso = a.id\r\n\t inner join gestion.resolutorio e on e.id = d.id_resolutorio\r\n\t where  d.id_resolutorio in (503) \r\n\t and a.id_estatus in (6)\r\n    group by estado\r\n    order by total desc\r\n    Limit 10;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "ESTADOS CON MAYOR NUMERO DE CASOS ATENDIDOS",
+            "type": "barchart"
+          }
+        ],
+        "title": "REPORTE GENERAL DE LOS CASOS DE PDVSA GAS",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 3
+        },
+        "id": 140,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "light-yellow"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 3,
+              "w": 9,
+              "x": 0,
+              "y": 4
+            },
+            "id": 132,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 60
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": " select count(a.id) as TOTAL\r\n\tfrom gestion.caso a\r\n\t  inner join gestion.responsable c on c.id_caso = a.id\r\n\t  where a.id_sub_categoria in (4) \r\n\t        and a.id_estatus in (3,4,6,8)\r\n\t\t      and c.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS DE PDVSA GAS",
+            "transparent": true,
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-green"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 3,
+              "w": 8,
+              "x": 9,
+              "y": 4
+            },
+            "id": 134,
+            "options": {
+              "colorMode": "background",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select count(*) as TOTAL\r\n                from gestion.caso a\r\n\t\t\t\tinner join gestion.responsable d on d.id_caso = a.id\r\n            where a.id_sub_categoria in (4) and \r\n                a.id_estatus in (1,2,3,4,6,8)\r\n\t\t\t\t        and a.id_extra_categoria is not null\r\n\t\t\t\t        and d.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS CATEGORIZADOS (PDVSA GAS)",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 3,
+              "w": 7,
+              "x": 17,
+              "y": 4
+            },
+            "id": 136,
+            "options": {
+              "colorMode": "background",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "      select count(*) as TOTAL\n      from gestion.caso a \n\t\t\t\t\tinner join gestion.responsable b on b.id_caso = a.id\n      where a.id_sub_categoria in (4) and \n            a.id_estatus in (1,2,3,4,6,8) and a.id_extra_categoria is null\n\t\t\t\t    and b.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "POR CATEGORIZAR (PDVSA GAS)",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "light-yellow"
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 24,
+              "x": 0,
+              "y": 7
+            },
+            "id": 138,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "",
+                "values": true
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT case when m.name is null then c.name else m.name end as sub_categoria, COUNT(a.id) as total \r\n\t         FROM gestion.caso a \r\n                inner join gestion.category c on c.id = a.id_sub_categoria \r\n\t\t\t\t        inner join gestion.responsable b on b.id_caso = a.id\r\n                LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria   \r\n            where a.id_sub_categoria in (4) and \r\n\t\t\t   a.id_estatus in (1,2,3,4,6,8) \r\n\t\t\t   and b.id_resolutorio in (503)\r\n            GROUP BY sub_categoria\r\n            ORDER BY total desc;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS EN SISTEMA (CATEGORÍAS  PDVSA GAS)",
+            "type": "bargauge"
+          }
+        ],
+        "title": "REPORTE GENERAL CATEGORÍAS PDVSA GAS",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 4
+        },
+        "id": 105,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-yellow"
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 8,
+              "x": 0,
+              "y": 5
+            },
+            "id": 111,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^Total$/",
+                "values": false
+              },
+              "text": {
+                "titleSize": 120
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "  SELECT i.nombre as estatus, count(a.id) as subtotal,\r\n            (SELECT count(a.id) FROM gestion.caso a\r\n    \t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n    \t\t\t\t\tinner join lista.ubch z on z.cedula = e.cedula \r\n    \t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id\r\n    \t\t\t \t\tinner join gestion.responsable c on c.id_caso = a.id\r\n    \t\t\t\t\twhere a.id_estatus in (1,2,3,4,6,8) --and a.id_sub_categoria in (7)\r\n    \t\t\t\t\tand c.id_resolutorio in (503))::Text \"Total\"\r\n      FROM gestion.caso a\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join lista.ubch z on z.cedula = e.cedula \r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id\r\n\t\t\t      inner join gestion.responsable c on c.id_caso = a.id\r\n         where a.id_estatus in (1,2,3,4,6,8) --and a.id_sub_categoria in (7)\r\n\t\t and c.id_resolutorio in (503)\r\n         group by estatus",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS EN SISTEMA-UBCH",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de casos generados",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "green"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 8,
+              "y": 5
+            },
+            "id": 112,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^count$/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id) FROM gestion.caso a\r\n\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\tinner join lista.ubch z on z.cedula = e.cedula \r\n\t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id\r\n\t\t\t \t\tinner join gestion.responsable c on c.id_caso = a.id\r\n\t\t\t\t\twhere a.id_estatus in (3,4,6,8) --and a.id_sub_categoria in (1)\r\n\t\t\t\t\tand c.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "REVISIÓN-UBCH",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de casos Asignados",
+            "fieldConfig": {
+              "defaults": {
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "green"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 12,
+              "y": 5
+            },
+            "id": 113,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/.*/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "-- Casos Recibidos\r\n        SELECT count(a.id) FROM gestion.caso a\r\n\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\tinner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id\r\n\t\t\t \t\tinner join gestion.responsable c on c.id_caso = a.id\r\n\t\t\t\t\twhere a.id_estatus in (3,4,8) --and a.id_sub_categoria in (1)\r\n\t\t\t\t\tand c.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "PROCESO-UBCH",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de casos cerrados",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "super-light-blue"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 16,
+              "y": 5
+            },
+            "id": 114,
+            "options": {
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [],
+                "fields": "/^count$/",
+                "values": false
+              },
+              "showThresholdLabels": false,
+              "showThresholdMarkers": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id) FROM gestion.caso a\r\n\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\tinner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id\r\n\t\t\t \t\tinner join gestion.responsable c on c.id_caso = a.id\r\n\t\t\t\t\twhere a.id_estatus in (6) --and a.id_sub_categoria in (1)\r\n\t\t\t\t\tand c.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "ATENDIDOS - UBCH",
+            "type": "gauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "aaNfPtrnz"
+            },
+            "description": "FECHA HORA",
+            "gridPos": {
+              "h": 5,
+              "w": 4,
+              "x": 20,
+              "y": 5
+            },
+            "id": 119,
+            "options": {
+              "bgColor": "dark-red",
+              "clockType": "12 hour",
+              "countdownSettings": {
+                "endCountdownTime": "2022-06-04T21:53:07-04:00",
+                "endText": "00:00:00"
+              },
+              "countupSettings": {
+                "beginCountupTime": "2022-06-04T21:53:07-04:00",
+                "beginText": "00:00:00"
+              },
+              "dateSettings": {
+                "dateFormat": "DD-MM-YYYY",
+                "fontSize": "25px",
+                "fontWeight": "bold",
+                "locale": "",
+                "showDate": true
+              },
+              "mode": "time",
+              "refresh": "sec",
+              "timeSettings": {
+                "fontSize": "20px",
+                "fontWeight": "bold"
+              },
+              "timezone": "America/Caracas",
+              "timezoneSettings": {
+                "fontSize": "15px",
+                "fontWeight": "bold",
+                "showTimezone": true,
+                "zoneFormat": "nameOffset"
+              }
+            },
+            "pluginVersion": "2.0.0",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "aaNfPtrnz"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "-- Casos Cerrados\n select \n          ec.tx_nom_edo_caso::Text estatus,\n          d.tx_nom_sub_categoria::Text servicio,\n          count(c.id_caso)::Text subtotal,\n          (select count(*) from caso where id_edo_caso in (7))::Text Total\n        from \n            caso c \n            inner join edo_caso ec on c.id_edo_caso = ec.id_edo_caso \n            inner join public.caso_sub_categoria d on d.id_caso_sub_categoria = c.id_caso_subcateg\n        where \n            ec.id_edo_caso in (7)\n            GROUP BY ec.tx_nom_edo_caso, servicio;\n            ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "HORA VENEZUELA",
+            "type": "grafana-clock-panel"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "axisGridShow": true,
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "axisSoftMin": 0,
+                  "fillOpacity": 70,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "semi-dark-yellow"
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 12,
+              "w": 7,
+              "x": 0,
+              "y": 10
+            },
+            "id": 122,
+            "options": {
+              "barRadius": 0.05,
+              "barWidth": 0.98,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "bottom"
+              },
+              "orientation": "horizontal",
+              "showValue": "always",
+              "stacking": "none",
+              "text": {
+                "valueSize": 40
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xField": "sub_categoria",
+              "xTickLabelRotation": -15,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT case when m.name is null then c.name else m.name end as sub_categoria, COUNT(a.id) as total \r\n\t         FROM gestion.caso a \r\n                inner join gestion.category c on c.id = a.id_sub_categoria  \r\n                inner join gestion.denunciante e on e.id = a.id_denunciante\r\n                inner join lista.ubch z on z.cedula = e.cedula \r\n\t\t\t\tinner join gestion.responsable b on b.id_caso = a.id\r\n                LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria               \r\n            where a.id_estatus in (1,2,3,4,6,8)\r\n\t\t\tand b.id_resolutorio in (503)\r\n            GROUP BY sub_categoria\r\n            ORDER BY total desc;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "UBCH-CASOS EN SISTEMA-SERVICIOS  ",
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "axisSoftMin": 0,
+                  "fillOpacity": 70,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "min": 0,
+                "noValue": "0",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "text",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 12,
+              "w": 7,
+              "x": 7,
+              "y": 10
+            },
+            "id": 100,
+            "options": {
+              "barRadius": 0.1,
+              "barWidth": 0.97,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "bottom"
+              },
+              "orientation": "horizontal",
+              "showValue": "always",
+              "stacking": "none",
+              "text": {
+                "valueSize": 40
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xTickLabelRotation": -15,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT case when m.name is null then c.name else m.name end as sub_categoria, COUNT(a.id) as total \r\n\t         FROM gestion.caso a \r\n                inner join gestion.category c on c.id = a.id_sub_categoria \r\n                inner join gestion.denunciante e on e.id = a.id_denunciante\r\n                inner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\t\tinner join gestion.responsable b on b.id_caso = a.id\r\n                LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria               \r\n            where a.id_estatus in (6)\r\n\t\t\tand b.id_resolutorio in (503)\r\n            GROUP BY sub_categoria\r\n            ORDER BY total desc;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "UBCH-CASOS ATENDIDOS- SERVICIOS ",
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de Casos por Estado",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "fixed"
+                },
+                "custom": {
+                  "axisGridShow": true,
+                  "axisLabel": "",
+                  "axisPlacement": "left",
+                  "axisSoftMin": 0,
+                  "axisWidth": 30,
+                  "fillOpacity": 70,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red"
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "short"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 10,
+              "x": 14,
+              "y": 10
+            },
+            "id": 117,
+            "options": {
+              "barRadius": 0.1,
+              "barWidth": 0.78,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "right"
+              },
+              "orientation": "vertical",
+              "showValue": "always",
+              "stacking": "none",
+              "text": {
+                "valueSize": 30
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xField": "estado",
+              "xTickLabelRotation": -30,
+              "xTickLabelSpacing": 0
+            },
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select b.nombre as estado, count(a.id) as total\r\n  from gestion.caso a\r\n\t          inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\t      inner join gestion.responsable c on c.id_caso = a.id\r\n\t where  a.id_estatus in (1,2,3,4,6,8) --and a.id_sub_categoria in (1)\r\n\t\t\tand c.id_resolutorio in (503)\r\n            group by estado order by total desc Limit 10;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "UBCH-ENTIDADES FEDERALES CON MAS CASOS  ",
+            "type": "barchart"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "Total de Casos por Estado",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "text",
+                  "mode": "fixed"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "left",
+                  "axisSoftMin": 0,
+                  "fillOpacity": 70,
+                  "gradientMode": "opacity",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 3,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red"
+                    },
+                    {
+                      "color": "yellow",
+                      "value": 80
+                    }
+                  ]
+                },
+                "unit": "short"
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 6,
+              "w": 10,
+              "x": 14,
+              "y": 16
+            },
+            "id": 118,
+            "options": {
+              "barRadius": 0.1,
+              "barWidth": 0.78,
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "right"
+              },
+              "orientation": "vertical",
+              "showValue": "always",
+              "stacking": "none",
+              "text": {
+                "valueSize": 30
+              },
+              "tooltip": {
+                "mode": "single",
+                "sort": "none"
+              },
+              "xField": "estado",
+              "xTickLabelRotation": -30,
+              "xTickLabelSpacing": 0
+            },
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select b.nombre as estado, count(a.id) as total\r\n  from gestion.caso a\r\n\t          inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\t      inner join gestion.responsable c on c.id_caso = a.id\r\n\t where  a.id_estatus in (6) --and a.id_sub_categoria in (1)\r\n\t\t\tand c.id_resolutorio in (503)\r\n            group by estado order by total desc Limit 10;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "UBCH-ENTIDADES FEDERALES-CASOS ATENDIDOS",
+            "type": "barchart"
+          }
+        ],
+        "title": "REPORTE GENERAL CASO DE PDVSA GAS DE UBCH EN EL SISTEMA",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 5
+        },
+        "id": 109,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "align": "auto",
+                  "displayMode": "auto",
+                  "filterable": true,
+                  "inspect": true
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "cedula"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 110
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "codigo"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 105
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "telefono"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 112
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "estado"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 119
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "municipio"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 119
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "estatus"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 97
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "asunto"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 115
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "fechacreacion"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 119
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "ASUNTO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 83
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "ESTATUS"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 156
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "ESTADO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 70
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CEDULA"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 91
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CODIGO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 112
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "FECHA ACT"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 120
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "RESPONSABLE"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 120
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "MUNICIPIO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 122
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "TELF. DENUNCIANTE"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 122
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CODIGO CASO S"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 85
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CODIGO CASO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 65
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CATEGORIA"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 94
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "SUBCATEG"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 77
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "EXTCATEG"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 81
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "TELEFONO"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 104
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "PARROQ"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 113
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "DESCRIP"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 104
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "CATEG ADI"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 82
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "INSTITUCION"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 95
+                    }
+                  ]
+                },
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "DENUNCIANTE"
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.width",
+                      "value": 254
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 10,
+              "w": 24,
+              "x": 0,
+              "y": 6
+            },
+            "id": 27,
+            "options": {
+              "footer": {
+                "enablePagination": true,
+                "fields": "",
+                "reducer": [
+                  "sum"
+                ],
+                "show": false
+              },
+              "showHeader": true,
+              "sortBy": []
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "    SELECT DISTINCT ON (a.nombre) a.nombre::Text \"CODIGO CASO\", \r\n      --a.codigo::Text \"CODIGO CASO\",\r\n      e.cedula::Text \"CEDULA\", e.nombre::TEXT \"DENUNCIANTE\",\r\n\t\t\te.telefono::Text \"TELEFONO\", b.nombre::Text \"ESTADO\", c.nombre::Text \"MUNICIPIO\", d.nombre::Text \"PARROQ\", a.descripcion::TEXT \"DESCRIP\", \r\n\t\t\tf.name::Text \"CATEGORIA\", g.name::Text \"SUBCATEG\",case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \r\n            case when n.name is null then 'Sin Categ Adi' else n.name end::Text \"CATEG ADI\",\r\n\t\t\ti.nombre::Text \"ESTATUS\",\r\n            case when k.nombre is null then 'Analizando' else k.nombre end::Text \"INSTITUCION\",\r\n            case when w.username is null then 'Analizando' else (w.first_name || ' ' || w.last_name) end::Text \"RESPONSABLE\",\r\n\t\t\tw.phone::Text \"TELF. RESP\"\r\n            FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t      inner join lista.ubch z on z.cedula = e.cedula\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id --and j.id_user is not null\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n            LEFT JOIN  gestion.category n ON n.id = a.id_adicional_categoria\r\n            where a.id_estatus in (1,2,3,4,6,8) --and a.id_sub_categoria in (7)\r\n            and j.id_resolutorio in (503);",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "LISTADO DE CASOS  DE LA BASE DE DATOS",
+            "type": "table"
+          }
+        ],
+        "title": "LISTADO DE CASOS  DE PDVSA GAS DE LA BASE DE DATOS (UBCH)",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 6
+        },
+        "id": 33,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 2,
+              "w": 12,
+              "x": 0,
+              "y": 7
+            },
+            "id": 40,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^count$/",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": " SELECT count(a.id)\r\n\t  FROM gestion.caso a \r\n    inner join gestion.responsable b on b.id_caso = a.id\r\n\t  inner join gestion.resolutorio c on c.id = b.id_resolutorio\r\n    where b.id_resolutorio in (503) \r\n\t  --c.id_sub_categoria in (1)\r\n    and a.id_estatus in (3,4,8) ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS  EN PROCESO DE PDVSA GAS",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 2,
+              "w": 12,
+              "x": 12,
+              "y": 7
+            },
+            "id": 41,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "  SELECT count(a.id)\r\n\t  FROM gestion.caso a \r\n\t  inner join gestion.responsable b on b.id_caso = a.id\r\n\t  inner join gestion.resolutorio c on c.id = b.id_resolutorio\r\n    where b.id_resolutorio in (503) \r\n\t  --c.id_sub_categoria in (1)\r\n    and a.id_estatus in (6) ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS  ATENDIDOS DE PDVSA GAS",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 17,
+              "w": 12,
+              "x": 0,
+              "y": 9
+            },
+            "id": 45,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "valueSize": 15
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select \r\n\tb.nombre as estado, count(a.id) as total\r\n    from gestion.caso a\r\n\t inner join gestion.estado b on b.id = a.id_estado \r\n\t inner join gestion.responsable d on d.id_caso = a.id\r\n\t inner join gestion.resolutorio e on e.id = d.id_resolutorio\r\n\t where  d.id_resolutorio in (503) \r\n\t and a.id_estatus in (3,4,8)\r\n    group by estado\r\n    order by total desc;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS EN PROCESO POR ENT. FEDERALES",
+            "type": "bargauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 17,
+              "w": 12,
+              "x": 12,
+              "y": 9
+            },
+            "id": 37,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "valueSize": 15
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "        select \r\n\tb.nombre as estado, count(a.id) as total\r\n    from gestion.caso a\r\n\t inner join gestion.estado b on b.id = a.id_estado  \r\n\t inner join gestion.responsable d on d.id_caso = a.id\r\n\t inner join gestion.resolutorio e on e.id = d.id_resolutorio\r\n\t where  d.id_resolutorio in (503) \r\n\t and a.id_estatus in (6)\r\n    group by estado\r\n    order by total desc;",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS ATENDIDOS POR ENT. FEDERALES",
+            "type": "bargauge"
+          }
+        ],
+        "title": "REPORTE GENERAL DE PDVSA GAS POR ENTIDADES FEDERALES",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 7
+        },
+        "id": 99,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "fixed"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "semi-dark-yellow"
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "semi-dark-yellow",
+                        "mode": "thresholds"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 22,
+              "w": 12,
+              "x": 0,
+              "y": 8
+            },
+            "id": 103,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 15,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "titleSize": 15,
+                "valueSize": 15
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select \r\n            b.nombre::Text \"ESTADO\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado \r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\tinner join gestion.responsable c on c.id_caso = a.id\r\n       \twhere  a.id_estatus in (1,2,3,4,6,8)\r\n\t\t\tand c.id_resolutorio in (503)\r\n        group by b.nombre order by TOTAL desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS DE PDVSA GAS DE UBCH - ENT. FEDERALES (SERVICIOS PRIORIZADOS) ",
+            "type": "bargauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "min": 0,
+                "noValue": "0",
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "text",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 22,
+              "w": 12,
+              "x": 12,
+              "y": 8
+            },
+            "id": 123,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "valueSize": 15
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select \r\n            b.nombre::Text \"ESTADO\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join lista.ubch z on z.cedula = e.cedula\r\n\t\t\tinner join gestion.responsable c on c.id_caso = a.id\r\n       \twhere a.id_estatus in (6)\r\n\t\t\tand c.id_resolutorio in (503)\r\n        group by b.nombre\r\n        order by TOTAL desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS DE PDVSA GAS ATENDIDOS DE  UBCH - ENT. FEDERALES (SERVICIOS PRIORIZADOS) ",
+            "type": "bargauge"
+          }
+        ],
+        "title": "REPORTE DE CASOS DE PDVSA GAS DE UBCH RECIBIDOS-ATENDIDOS (POR ENTIDADES  FEDERALES) ",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 8
+        },
+        "id": 59,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 2,
+              "w": 12,
+              "x": 0,
+              "y": 9
+            },
+            "id": 60,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id)\r\n\t  FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio \r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n    where --a.id_sub_categoria in (7)and \r\n    a.id_estatus in (1,2,3,4,6,8) \r\n    and c.id in (22,21,142,148,167,172,190,195,236,265,269,315,327,31,43,67,94,113,121,122,335, 214,250,296)\r\n\tand e.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS DE PDVSA GAS POR MUN. CAPITALES",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 2,
+              "w": 12,
+              "x": 12,
+              "y": 9
+            },
+            "id": 68,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "SELECT count(a.id)\r\n\t  FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n    where --a.id_sub_categoria in (7) and \r\n    a.id_estatus in (6) \r\n    and c.id in (22,21,142,148,167,172,190,195,236,265,269,315,327,31,43,67,94,113,121,122,335, 214,250,296)\r\n\tand e.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS ATENDIDOS  - PDVSA GAS (MUN. CAPITALES)",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 12,
+              "x": 0,
+              "y": 11
+            },
+            "id": 63,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select \r\n           (c.nombre || ' (' || b.nombre || ')')::Text \"MUNICIPIO\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio  \r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n       where --a.id_sub_categoria in (1) and\r\n       a.id_estatus in (1,2,3,4,6,8)\r\n       and c.id in (22,21,142,148,167,172,190,195,236,265,269,315,327,31,43,67,94,113,121,122,335, 214,250,296)\r\n\t   and e.id_resolutorio in (503)\r\n        group by c.nombre, b.nombre\r\n        order by TOTAL desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS DE PDVSA GAS POR MUN. CAPITALES",
+            "type": "bargauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 12,
+              "x": 12,
+              "y": 11
+            },
+            "id": 71,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "        select \r\n           (c.nombre || ' (' || b.nombre || ')')::Text \"MUNICIPIO\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n       where --a.id_sub_categoria in (1) and \r\n       a.id_estatus in (6)\r\n       and c.id in (22,21,142,148,167,172,190,195,236,265,269,315,327,31,43,67,94,113,121,122,335, 214,250,296)\r\n\t   and e.id_resolutorio in (503)\r\n        group by c.nombre, b.nombre\r\n        order by TOTAL desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS ATENDIDOS - PDVSA GAS (MUN. CAPITALES)",
+            "type": "bargauge"
+          }
+        ],
+        "title": "REPORTE DE CASOS DE PDVSA GAS RECIBIDOS-ATENDIDOS POR MUNICIPIOS(CAPITALES DE ENTIDADES FEDERALES )",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 83,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 2,
+              "w": 12,
+              "x": 0,
+              "y": 10
+            },
+            "id": 84,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "   SELECT count(a.id)\r\n\t  FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n    where --a.id_sub_categoria in (7) and \r\n    a.id_estatus in (1,2,3,4,6,8) \r\n    and c.id in (127,184,24,32,255,51,182,149,204,20,239,212,290,166) \r\n\tand e.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS -  PDVSA GAS  (CIUDADES IMPORTANTES)",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "count"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 2,
+              "w": 12,
+              "x": 12,
+              "y": 10
+            },
+            "id": 76,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "text": {
+                "valueSize": 36
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "      SELECT count(a.id)\r\n\t  FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n    where --a.id_sub_categoria in (7) and \r\n    a.id_estatus in (6) \r\n    and c.id in (127,184,24,32,255,51,182,149,204,20,239,212,290,166) \r\n\tand e.id_resolutorio in (503)",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS ATENDIDOS - PDVSA GAS  (CD. IMPORTANTE)",
+            "type": "stat"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 12,
+              "x": 0,
+              "y": 12
+            },
+            "id": 87,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "valueSize": 15
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "      select (c.nombre || ' (' || b.nombre || ')')::Text \"MUNICIPIO\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n     where --a.id_sub_categoria in (7) and \r\n        a.id_estatus in (1,2,3,4,6,8)\r\n       and c.id in (127,184,24,32,255,51,182,149,204,20,239,212,290,166) \r\n\t   and e.id_resolutorio in (503)\r\n       group by c.nombre, b.nombre\r\n        order by TOTAL desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS - PDVSA GAS (CIUDADES IMPORTANTES)",
+            "type": "bargauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "unit",
+                      "value": "locale"
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 12,
+              "x": 12,
+              "y": 12
+            },
+            "id": 79,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 10,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "values": true
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "     select (c.nombre || ' (' || b.nombre || ')')::Text \"MUNICIPIO\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n     where a.id_sub_categoria in (4) and a.id_estatus in (6)\r\n      and c.id in (127,184,24,32,255,51,182,149,204,20,239,212,290,166) \r\n\t   and e.id_resolutorio in (503)\r\n       group by c.nombre, b.nombre\r\n        order by TOTAL desc",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "CASOS ATENDIDOS - PDVSA GAS (CD. IMPORTANTE)",
+            "type": "bargauge"
+          }
+        ],
+        "title": "REPORTE DE CASOS DE PDVSA GAS RECIBIDOS-ATENDIDOS DE OTROS MUNICIPIOS  (CIUDADES IMPORTANTES)",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 10
+        },
+        "id": 92,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 11,
+              "x": 0,
+              "y": 11
+            },
+            "id": 97,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 15,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "limit": 50,
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "valueSize": 15
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "     select (c.nombre || ' (' || b.nombre || ')')::Text \"PARROQUIAS\", \n            count(a.id) as TOTAL\n            from gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.parroquia c on c.id = a.id_parroquia \n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\n     where --a.id_sub_categoria in (7) and \n        a.id_estatus in (1,2,3,4,6,8)\n\t  \t\tand e.id_resolutorio in (503)\n       group by c.nombre, b.nombre\n        order by TOTAL desc limit 50\n    ",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS (ENTIDADES PARROQUIALES)",
+            "type": "bargauge"
+          },
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "Hd0gmRJSk"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green"
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": [
+                {
+                  "matcher": {
+                    "id": "byName",
+                    "options": "total"
+                  },
+                  "properties": [
+                    {
+                      "id": "color",
+                      "value": {
+                        "fixedColor": "green",
+                        "mode": "fixed"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 12,
+              "x": 11,
+              "y": 11
+            },
+            "id": 31,
+            "options": {
+              "displayMode": "gradient",
+              "minVizHeight": 15,
+              "minVizWidth": 0,
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "/^total$/",
+                "limit": 50,
+                "values": true
+              },
+              "showUnfilled": true,
+              "text": {
+                "valueSize": 13
+              }
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "Hd0gmRJSk"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select (c.nombre || ' (' || b.nombre || ')')::Text \"PARROQUIAS\", \r\n            count(a.id) as TOTAL\r\n            from gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.parroquia c on c.id = a.id_parroquia \r\n\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n     where --a.id_sub_categoria in (7) and \r\n        a.id_estatus in (6)\r\n\t  \t\tand e.id_resolutorio in (503)\r\n       group by c.nombre, b.nombre\r\n        order by TOTAL desc limit 50",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "TOTAL CASOS ATENDIDOS (ENTIDADES PARROQUIALES)",
+            "type": "bargauge"
+          }
+        ],
+        "title": "REPORTE DE CASOS DE PDVSA GAS RECIBIDOS-ATENDIDOS  POR ENTIDADES PARROQUIALES (50 PRIMERAS PARROQUIAS) ",
+        "type": "row"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-5m",
+      "to": "now"
+    },
+    "timepicker": {
+      "hidden": false,
+      "refresh_intervals": [
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "Cartelera PDVSA GAS",
+    "uid": "QM6qzk97k1220",
+    "version": 52,
+    "weekStart": "monday"
+  }
