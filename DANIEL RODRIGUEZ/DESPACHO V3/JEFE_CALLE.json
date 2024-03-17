@@ -1,0 +1,1143 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 424,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-yellow",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Total"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 6,
+          "x": 0,
+          "y": 0
+        },
+        "id": 4,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "/^Total$/",
+            "values": false
+          },
+          "text": {
+            "titleSize": 120
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "         SELECT i.nombre as estatus, count(a.id) as subtotal,\n            (SELECT count(a.id) FROM gestion.caso a\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            --inner join lista.base_politica z on z.cedula = e.cedula  --Descomentar cuando la agreguen\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id\n            where a.id_estatus in (1,2,3,4,6,7,8))::Text \"Total\"\n            FROM gestion.caso a\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            --inner join lista.base_politica z on z.cedula = e.cedula     --Descomentar cuando la agreguen\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id\n         where a.id_estatus in (1,2,3,4,6,7,8) \n         group by estatus\n         order by subtotal desc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "CASOS EN SISTEMA-JEFE DE CALLE",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "Total de casos generados",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 6,
+          "x": 6,
+          "y": 0
+        },
+        "id": 10,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": false
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": " SELECT count(a.id)\n            FROM gestion.caso a\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            --inner join lista.base_politica z on z.cedula = e.cedula --Descomentar cuando la agreguen\n            where a.id_estatus in (1,2) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "REVISIÓN-UBCH",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "Total de casos Asignados",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 4,
+          "x": 12,
+          "y": 0
+        },
+        "id": 12,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "/^count$/",
+            "values": true
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": false
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": " SELECT count(a.id)\n            FROM gestion.caso a\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            --inner join lista.base_politica z on z.cedula = e.cedula --Descomentar cuando la agreguen\n            where a.id_estatus in (3,4,7,8) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "PROCESO-UBCH",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "Total de casos cerrados",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "super-light-blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 4,
+          "x": 16,
+          "y": 0
+        },
+        "id": 14,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": false
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "            SELECT count(a.id)\n            FROM gestion.caso a\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            --inner join lista.base_politica z on z.cedula = e.cedula --Descomentar cuando la agreguen\n            where a.id_estatus in (6) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ATENDIDO-UBCH",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "aaNfPtrnz"
+        },
+        "description": "FECHA HORA",
+        "gridPos": {
+          "h": 5,
+          "w": 4,
+          "x": 20,
+          "y": 0
+        },
+        "id": 16,
+        "options": {
+          "bgColor": "dark-red",
+          "clockType": "12 hour",
+          "countdownSettings": {
+            "endCountdownTime": "2022-06-04T21:53:07-04:00",
+            "endText": "00:00:00"
+          },
+          "countupSettings": {
+            "beginCountupTime": "2022-06-04T21:53:07-04:00",
+            "beginText": "00:00:00"
+          },
+          "dateSettings": {
+            "dateFormat": "DD-MM-YYYY",
+            "fontSize": "25px",
+            "fontWeight": "bold",
+            "locale": "",
+            "showDate": true
+          },
+          "mode": "time",
+          "refresh": "sec",
+          "timeSettings": {
+            "fontSize": "20px",
+            "fontWeight": "bold"
+          },
+          "timezone": "America/Caracas",
+          "timezoneSettings": {
+            "fontSize": "15px",
+            "fontWeight": "bold",
+            "showTimezone": true,
+            "zoneFormat": "nameOffset"
+          }
+        },
+        "pluginVersion": "2.0.0",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "aaNfPtrnz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "-- Casos Cerrados\n select \n          ec.tx_nom_edo_caso::Text estatus,\n          d.tx_nom_sub_categoria::Text servicio,\n          count(c.id_caso)::Text subtotal,\n          (select count(*) from caso where id_edo_caso in (7))::Text Total\n        from \n            caso c \n            inner join edo_caso ec on c.id_edo_caso = ec.id_edo_caso \n            inner join public.caso_sub_categoria d on d.id_caso_sub_categoria = c.id_caso_subcateg\n        where \n            ec.id_edo_caso in (7)\n            GROUP BY ec.tx_nom_edo_caso, servicio;\n            ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "HORA VENEZUELA",
+        "type": "grafana-clock-panel"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "Total de Casos por Estado",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-yellow",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisGridShow": true,
+              "axisLabel": "",
+              "axisPlacement": "left",
+              "axisSoftMin": 0,
+              "axisWidth": 30,
+              "fillOpacity": 70,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 3,
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 13,
+          "x": 0,
+          "y": 5
+        },
+        "id": 6,
+        "options": {
+          "barRadius": 0.1,
+          "barWidth": 0.78,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "hidden",
+            "placement": "right"
+          },
+          "orientation": "vertical",
+          "showValue": "always",
+          "stacking": "none",
+          "text": {
+            "valueSize": 30
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "xField": "estado",
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "        select b.nombre as estado, count(a.id) as total\n        from gestion.caso a\n\t\t\t\tinner join gestion.estado b on b.id = a.id_estado\n\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\n\t\t\t\t--inner join lista.base_politica z on z.cedula = e.cedula --Descomentar cuando la agreguen\n\t\t\t\twhere  a.id_estatus in (1,2,3,4,6,7,8)\n\t\t\t\tgroup by estado\n\t\t\t\torder by total desc\n\t\t\t\tLimit 10;",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "UBCH-ENTIDADES FEDERALES CON MAS CASOS  ",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "Total de Casos por Estado",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "left",
+              "axisSoftMin": 0,
+              "fillOpacity": 70,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 3,
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-red",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 11,
+          "x": 13,
+          "y": 5
+        },
+        "id": 8,
+        "options": {
+          "barRadius": 0.1,
+          "barWidth": 0.78,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "hidden",
+            "placement": "right"
+          },
+          "orientation": "vertical",
+          "showValue": "always",
+          "stacking": "none",
+          "text": {
+            "valueSize": 30
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "xField": "estado",
+          "xTickLabelRotation": -10,
+          "xTickLabelSpacing": 0
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "        select b.nombre as estado, count(a.id) as total\n               from gestion.caso a\n\t\t\t\tinner join gestion.estado b on b.id = a.id_estado\n\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\n\t\t\t--inner join lista.base_politica z on z.cedula = e.cedula  --Descomentar cuando la agreguen\n\t\t\t\twhere  a.id_estatus in (6)\n\t\t\t\tgroup by estado\n\t\t\t\torder by total desc\n\t\t\t\tLimit 10;\n            \n            \n            ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "UBCH-ENTIDADES FEDERALES-CASOS ATENDIDO  ",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto",
+              "filterable": true,
+              "inspect": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "cedula"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 110
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "codigo"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 105
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "telefono"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 112
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "estado"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 119
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "municipio"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 119
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "estatus"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 97
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "asunto"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 115
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "fechacreacion"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 119
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ASUNTO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 83
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ESTATUS"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 69
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ESTADO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 64
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CEDULA"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 113
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CODIGO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 112
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "FECHA ACT"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "RESPONSABLE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "MUNICIPIO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 72
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "TELF. DENUNCIANTE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 122
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "TELEFONO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 74
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CATEG ADI"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 69
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "EXTCATEG"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 90
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CATEGORIA"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 67
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CODIGO CASO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 126
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "SUBCATEG"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 68
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CODIGO CASO C"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 51
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "DESCRIP"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 87
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "INSTITUCION"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 127
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "DENUNCIANTE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 198
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "PARROQ"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 85
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 11
+        },
+        "id": 18,
+        "options": {
+          "footer": {
+            "enablePagination": true,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "     SELECT a.nombre::Text \"CODIGO CASO\", \n     \t\t    e.cedula::Text \"CEDULA\", e.nombre::TEXT \"DENUNCIANTE\",\n\t\t\t      e.telefono::Text \"TELEFONO\", b.nombre::Text \"ESTADO\", c.nombre::Text \"MUNICIPIO\", d.nombre::Text \"PARROQ\", a.descripcion::TEXT \"DESCRIP\", \n\t\t\t      f.name::Text \"CATEGORIA\", g.name::Text \"SUBCATEG\",case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \n      case when n.name is null then 'SIN CATEG 5TO NIVEL' else n.name end::Text \"CATEG ADI\",\n\t    --case when nv.nombre is null then 'SIN CATEG DE 5TO NIVEL' else nv.nombre end::Text \"CATEG 5TO NIVEL\",\n\t\t\t      i.nombre::Text \"ESTATUS\",\n\t\t\t      to_char(a.fecha, 'dd-mm-YY')::Text \"FECHA CREACION\",\n\t\t\t      to_char(a.fecha_registro, 'dd-mm-YY')::Text \"FECHA INCIDENCIA\",\n      case when k.nombre is null then 'Analizando' else k.nombre end::Text \"INSTITUCION\",\n      case when w.username is null then 'Analizando' else (w.first_name || ' ' || w.last_name ) end::Text \"RESPONSABLE\",\n\t\t\t      w.phone::Text \"TELF. RESP\"\n      FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n\t\t\t      --inner join lista.base_politica z on z.cedula = e.cedula --Descomentar cuando la agreguen\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id and j.principal = true\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n            LEFT JOIN  gestion.category n ON n.id = a.id_adicional_categoria\n\t\t\t      --LEFT JOIN  gestion.categoria_n_v nv ON nv.id = a.id_categoria_n_v --Descomentar cuando lo agreguen\n            where a.id_estatus in (1,2,3,4,6,7,8)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "LISTADO DE CASOS  DE LA BASE DE DATOS",
+        "type": "table"
+      }
+    ],
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "JEFE CALLE",
+    "uid": "UZ2ccGD4k",
+    "version": 3,
+    "weekStart": ""
+  }
