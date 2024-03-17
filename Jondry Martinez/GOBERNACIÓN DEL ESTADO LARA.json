@@ -1,0 +1,1620 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 441,
+  "iteration": 1710688350180,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "yellow",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#000000",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {
+          "valueSize": 115
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "Select (SELECT(  \r\nSELECT COUNT(*) \r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria\r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.nombre in ($resolutorg)\r\n                        and g.name in ($subcateg)\r\n                        --and d.active = 1\r\n                        and e.principal is true\r\n                        and d.id_estatus in (3,4,6,8))\r\n      group by id_caso\r\n      HAVING count(id_caso) >= 1) as Total)\r\n+\r\n(SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria\r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.id in (SELECT id \r\n\t\t\t\t\t\t\t\t\t\t\t                 FROM gestion.resolutorio\r\n\t\t\t\t\t\t\t\t\t\t\t                 where nombre in ($resolutorg)\r\n\t\t\t\t\t\t\t\t\t\t\t                 and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n                        and g.name in ($subcateg)\r\n                        --and d.active = 1\r\n                        and e.principal is true\r\n                        and d.id_estatus in (3,4,6,8))\r\n      group by id_caso\r\n      HAVING count(id_caso) > 0) as Total) CASOS_REGIONALES)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "CASOS  REGIONALES",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 6,
+        "y": 0
+      },
+      "id": 17,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category  g on g.id = a.id_categoria \r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.nombre in ($resolutorg)\r\n                        and g.name in ($subcateg)\r\n                        and d.id_estatus  = 1\r\n                        and e.principal is true\r\n                        and d.id_estatus in (3,4,6,8))\r\ngroup by id_caso\r\nHAVING count(id_caso) = 1) as Total",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "GOBERNACION",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#fa6400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 10,
+        "y": 0
+      },
+      "id": 30,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria\r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.nombre in ($resolutorg)\r\n                        and g.name in ($subcateg)\r\n                        and e.principal is true\r\n                        and d.id_estatus in (6)\r\n                        and a.verificado is null\r\n                        and (a.feedback < 3 or a.feedback is null))\r\n      group by id_caso \r\n      HAVING count(id_caso) = 1) as Total",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ATENDIDOS CON BAJA VALORACION",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 14,
+        "y": 0
+      },
+      "id": 22,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria\r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.nombre in ($resolutorg)\r\n                        and g.name in ($subcateg)\r\n                        and e.principal is true\r\n                        and d.id_estatus in (6)\r\n                        and (a.feedback >= 3   or  a.verificado = 'SI'))\r\n      group by id_caso\r\n      HAVING count(id_caso) = 1) as Total ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ATENDIDOS CON VALORACION",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 27,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^porcentaje$/",
+          "values": true
+        },
+        "text": {
+          "titleSize": 0
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT trunc(((SELECT (COUNT(*)::decimal)as atendido\r\n                from (SELECT id_caso,count(*)\r\n                      FROM gestion.responsable\r\n                      where id_caso in (select a.id\r\n                      from gestion.caso a\r\n                      inner join gestion.category g on g.id = a.id_categoria\r\n                      inner join gestion.historico d on d.id_caso = a.id\r\n                      inner join gestion.responsable e on e.id_caso = a.id\r\n                      inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                      where r.nombre in ($resolutorg)\r\n                      and g.name in ($subcateg)\r\n                      and e.principal is true\r\n                      and d.id_estatus in (6)\r\n                      and (a.feedback >= 3   or  a.verificado = 'SI'))\r\n                      group by id_caso\r\n                      HAVING count(id_caso) = 1) as Total)*100/(SELECT (COUNT(*)::decimal)\r\n                                                                from (SELECT id_caso,count(*)\r\n                                                                FROM gestion.responsable\r\n                                                                where id_caso in (select a.id\r\n                                                                \t\t\t\t  from gestion.caso a\r\n                                                                \t\t\t\t\tinner join gestion.category g on g.id = a.id_categoria\r\n                                                                \t\t\t\t\tinner join gestion.historico d on d.id_caso = a.id\r\n                                                               \t\t\t\t\t\tinner join gestion.responsable e on e.id_caso = a.id\r\n                                                                \t\t\t\t\tinner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                                                                \t\t\t\t  where r.nombre in ($resolutorg)\r\n                                                                \t\t\t\t  and g.name in ($subcateg)\r\n                                                                \t\t\t\t  and e.principal is true\r\n                                                                \t\t\t\t  and d.id_estatus in (3,4,6,8))\r\n                                                                \t\t\t\t  group by id_caso\r\n                                                                \t\t\t\t  HAVING count(id_caso) = 1)as Total))::decimal,2) as porcentaje",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "GOBERNACIÓN %",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-purple",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 6,
+        "y": 5
+      },
+      "id": 18,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria \r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.id in (SELECT id \r\n\t\t\t\t\t\t\t\t\t\tFROM gestion.resolutorio\r\n\t\t\t\t\t\t\t\t\t\twhere nombre in ($resolutorea)\r\n\t\t\t\t\t\t\t\t\t\t\t                 and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n                        and g.name in ($subcateg)\r\n\t\t\t\t\t          and e.principal is true\r\n                    and d.id_estatus in (3,4,6,8))\r\n group by id_caso\r\n      HAVING count(id_caso) > 0) as Total",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ALCALDIAS",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#fa6400",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 10,
+        "y": 5
+      },
+      "id": 31,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria \r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.id in (SELECT id \r\n\t\t\t\t\t\t\t\t\t   FROM gestion.resolutorio\r\n\t\t\t\t\t\t\t\t\t   where nombre in ($resolutorea)\r\n\t\t\t\t\t\t\t\t\t   and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n\t\t\t\t\t\t\t\t\t   and g.name in ($subcateg)\r\n                     and e.principal is true\r\n                     and d.id_estatus in (6)\r\n                     and a.verificado is null \r\n                     and (a.feedback < 3 or a.feedback is null))\r\n      group by id_caso\r\n      HAVING count(id_caso) > 0) as Total",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ATENDIDOS CON BAJA VALORACION",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 14,
+        "y": 5
+      },
+      "id": 23,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^count$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*)\r\nfrom (SELECT id_caso,count(*)\r\n      FROM gestion.responsable\r\n      where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria\r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.id in (SELECT id \r\n\t\t\t\t\t         FROM gestion.resolutorio\r\n\t\t\t\t\t\t   where nombre in ($resolutorea)\r\n\t\t\t\t\t         and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n\t\t\t\t\t\t   and g.name in ($subcateg)\r\n                        and e.principal is true\r\n                        and d.id_estatus in (6)\r\n                        and (a.feedback >= 3   or  a.verificado = 'SI'))\r\n      group by id_caso\r\n      HAVING count(id_caso) > 0) as Total\r\n",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ATENDIDOS CON VALORACION",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 5
+      },
+      "id": 28,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^porcentaje$/",
+          "values": true
+        },
+        "text": {
+          "titleSize": 0
+        },
+        "textMode": "value"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT trunc(((SELECT COUNT(*)\r\n                from (SELECT id_caso,count(*)\r\n                FROM gestion.responsable\r\n                where id_caso in (select a.id\r\n                        from gestion.caso a\r\n                        inner join gestion.category g on g.id = a.id_categoria\r\n                        inner join gestion.historico d on d.id_caso = a.id\r\n                        inner join gestion.responsable e on e.id_caso = a.id\r\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                        where r.id in (SELECT id \r\n\t\t\t\t\t\t\t\t\t\t\t                 FROM gestion.resolutorio\r\n\t\t\t\t\t\t\t\t\t\t\t                 where nombre in ($resolutorea)\r\n\t\t\t\t\t\t\t\t\t\t\t                 and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n                        and g.name in ($subcateg)\r\n                       -- and d.active = 1\r\n                        and e.principal is true\r\n                        and d.id_estatus in (6)\r\n                        and (a.feedback >= 3   or  a.verificado = 'SI'))\r\n      group by id_caso\r\n      HAVING count(id_caso) > 0) as Total)*100/(SELECT (COUNT(*)::decimal)\r\n                                                from (SELECT id_caso,count(*)\r\n                                                FROM gestion.responsable\r\n                                                where id_caso in (select a.id\r\n                                                from gestion.caso a\r\n                                                inner join gestion.category g on g.id = a.id_categoria\r\n                                                inner join gestion.historico d on d.id_caso = a.id\r\n                                                inner join gestion.responsable e on e.id_caso = a.id\r\n                                                inner join gestion.resolutorio r on r.id = e.id_resolutorio\r\n                                                where r.id in (SELECT id \r\n\t\t\t\t\t\t\t\t\t\t\t                                         FROM gestion.resolutorio\r\n\t\t\t\t\t\t\t\t\t\t\t                                         where nombre in ($resolutorea)\r\n\t\t\t\t\t\t\t\t\t\t\t                                         and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n                                                and g.name in ($subcateg)\r\n                                                --and d.active = 1\r\n                                                and e.principal is true\r\n                                                and d.id_estatus in (3,4,6,8))\r\n                                                group by id_caso\r\n                                                HAVING count(id_caso) > 0) as Total))::decimal,2) as porcentaje;\r\n                                                ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ALCALDÍA  %",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 38,
+      "panels": [],
+      "title": "DETALLADO",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cedula"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "codigo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 105
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "telefono"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "estado"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "municipio"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "estatus"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "asunto"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fechacreacion"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ASUNTO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 271
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTATUS"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTADO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 123
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CEDULA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 121
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FECHA ACT"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESPONSABLE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MUNICIPIO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 135
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELF. DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELF. RESPONSABLE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELEFONO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 121
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CATEGORIA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "EXTCATEG"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 179
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO CASO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SUBCATEG"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DESCRIP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 215
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CATEG ADI"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 126
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 154
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "INSTITUCION"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 211
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO CASO S"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 49
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQ"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 14,
+      "options": {
+        "footer": {
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "ESTATUS"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT a.nombre::Text \"GOBERNACION UNICOS\",\r\n    \te.cedula::Text \"CEDULA\",\r\n    \te.nombre::TEXT \"DENUNCIANTE\",\r\n    \te.telefono::Text \"TELEFONO\",\r\n    \tb.nombre::Text \"ESTADO\",\r\n    \tc.nombre::Text \"MUNICIPIO\",\r\n    \td.nombre::Text \"PARROQ\",\r\n    \ta.descripcion::TEXT \"DESCRIP\", \r\n\t  \tf.name::Text \"CATEGORIA\",\r\n\t  \t--g.nombre::Text \"SUBCATEG\",\r\n\t  --\tcase when m.nombre is null then 'Sin ExtCateg' else m.nombre end::Text \"EXTCATEG\", \r\n\t\t  i.nombre::Text \"ESTATUS\",\r\n\t\t   k.nombre::Text \"RESPONSABLE\",\r\n\t\t  to_char(a.fecha,'dd-mm-YY') as \"FECHA GENERADO\",\r\n    \tto_char(h.fecha_registro,'dd-mm-YY') as \"FECHA ULTIMO ESTATUS\",\r\n\t\t  CASE WHEN h.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 'VERIFICADO' ELSE 'NO VERIFICADO' END AS \"VERIFICACION\"\r\n        FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            --inner join gestion.sub_categoria g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.historico h ON h.id_caso = a.id\r\n            inner JOIN  gestion.estatus i ON h.id_estatus = i.id            \r\n           LEFT JOIN  gestion.responsable j ON j.id_caso = h.id_caso and j.principal is true\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT join gestion.resolutorio zz on zz.id =  k.id_estado \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n           -- LEFT JOIN  public.user_detail v ON w.id = v.user_id\r\n           --LEFT JOIN  gestion.extra_categoria m ON m.id = a.id_extra_categoria\r\n      \t\twhere k.nombre in ($resolutorg, $resolutorea) and g.name in ($subcateg)\r\n      \t\tand zz.nombre in ($resolutorg)\r\n      \t\t     and j.principal is true and h.id_estatus in (3,4,6,8)",
+          "refId": "GOB UNICOS",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "LISTADO DE CASOS CON RESPONSABILIDAD COMPARTIDA  ($resolutorg )",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "yellow",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ALCALDIAS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 34,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "% EFECTIVIDAD %"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "Select --row_number() OVER (ORDER BY m.nombre) AS \"NUM\", \r\n    m.nombre::Text \"ALCALDIAS\",\r\n\t\tsum(CASE WHEN d.id_estatus in (1,2,3,4,6,7,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\n\t\tsum(CASE WHEN d.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", \r\n\t\ttrunc(sum(CASE WHEN d.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\n\t\tfrom gestion.caso a\r\n\t\tinner join gestion.historico d on d.id_caso = a.id\r\n\t\tinner join gestion.responsable e on e.id_caso =  d.id_caso\r\n\t\tinner join gestion.resolutorio z on z.id =  e.id_resolutorio\r\n\t\tinner join gestion.resolutorio zz on zz.id =  z.id_estado\r\n\t\tinner join gestion.municipio m on m.id = z.id_municipio\r\n\t\twhere d.id_estatus in (1,2,3,4,6,7,8)\r\n\t\tand z.id_tipo_resolutorio in (2)\r\n\t\tand z.nombre in ($resolutorea) \r\n\t\tand zz.nombre in ($resolutorg)\r\n\t\tand e.principal is true\r\n\t\tgroup by m.nombre order by \"% EFECTIVIDAD %\" DESC;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ALCALDIAS ($resolutorg)",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "sbFnSD1Sz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "yellow",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQUIAS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 36,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "EFECTIVIDAD %"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "sbFnSD1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select --row_number() OVER (ORDER BY m.nombre) AS \"NUM\", \r\n\t\tm.nombre::Text \"PARROQUIAS\",\r\n\t\tsum(CASE WHEN d.id_estatus in (1,2,3,4,6,7,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\n\t\tsum(CASE WHEN d.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", \r\n\t\ttrunc(sum(CASE WHEN d.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\n\t\tfrom gestion.caso a\r\n\t\tinner join gestion.parroquia m on m.id = a.id_parroquia\r\n\t\tinner join gestion.historico d on d.id_caso = a.id\r\n\t\tinner join gestion.responsable e on e.id_caso =  d.id_caso\r\n\t\tinner join gestion.resolutorio z on z.id =  e.id_resolutorio\r\n\t\tinner join gestion.resolutorio zz on zz.id =  z.id_estado\r\n\t\twhere  d.id_estatus in (1,2,3,4,6,7,8)\r\n\t\tand z.nombre in ($resolutorea) \r\n\t\tand zz.nombre in ($resolutorg)\r\n\t\tand e.principal = true\r\n\t\tgroup by m.nombre order by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "PARROQUIAS ($resolutorea)",
+      "transparent": true,
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "sbFnSD1Sz"
+        },
+        "definition": "SELECT  c.name FROM gestion.category c\n inner join gestion.category cc on cc.id = c.parent where cc.parent is null and c.id <= 17\n order by c.id asc",
+        "hide": 0,
+        "includeAll": true,
+        "label": "SUB CATEG",
+        "multi": true,
+        "name": "subcateg",
+        "options": [],
+        "query": "SELECT  c.name FROM gestion.category c\n inner join gestion.category cc on cc.id = c.parent where cc.parent is null and c.id <= 17\n order by c.id asc",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "sbFnSD1Sz"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio a where a.id_tipo_resolutorio = 1  and id = 12",
+        "hide": 0,
+        "includeAll": true,
+        "label": "GOBERNACIONES",
+        "multi": false,
+        "name": "resolutorg",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio a where a.id_tipo_resolutorio = 1  and id = 12",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "sbFnSD1Sz"
+        },
+        "definition": "SELECT a.nombre FROM gestion.resolutorio a inner join gestion.resolutorio b on a.id_estado = b.id_estado where a.id_tipo_resolutorio = 2 and b.nombre in ($resolutorg) ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ALCALDIAS",
+        "multi": false,
+        "name": "resolutorea",
+        "options": [],
+        "query": "SELECT a.nombre FROM gestion.resolutorio a inner join gestion.resolutorio b on a.id_estado = b.id_estado where a.id_tipo_resolutorio = 2 and b.nombre in ($resolutorg) ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2021-02-25T05:26:07.561Z",
+    "to": "2023-12-16T05:26:07.561Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "GOBERNACION DEL ESTADO LARA V3",
+  "uid": "ZbRN7hR4z",
+  "version": 3,
+  "weekStart": ""
+}
