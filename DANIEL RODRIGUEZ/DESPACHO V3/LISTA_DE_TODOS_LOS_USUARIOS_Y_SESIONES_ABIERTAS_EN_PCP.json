@@ -1,0 +1,285 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 425,
+    "iteration": 1710646180176,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 7,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(*)\tFROM public.user u\n\tinner join public.user_rol ur on ur.id_usuario = u.id\n\tinner join public.rol r on r.id = ur.id_role\n\twhere r.nombre in ($rol) --AND u.status = 10 \n\t\t      --and u.username not in ('16627812','19547808','17527191','PCP1X10')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "TOTAL USUARIO  ($rol)",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto",
+              "filterable": true,
+              "inspect": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "GRUPO DE TRABAJO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 212
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "USUARIO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 390
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ROL"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 199
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 19,
+          "w": 24,
+          "x": 0,
+          "y": 3
+        },
+        "id": 5,
+        "options": {
+          "footer": {
+            "enablePagination": false,
+            "fields": [
+              "TOTAL"
+            ],
+            "reducer": [],
+            "show": true
+          },
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": " SELECT \n\tUPPER(u.username)::Text \"USUARIO\",  UPPER(r.nombre)::TEXT \"ROL\", -- UPPER(usd.address)::TEXT \"GRUPO DE TRABAJO\",\n     UPPER(u.first_name) || ' ' || UPPER(u.last_name)::Text \"NOMBRE APELLIDO\",\n     to_char(u.last_login,'dd-mm-YY hh:mm:ss') as \"FECHA CONEXION\"\n\tFROM public.user u\n\tinner join public.user_rol ur on ur.id_usuario = u.id\n\tinner join public.rol r on r.id = ur.id_role\n\twhere r.nombre in ($rol) AND u.status = 10 \n\t and $__timeFilter(u.last_login)\n\t",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "CANTIDAD DE USUARIOS EN PCP",
+        "type": "table"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "Admin",
+            "value": "Admin"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "yGK0Mm1Sk"
+          },
+          "definition": "SELECT * FROM public.rol",
+          "hide": 0,
+          "includeAll": true,
+          "label": "ROL USUARIO",
+          "multi": false,
+          "name": "rol",
+          "options": [],
+          "query": "SELECT * FROM public.rol",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-5y",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "LISTA DE TODOS LOS USUARIOS Y SESIONES ABIERTAS EN PCP",
+    "uid": "6LcD8k34k",
+    "version": 7,
+    "weekStart": ""
+  }

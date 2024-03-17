@@ -1,0 +1,1258 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 422,
+    "iteration": 1710646011312,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "yellow",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#000000",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "total"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 8,
+          "x": 0,
+          "y": 0
+        },
+        "id": 25,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^total$/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 115
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": " SELECT (\r\n(SELECT count(a.nombre)\r\n        FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n        where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t  and k.nombre in ($resolutorg) \r\n\t\t\t  and a.id not in (SELECT a.id \r\n        \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n        \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg)))\r\n+\r\n (SELECT count(a.nombre)\r\n        FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n      where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\tand k.nombre in ($resolutorea) \r\n\t\t\tand a.id not in (SELECT a.id \r\n      \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n      \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n      \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n                  \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n      \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n      \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea))\r\n      and b.id in (SELECT id_estado FROM gestion.resolutorio where nombre in ($resolutorg)))\r\n+\r\n(SELECT count(distinct a.nombre)\r\n\t   \tFROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \r\n            inner JOIN gestion.responsable j ON j.id_caso = a.id \r\n            inner JOIN gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n        where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t  and k.nombre in ($resolutorg,$resolutorea)\r\n\t\t\t  and a.id not in (SELECT a.id\r\n        \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n        \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg,$resolutorea))\r\n\t\t\t and a.id not in (SELECT a.id\r\n\t\t\t\t\t\t\t\tFROM gestion.caso a\r\n\t\t\t\t\t\t\t\t\tinner join gestion.estado b on b.id = a.id_estado\r\n\t\t\t\t\t\t\t\t\tinner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\t\t\t\t\t\t\tinner join gestion.parroquia d on d.id = a.id_parroquia\r\n\t\t\t\t\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\t\t\t\t\tinner join gestion.category f on f.id = a.id_categoria\r\n\t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\t\tinner JOIN gestion.estatus i ON a.id_estatus = i.id            \r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  public.user w ON w.id = j.id_user\r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n\t\t\t\t\t\t\t  where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t\t\tand k.nombre in ($resolutorea) \r\n\t\t\t\t\t\t\t\t\tand a.id not in (SELECT a.id \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tFROM gestion.caso a \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea)))\r\n\t\t\t and a.id not in (SELECT a.id FROM gestion.caso a\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.estado b on b.id = a.id_estado\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.municipio c on c.id = a.id_municipio\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.parroquia d on d.id = a.id_parroquia\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.category f on f.id = a.id_categoria\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n          \t\t\t\t\t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  public.user w ON w.id = j.id_user\r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n          \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n          \t\t\t\t\t\t\t\t\t  and k.nombre in ($resolutorg) \r\n          \t\t\t\t\t\t\t\t\t  and a.id not in (SELECT a.id \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tFROM gestion.caso a \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg))))\r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t) as total;",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "CASOS  REGIONALES",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                },
+                {
+                  "color": "dark-blue",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 6,
+          "x": 8,
+          "y": 0
+        },
+        "id": 17,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "       SELECT count(*)\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n        where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\n\t\t\t  and k.nombre in ($resolutorg) \n\t\t\t  and a.id not in (SELECT a.id \n        \t\t\t\t\t\t\t \tFROM gestion.caso a \n        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\n        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\n                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n        \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\n        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg));",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "GOBERNACION",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                },
+                {
+                  "color": "text",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 5,
+          "x": 14,
+          "y": 0
+        },
+        "id": 22,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "       SELECT count(*)\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n        where a.id_estatus in (6) and g.name in ($subcateg)\n\t\t\t  and k.nombre in ($resolutorg) \n\t\t\t  and a.id not in (SELECT a.id \n        \t\t\t\t\t\t\t \tFROM gestion.caso a \n        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\n        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \n                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n        \t\t\t\t\t\t\t\twhere a.id_estatus in (6) and g.name in ($subcateg)\n        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg));",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": " ATENDIDOS GOB.",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 5,
+          "x": 19,
+          "y": 0
+        },
+        "id": 27,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^porcentaje$/",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::decimal * 100 / ( SELECT count(*)\r\n\t\t\t\t\t\t\t\t\t        FROM gestion.caso a\r\n\t\t\t\t\t\t\t\t\t            inner join gestion.estado b on b.id = a.id_estado\r\n\t\t\t\t\t\t\t\t\t            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\t\t\t\t\t\t\t            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n\t\t\t\t\t\t\t\t\t            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\t\t\t\t\t            inner join gestion.category f on f.id = a.id_categoria\r\n\t\t\t\t\t\t\t\t\t            inner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\t\t            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \r\n\t\t\t\t\t\t\t\t\t            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n\t\t\t\t\t\t\t\t\t            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\t\t            LEFT JOIN  public.user w ON w.id = j.id_user\r\n\t\t\t\t\t\t\t\t\t            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n\t\t\t\t\t\t\t\t\t        where a.id_estatus in (3,4,6,7,8) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t\t\t\t\t\tand k.nombre in ($resolutorg) \r\n\t\t\t\t\t\t\t\t\t\t\t\tand a.id not in (SELECT a.id \r\n\t\t\t\t        \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n\t\t\t\t        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n\t\t\t\t                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t        \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,6,7,8) and g.name in ($subcateg)\r\n\t\t\t\t        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg)))::decimal,2) as porcentaje\r\n\t      \r\n\r\n\r\n\t    FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n        where a.id_estatus in (6) and g.name in ($subcateg)\r\n\t\t\t  and k.nombre in ($resolutorg) \r\n\t\t\t  and a.id not in (SELECT a.id \r\n\t\t\t\t\t\t\t \tFROM gestion.caso a \r\n\t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n            \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\twhere a.id_estatus in (6) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg));",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "GOBERNACIÓN %",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-purple",
+                  "value": null
+                },
+                {
+                  "color": "dark-purple",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 6,
+          "x": 8,
+          "y": 5
+        },
+        "id": 18,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "       SELECT COUNT(*)\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n      where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\n\t\t\tand k.nombre in ($resolutorea) \n\t\t\tand a.id not in (SELECT a.id \n      \t\t\t\t\t\t\t \tFROM gestion.caso a \n      \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\n      \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \n                  \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n      \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\n      \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea))\n      and b.id in (SELECT id_estado FROM gestion.resolutorio where nombre in ($resolutorg));\n      ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ALCALDIAS",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                },
+                {
+                  "color": "text",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "count"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "locale"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 5,
+          "x": 14,
+          "y": 5
+        },
+        "id": 23,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "       SELECT COUNT(*)\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n      where a.id_estatus in (6) and g.name in ($subcateg)\n\t\t\tand k.nombre in ($resolutorea) \n\t\t\tand a.id not in (SELECT a.id \n      \t\t\t\t\t\t\t \tFROM gestion.caso a \n      \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\n      \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \n                  \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n      \t\t\t\t\t\t\t\twhere a.id_estatus in (6) and g.name in ($subcateg)\n      \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea))\n      and b.id in (SELECT id_estado FROM gestion.resolutorio where nombre in ($resolutorg));\n      ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ATENDIDOS  ALCALDIAS",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 5,
+          "w": 5,
+          "x": 19,
+          "y": 5
+        },
+        "id": 28,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^porcentaje$/",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::decimal * 100 / (SELECT COUNT(*)\r\n\t\t\t\t\t\t\t\t\t\t        FROM gestion.caso a\r\n\t\t\t\t\t\t\t\t\t\t            inner join gestion.estado b on b.id = a.id_estado\r\n\t\t\t\t\t\t\t\t\t\t            inner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\t\t\t\t\t\t\t\t            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n\t\t\t\t\t\t\t\t\t\t            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\t\t\t\t\t\t            inner join gestion.category f on f.id = a.id_categoria\r\n\t\t\t\t\t\t\t\t\t\t            inner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\t\t\t            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \r\n\t\t\t\t\t\t\t\t\t\t            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n\t\t\t\t\t\t\t\t\t\t            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\t\t\t            LEFT JOIN  public.user w ON w.id = j.id_user\r\n\t\t\t\t\t\t\t\t\t\t            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n\t\t\t\t\t\t\t\t\t\t      where a.id_estatus in (3,4,6,7,8) and g.name in ($subcateg) and k.nombre in ($resolutorea) \r\n\t\t\t\t\t\t\t\t\t\t\t  and a.id not in (SELECT a.id \r\n\t\t\t\t\t\t\t      \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n\t\t\t\t\t\t\t      \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t      \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n\t\t\t\t\t\t\t                  \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t      \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,6,7,8) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t      \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea))\r\n\t\t\t\t\t\t\t\t\t\t      and b.id in (SELECT id_estado FROM gestion.resolutorio where nombre in ($resolutorg))\r\n\t\t\t\t\t\t\t\t\t\t      )::decimal,2) as porcentaje\r\n\t    FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n      \twhere a.id_estatus in (6) and g.name in ($subcateg)\r\n\t\t\tand k.nombre in ($resolutorea) \r\n\t\t\tand a.id not in (SELECT a.id \r\n      \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n      \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n      \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n                  \t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n      \t\t\t\t\t\t\t\twhere a.id_estatus in (6) and g.name in ($subcateg) and k.nombre not in ($resolutorea))\r\n      \t\tand b.id in (SELECT id_estado FROM gestion.resolutorio where nombre in ($resolutorg));",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ALCALDÍA  %",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "yGK0Mm1Sk"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto",
+              "filterable": true,
+              "inspect": true
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "cedula"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 110
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "codigo"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 105
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "telefono"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 112
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "estado"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 119
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "municipio"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 119
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "estatus"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 97
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "asunto"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 115
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "fechacreacion"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 119
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ASUNTO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 271
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ESTATUS"
+              },
+              "properties": [
+                {
+                  "id": "custom.width"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ESTADO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 123
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CEDULA"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 121
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CODIGO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 112
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "FECHA ACT"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "RESPONSABLE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 160
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "MUNICIPIO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 135
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "TELF. DENUNCIANTE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 122
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "TELF. RESPONSABLE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 90
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "TELEFONO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 121
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CATEGORIA"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 97
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "EXTCATEG"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 324
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CODIGO CASO"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 92
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "SUBCATEG"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 112
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "DESCRIP"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 215
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CATEG ADI"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 126
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "DENUNCIANTE"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 154
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "INSTITUCION"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 211
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "CODIGO CASO S"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 49
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "PARROQ"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "id"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 92
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 10
+        },
+        "id": 14,
+        "options": {
+          "footer": {
+            "enablePagination": true,
+            "fields": "",
+            "reducer": [
+              "sum"
+            ],
+            "show": false
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": false,
+              "displayName": "ESTATUS"
+            }
+          ]
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "yGK0Mm1Sk"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "\t(SELECT a.nombre::Text \"CODIGO CASO\",\r\n    \te.cedula::Text \"CEDULA\", e.nombre::TEXT \"DENUNCIANTE\",\r\n    \te.telefono::Text \"TELEFONO\", b.nombre::Text \"ESTADO\", c.nombre::Text \"MUNICIPIO\", d.nombre::Text \"PARROQ\", a.descripcion::TEXT \"DESCRIP\", \r\n\t  \tf.name::Text \"CATEGORIA\", g.name::Text \"SUBCATEG\",case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \r\n\t\ti.nombre::Text \"ESTATUS\"\r\n        FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n        where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t  and k.nombre in ($resolutorg) \r\n\t\t\t  and a.id not in (SELECT a.id \r\n        \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n        \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg)))\r\nunion\r\n (SELECT a.nombre::Text \"CODIGO CASO\",\r\n    \te.cedula::Text \"CEDULA\", e.nombre::TEXT \"DENUNCIANTE\",\r\n    \te.telefono::Text \"TELEFONO\", b.nombre::Text \"ESTADO\", c.nombre::Text \"MUNICIPIO\", d.nombre::Text \"PARROQ\", a.descripcion::TEXT \"DESCRIP\", \r\n\t  \tf.name::Text \"CATEGORIA\", g.name::Text \"SUBCATEG\",case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \r\n\t\t  i.nombre::Text \"ESTATUS\"\r\n        FROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  public.user w ON w.id = j.id_user\r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n      where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\tand k.nombre in ($resolutorea) \r\n\t\t\tand a.id not in (SELECT a.id \r\n      \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n      \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n      \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n                  \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n      \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n      \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea))\r\n      and b.id in (SELECT id_estado FROM gestion.resolutorio where nombre in ($resolutorg)))\r\nunion\r\n\t(SELECT  DISTINCT ON (a.nombre) a.nombre::Text \"CODIGO CASO\",\r\n\t    --a.codigo::Text \"CODIGO CASO\",\r\n    \te.cedula::Text \"CEDULA\", e.nombre::TEXT \"DENUNCIANTE\",\r\n    \te.telefono::Text \"TELEFONO\", b.nombre::Text \"ESTADO\", c.nombre::Text \"MUNICIPIO\", d.nombre::Text \"PARROQ\", a.descripcion::TEXT \"DESCRIP\", \r\n\t  \tf.name::Text \"CATEGORIA\", g.name::Text \"SUBCATEG\", case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \r\n\t\ti.nombre::Text \"ESTATUS\"\r\n\t   \tFROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n            inner join gestion.category f on f.id = a.id_categoria\r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n            inner JOIN  gestion.responsable j ON j.id_caso = a.id\r\n            inner JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n        where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t  and k.nombre in ($resolutorg,$resolutorea)\r\n\t\t\t  and a.id not in (SELECT a.id\r\n        \t\t\t\t\t\t\t \tFROM gestion.caso a \r\n        \t\t\t\t\t\t \t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n        \t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n                    \t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n        \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n        \t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg,$resolutorea))\r\n\t\t\t and a.id not in (SELECT a.id\r\n\t\t\t\t\t\t\t\tFROM gestion.caso a\r\n\t\t\t\t\t\t\t\t\tinner join gestion.estado b on b.id = a.id_estado\r\n\t\t\t\t\t\t\t\t\tinner join gestion.municipio c on c.id = a.id_municipio\r\n\t\t\t\t\t\t\t\t\tinner join gestion.parroquia d on d.id = a.id_parroquia\r\n\t\t\t\t\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n\t\t\t\t\t\t\t\t\tinner join gestion.category f on f.id = a.id_categoria\r\n\t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  public.user w ON w.id = j.id_user\r\n\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n\t\t\t\t\t\t\t  where a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t\t\tand k.nombre in ($resolutorea) \r\n\t\t\t\t\t\t\t\t\tand a.id not in (SELECT a.id \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tFROM gestion.caso a \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tand k.nombre not in ($resolutorea)))\r\n\t\t\t and a.id not in (SELECT a.id FROM gestion.caso a\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.estado b on b.id = a.id_estado\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.municipio c on c.id = a.id_municipio\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.parroquia d on d.id = a.id_parroquia\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.denunciante e on e.id = a.id_denunciante\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.category f on f.id = a.id_categoria\r\n          \t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n          \t\t\t\t\t\t\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id            \r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id\r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  public.user w ON w.id = j.id_user\r\n          \t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\r\n          \t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n          \t\t\t\t\t\t\t\t\t  and k.nombre in ($resolutorg) \r\n          \t\t\t\t\t\t\t\t\t  and a.id not in (SELECT a.id \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tFROM gestion.caso a \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.category g on g.id = a.id_sub_categoria\r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.responsable j ON j.id_caso = a.id \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\twhere a.id_estatus in (3,4,7,8) and g.name in ($subcateg)\r\n          \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tand k.nombre not in ($resolutorg))));",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "LISTADO DE CASOS CON RESPONSABILIDAD COMPARTIDA  ($resolutorg )",
+        "type": "table"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": "",
+          "current": {
+            "selected": true,
+            "text": [
+              "AGUA"
+            ],
+            "value": [
+              "AGUA"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "yGK0Mm1Sk"
+          },
+          "definition": "SELECT name FROM gestion.category WHERE id in (8,9,10,11,12,13)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "SUB CATEG",
+          "multi": true,
+          "name": "subcateg",
+          "options": [],
+          "query": "SELECT name FROM gestion.category WHERE id in (8,9,10,11,12,13)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "GOBERNACION DE AMAZONAS",
+            "value": "GOBERNACION DE AMAZONAS"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "yGK0Mm1Sk"
+          },
+          "definition": "SELECT nombre FROM gestion.resolutorio a where a.id_tipo_resolutorio = 1 order by nombre",
+          "hide": 0,
+          "includeAll": true,
+          "label": "GOBERNACIONES",
+          "multi": false,
+          "name": "resolutorg",
+          "options": [],
+          "query": "SELECT nombre FROM gestion.resolutorio a where a.id_tipo_resolutorio = 1 order by nombre",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "yGK0Mm1Sk"
+          },
+          "definition": "SELECT a.nombre FROM gestion.resolutorio a inner join gestion.resolutorio b on a.id_estado = b.id_estado where a.id_tipo_resolutorio = 2 and b.nombre in ($resolutorg) ",
+          "hide": 0,
+          "includeAll": true,
+          "label": "ALCALDIAS",
+          "multi": false,
+          "name": "resolutorea",
+          "options": [],
+          "query": "SELECT a.nombre FROM gestion.resolutorio a inner join gestion.resolutorio b on a.id_estado = b.id_estado where a.id_tipo_resolutorio = 2 and b.nombre in ($resolutorg) ",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "2022-07-21T23:26:07.561Z",
+      "to": "2022-07-22T11:26:07.561Z"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "Casos  Regionales",
+    "uid": "ZbRN7hR4z",
+    "version": 6,
+    "weekStart": ""
+  }
