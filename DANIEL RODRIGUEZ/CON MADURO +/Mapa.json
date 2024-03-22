@@ -1,0 +1,530 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 555,
+    "iteration": 1710957280269,
+    "links": [],
+    "liveNow": true,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              }
+            },
+            "decimals": 12,
+            "mappings": [
+              {
+                "options": {
+                  "1": {
+                    "color": "#600000",
+                    "index": 0,
+                    "text": "Generado"
+                  },
+                  "2": {
+                    "color": "#642f11",
+                    "index": 1,
+                    "text": "Recibido"
+                  },
+                  "3": {
+                    "color": "#000464",
+                    "index": 2,
+                    "text": "Asignado"
+                  },
+                  "4": {
+                    "color": "#0a631e",
+                    "index": 3,
+                    "text": "En Proceso"
+                  },
+                  "7": {
+                    "color": "#645c13",
+                    "index": 4,
+                    "text": "Por Confirmar"
+                  },
+                  "8": {
+                    "color": "#086464",
+                    "index": 5,
+                    "text": "Por Solucionar"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 34,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "basemap": {
+            "config": {
+              "server": "streets"
+            },
+            "name": "Layer 0",
+            "type": "esri-xyz"
+          },
+          "controls": {
+            "mouseWheelZoom": true,
+            "showAttribution": true,
+            "showDebug": false,
+            "showScale": false,
+            "showZoom": true
+          },
+          "layers": [
+            {
+              "config": {
+                "rules": [],
+                "src": "public/maps/venezuela.geojson",
+                "style": {
+                  "color": {
+                    "fixed": "#010101"
+                  },
+                  "opacity": 0,
+                  "rotation": {
+                    "fixed": 0,
+                    "max": 360,
+                    "min": -360,
+                    "mode": "mod"
+                  },
+                  "size": {
+                    "fixed": 5,
+                    "max": 15,
+                    "min": 2
+                  },
+                  "symbol": {
+                    "fixed": "img/icons/marker/circle.svg",
+                    "mode": "fixed"
+                  },
+                  "textConfig": {
+                    "fontSize": 12,
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "textAlign": "center",
+                    "textBaseline": "middle"
+                  }
+                }
+              },
+              "name": "Layer 2",
+              "tooltip": false,
+              "type": "geojson"
+            },
+            {
+              "config": {
+                "showLegend": true,
+                "style": {
+                  "color": {
+                    "field": "Estatus",
+                    "fixed": "dark-green"
+                  },
+                  "opacity": 0.9,
+                  "rotation": {
+                    "fixed": 20,
+                    "max": 360,
+                    "min": -360,
+                    "mode": "mod"
+                  },
+                  "size": {
+                    "fixed": 6,
+                    "max": 15,
+                    "min": 2
+                  },
+                  "symbol": {
+                    "fixed": "img/icons/marker/circle.svg",
+                    "mode": "fixed"
+                  },
+                  "text": {
+                    "field": "Denunciante",
+                    "fixed": "",
+                    "mode": "fixed"
+                  },
+                  "textConfig": {
+                    "fontSize": 12,
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "textAlign": "center",
+                    "textBaseline": "middle"
+                  }
+                }
+              },
+              "location": {
+                "latitude": "latitud",
+                "longitude": "longitud",
+                "mode": "coords"
+              },
+              "name": "CASOS",
+              "tooltip": true,
+              "type": "markers"
+            }
+          ],
+          "tooltip": {
+            "mode": "details"
+          },
+          "view": {
+            "id": "coords",
+            "lat": 6.42375,
+            "lon": -66.58973,
+            "shared": false,
+            "zoom": 7
+          }
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT\n  g.id as \"Estatus\",\n  c.name as \"Categoria\",\n  z.nombre AS \"Reportante\",\n  to_char(a.fecha,'DD-MM-YYYY') AS \"Fecha Reporte\",\n  a.descripcion as \"Descripcion\",\n  a.nombre as \"Codigo\",\n  d.nombre as \"Estado\",\n  e.nombre as \"Municipio\",\n  f.nombre as \"Parroquia\",\n  a.latitud, a.longitud\nFROM gestion.caso a, gestion.category c, gestion.estado d, gestion.municipio e, gestion.parroquia f,\n     gestion.estatus g, gestion.denunciante z --gestion.ubicacion b, gestion.historico h,\nWHERE  $__timeFilter(a.fecha) \n  and z.id=a.id_denunciante\n  --and a.id=b.id_caso \n  and a.id_sub_categoria=c.id \n  --and a.id_adicional_categoria=c.id \n  and a.id_estado=d.id \n  and d.nombre ilike $estado \n  and a.id_municipio=e.id \n  and e.nombre ilike $municipio \n  and a.id_parroquia=f.id \n  and f.nombre ilike $parroquia \n  and c.name in ($subcategoria) \n  --and a.id=h.id_caso\n  --and h.active='1' \n  and g.id=a.id_estatus \n  and g.nombre in ($estatus)\n  --and TO_DATE(to_char(fecha,'YYYY-MM-DD'),'YYYY-MM-DD') = current_date",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Mapa 1x10 Del Buen Gobierno",
+        "type": "geomap"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green"
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 34
+        },
+        "id": 4,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(g.id)\nFROM gestion.caso a,  gestion.category c, gestion.estado d, gestion.municipio e, gestion.parroquia f, gestion.estatus g --gestion.historico h, gestion.ubicacion b,\nWHERE\n  $__timeFilter(a.fecha) \n  --and a.id=b.id_caso \n  and a.id_sub_categoria=c.id \n  and a.id_estado=d.id \n  and d.nombre ilike $estado \n  and a.id_municipio=e.id \n  and e.nombre ilike $municipio \n  and a.id_parroquia=f.id \n  and f.nombre ilike $parroquia \n  and c.name in ($subcategoria) \n  --and a.id=h.id_caso\n  --and h.active='1' \n  and g.id=a.id_estatus \n  and g.nombre in ($estatus)\n  --and TO_DATE(to_char(fecha,'YYYY-MM-DD'),'YYYY-MM-DD') = current_date\n\n\n",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "Total Casos",
+        "type": "stat"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": "'%%'",
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select nombre from gestion.estado",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Estado",
+          "multi": false,
+          "name": "estado",
+          "options": [],
+          "query": "select nombre from gestion.estado",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "allValue": "'%%'",
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select a.nombre from gestion.municipio a, gestion.estado b where a.id_estado=b.id and b.nombre ilike $estado",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Municipio",
+          "multi": false,
+          "name": "municipio",
+          "options": [],
+          "query": "select a.nombre from gestion.municipio a, gestion.estado b where a.id_estado=b.id and b.nombre ilike $estado",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "allValue": "'%%'",
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select a.nombre from gestion.parroquia a, gestion.municipio b where a.id_municipio=b.id and b.nombre ilike $municipio",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Parroquia",
+          "multi": false,
+          "name": "parroquia",
+          "options": [],
+          "query": "select a.nombre from gestion.parroquia a, gestion.municipio b where a.id_municipio=b.id and b.nombre ilike $municipio",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "allValue": "'%%'",
+          "current": {
+            "selected": true,
+            "text": [
+              "AGUA",
+              "EDUCACIÓN",
+              "EDUCACIÓN BÁSICA",
+              "EDUCACIÓN UNIVERSITARIA",
+              "ELECTRICIDAD",
+              "GAS COMUNAL (BOMBONA)",
+              "GAS DIRECTO POR TUBERÍA",
+              "GAS DOMÉSTICO",
+              "METRO DE CARACAS",
+              "SALUD",
+              "TELECOMUNICACIONES",
+              "TRANSPORTE PÚBLICO"
+            ],
+            "value": [
+              "AGUA",
+              "EDUCACIÓN",
+              "EDUCACIÓN BÁSICA",
+              "EDUCACIÓN UNIVERSITARIA",
+              "ELECTRICIDAD",
+              "GAS COMUNAL (BOMBONA)",
+              "GAS DIRECTO POR TUBERÍA",
+              "GAS DOMÉSTICO",
+              "METRO DE CARACAS",
+              "SALUD",
+              "TELECOMUNICACIONES",
+              "TRANSPORTE PÚBLICO"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select name from gestion.category where id in (5,6,7,8,9,10,11,12,13,14,15,16)",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Subcategoria",
+          "multi": true,
+          "name": "subcategoria",
+          "options": [],
+          "query": "select name from gestion.category where id in (5,6,7,8,9,10,11,12,13,14,15,16)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "allValue": "'%%'",
+          "current": {
+            "selected": true,
+            "text": [
+              "ASIGNADO",
+              "CONFIRMADO",
+              "EN PROCESO",
+              "GENERADO",
+              "POR SOLUCIONAR",
+              "RECIBIDO"
+            ],
+            "value": [
+              "ASIGNADO",
+              "CONFIRMADO",
+              "EN PROCESO",
+              "GENERADO",
+              "POR SOLUCIONAR",
+              "RECIBIDO"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select nombre from gestion.estatus where id!=5 and id!=6",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Estatus",
+          "multi": true,
+          "name": "estatus",
+          "options": [],
+          "query": "select nombre from gestion.estatus where id!=5 and id!=6",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-2y",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5m",
+        "10m"
+      ]
+    },
+    "timezone": "",
+    "title": "Mapa",
+    "uid": "8SUflN6nz",
+    "version": 7,
+    "weekStart": ""
+  }
