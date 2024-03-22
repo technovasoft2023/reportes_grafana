@@ -1,0 +1,3248 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 554,
+    "iteration": 1710957297639,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "left",
+              "axisSoftMin": 0,
+              "fillOpacity": 76,
+              "gradientMode": "hue",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 2,
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "light-green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 16,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "barRadius": 0.05,
+          "barWidth": 0.97,
+          "colorByField": "total",
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "hidden",
+            "placement": "bottom"
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "none",
+          "text": {
+            "valueSize": 16
+          },
+          "tooltip": {
+            "mode": "none",
+            "sort": "none"
+          },
+          "xTickLabelRotation": -90,
+          "xTickLabelSpacing": 0
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select  CONCAT(case when to_char(a.fecha, 'd') = '1' then 'DOMINGO'\r\n                    when to_char(a.fecha, 'd') = '2' then 'LUNES'\r\n                    when to_char(a.fecha, 'd') = '3' then 'MARTES'\r\n                    when to_char(a.fecha, 'd') = '4' then 'MIERCOLES'\r\n                    when to_char(a.fecha, 'd') = '5' then 'JUEVES'\r\n                    when to_char(a.fecha, 'd') = '6' then 'VIERNES'\r\n                    when to_char(a.fecha, 'd') = '7' then 'SABADO'\r\n                    end\r\n \r\n        ,CHR(13),to_char(a.fecha, 'dd-mm-YYYY')) as fecham,\r\n        to_char(a.fecha, 'YYYY-mm-dd')  as fechao , \r\n        count(a.fecha) as total\r\n  from gestion.caso a\r\n  inner join gestion.estado b on b.id = a.id_estado\r\n\tinner join gestion.municipio c on c.id = a.id_municipio\r\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\r\n  inner join gestion.estatus f on f.id = a.id_estatus\r\n  inner JOIN  gestion.category j ON j.id = a.id_sub_categoria\r\n  where $__timeFilter(a.fecha)\r\n\tand b.nombre in ($estado) AND c.nombre in ($municipio) AND e.nombre in ($parroquia)\r\n\tand j.name in ($subcategoria)\r\n\tand f.nombre in ($estatus)\r\n  group by fecham,fechao order by fechao",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "HISTÓRICO DE CASOS RECIBIDO EN EL SISTEMA DESDE LA VENAPP (ÚLTIMOS DÍAS)",
+        "transparent": true,
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "dark-blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "max": -5,
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 2,
+          "x": 0,
+          "y": 16
+        },
+        "id": 25,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 0.3
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 2,
+          "y": 16
+        },
+        "id": 4,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "  SELECT count(a.id)\n\tFROM gestion.caso a\n\tinner join gestion.responsable b on b.id_caso =  a.id \n\tinner join gestion.estado f on f.id = a.id_estado\n\tinner join gestion.municipio g on g.id = a.id_municipio\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\t\n\twhere b.id_resolutorio in (387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,405,358) \n\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n\tand b.principal is true\tand a.id_estatus in (3,4,6,7,8) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-AGUAS",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 4,
+          "y": 16
+        },
+        "id": 6,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere b.id_resolutorio in (353)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true and a.id_estatus in (3,4,6,7,8)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-ELECTRI",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 6,
+          "y": 16
+        },
+        "id": 12,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^count$/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere b.id_resolutorio in (371,374,404)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true and a.id_estatus in (3,4,6,7,8)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "TELECOM",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 8,
+          "y": 16
+        },
+        "id": 14,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere b.id_resolutorio in (406)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true and a.id_estatus in (3,4,6,7,8)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "G-COMUNAL",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 10,
+          "y": 16
+        },
+        "id": 16,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere b.id_resolutorio in (359)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (3,4,6,7,8)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "G-DIRECTO",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 12,
+          "y": 16
+        },
+        "id": 8,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere b.id_resolutorio in (361)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true and a.id_estatus in (3,4,6,7,8) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "EDUCA-BASICA",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 14,
+          "y": 16
+        },
+        "id": 10,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere b.id_resolutorio in (369)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (3,4,6,7,8)",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "EDUCA-UNIVERS",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 16,
+          "y": 16
+        },
+        "id": 18,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (357)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true\nand a.id_estatus in (3,4,6,7,8) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-SALUD",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#7add6c",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 18,
+          "y": 16
+        },
+        "id": 20,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id \r\ninner join gestion.resolutorio c on c.id = b.id_resolutorio\r\ninner join gestion.estado f on f.id = a.id_estado\r\ninner join gestion.municipio g on g.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\r\nwhere c.id_tipo_resolutorio in (1)\r\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\r\nand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\r\nand b.principal is true\r\nand a.id_estatus in (3,4,6,7,8) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "GOB",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "super-light-green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 20,
+          "y": 16
+        },
+        "id": 22,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\r\nFROM gestion.caso a\r\ninner join gestion.responsable b on b.id_caso =  a.id \r\ninner join gestion.resolutorio c on c.id = b.id_resolutorio\r\ninner join gestion.estado f on f.id = a.id_estado\r\ninner join gestion.municipio g on g.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\r\nwhere c.id_tipo_resolutorio in (2)\r\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\r\nand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\r\nand b.principal is true\r\nand a.id_estatus in (3,4,6,7,8) ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ALCALDIAS",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "dark-blue",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "max": -5,
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 2,
+          "x": 22,
+          "y": 16
+        },
+        "id": 24,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 0.3
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT ",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 2,
+          "y": 19
+        },
+        "id": 27,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^porcentaje$/",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0,
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "-- Porcentaje de Eficiencia Casos Cerrados\nSELECT trunc(count(a.id)::decimal * 100 / (-- Casos Recibidos\n                                            SELECT count(a.id)\n                                            FROM gestion.caso a\n                      inner join gestion.responsable b on b.id_caso =  a.id\t\t\n\t\t\t\t\t\t\t\t\t\t\tinner join gestion.estado f on f.id = a.id_estado\n\t\t\t\t\t\t\t\t\t\t\tinner join gestion.municipio g on g.id = a.id_municipio\n\t\t\t\t\t\t\t\t\t\t\tinner join gestion.parroquia e on e.id = a.id_parroquia\t\t\t\t\t\t\t\t\t\t\t\n                                            where b.id_resolutorio in (387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,405,358) \n\t\t\t\t\t\t\t\t\t\t\t                      and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                            and b.principal is true and a.id_estatus in (3,4,6,7,8) )::decimal, 2) as porcentaje\n\tFROM gestion.caso a\n\tinner join gestion.responsable b on b.id_caso = a.id\n\tinner join gestion.estado f on f.id = a.id_estado\n\tinner join gestion.municipio g on g.id = a.id_municipio\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\n\twhere b.id_resolutorio in (387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,405,358) \n\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\n\tand b.principal is true\tand a.id_estatus in (6) \n\tand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-AGUAS",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 4,
+          "y": 19
+        },
+        "id": 29,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::decimal * 100 / (SELECT count(a.id)\n                                           FROM gestion.caso a\n                                           inner join gestion.responsable b on b.id_caso =  a.id\n                                           inner join gestion.estado f on f.id = a.id_estado\n                                           inner join gestion.municipio g on g.id = a.id_municipio\n                                           inner join gestion.parroquia e on e.id = a.id_parroquia\n                                           where b.id_resolutorio in (353)\n                                           and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                           and b.principal is true\n                                           and a.id_estatus in (3,4,6,7,8))::decimal, 2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (353)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-ELECTRI",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 6,
+          "y": 19
+        },
+        "id": 35,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^porcentaje$/",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / (SELECT count(a.id)\n                                           FROM gestion.caso a\n                                           inner join gestion.responsable b on b.id_caso =  a.id\n                                           inner join gestion.estado f on f.id = a.id_estado\n                                           inner join gestion.municipio g on g.id = a.id_municipio\n                                           inner join gestion.parroquia e on e.id = a.id_parroquia\n                                           where b.id_resolutorio in (371,374,404)\n                                           and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                           and b.principal is true\n                                           and a.id_estatus in (3,4,6,7,8))::Decimal, 2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (371,374,404)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "TELECOM",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 8,
+          "y": 19
+        },
+        "id": 37,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0,
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / (SELECT count(a.id)\n                                           FROM gestion.caso a\n                                           inner join gestion.responsable b on b.id_caso =  a.id\n                                           inner join gestion.estado f on f.id = a.id_estado\n                                           inner join gestion.municipio g on g.id = a.id_municipio\n                                           inner join gestion.parroquia e on e.id = a.id_parroquia\n                                           where b.id_resolutorio in (406)\n                                           and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                           and b.principal is true\n                                           and a.id_estatus in (3,4,6,7,8))::Decimal, 2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (406)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "G-COMUNAL",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 10,
+          "y": 19
+        },
+        "id": 39,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0,
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / (SELECT count(a.id)\n                                           FROM gestion.caso a\n                                           inner join gestion.responsable b on b.id_caso =  a.id\n                                           inner join gestion.estado f on f.id = a.id_estado\n                                           inner join gestion.municipio g on g.id = a.id_municipio\n                                           inner join gestion.parroquia e on e.id = a.id_parroquia\n                                           where b.id_resolutorio in (359)\n                                           and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\n                                           and b.principal is true\n                                           and a.id_estatus in (3,4,6,7,8))::Decimal, 2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (359)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "G-DIRECTO",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 12,
+          "y": 19
+        },
+        "id": 31,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0,
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::decimal * 100 / ( SELECT count(a.id) \n                                            FROM gestion.caso a\n                                            inner join gestion.responsable b on b.id_caso =  a.id\n                                            inner join gestion.estado f on f.id = a.id_estado\n                                            inner join gestion.municipio g on g.id = a.id_municipio\n                                            inner join gestion.parroquia e on e.id = a.id_parroquia\n                                            where b.id_resolutorio in (361)\n                                            and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                            and b.principal is true\n                                            and a.id_estatus in (3,4,6,7,8) )::decimal,2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (361)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "EDUCA-BASICA",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 14,
+          "y": 19
+        },
+        "id": 33,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::decimal * 100 / (SELECT count(a.id)\n                                           FROM gestion.caso a\n                                           inner join gestion.responsable b on b.id_caso =  a.id\n                                           inner join gestion.estado f on f.id = a.id_estado\n                                           inner join gestion.municipio g on g.id = a.id_municipio\n                                           inner join gestion.parroquia e on e.id = a.id_parroquia\n                                           where b.id_resolutorio in (369)\n                                           and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                           and b.principal is true\n                                           and a.id_estatus in (3,4,6,7,8))::decimal,2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (369)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-UNIVERSI",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 16,
+          "y": 19
+        },
+        "id": 41,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": true
+          },
+          "text": {
+            "titleSize": 0,
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc((count(a.id)::decimal * 100) / ( SELECT count(a.id)\n                                              FROM gestion.caso a\n                                              inner join gestion.responsable b on b.id_caso =  a.id\n                                              inner join gestion.estado f on f.id = a.id_estado\n                                              inner join gestion.municipio g on g.id = a.id_municipio\n                                              inner join gestion.parroquia e on e.id = a.id_parroquia\n                                              where b.id_resolutorio in (357)\n                                              and f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n                                              and b.principal is true\n                                              and a.id_estatus in (3,4,6,7,8) )::decimal,2) as porcentaje\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (357)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-SALUD",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "transparent",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 18,
+          "y": 19
+        },
+        "id": 43,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^porcentaje$/",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / ( SELECT count(a.id)\n\t\t\t\t\t\t\t\t\t\t\t\tFROM gestion.caso a\n\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.resolutorio c on c.id = b.id_resolutorio\n\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.estado f on f.id = a.id_estado\n                        inner join gestion.municipio g on g.id = a.id_municipio\n                        inner join gestion.parroquia e on e.id = a.id_parroquia\n\t\t\t\t\t\t\t\t\t\t\t\twhere c.id_tipo_resolutorio in (1)\n\t\t\t\t\t\t\t\t\t\t\t\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n\t\t\t\t\t\t\t\t\t\t\t\tand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\n\t\t\t\t\t\t\t\t\t\t\t\tand b.principal is true\n\t\t\t\t\t\t\t\t\t\t\t\tand a.id_estatus in (3,4,6,8))::Decimal, 2) as porcentaje\n\t\tFROM gestion.caso a\n\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\tinner join gestion.resolutorio c on c.id = b.id_resolutorio\n\t\tinner join gestion.estado f on f.id = a.id_estado\n    inner join gestion.municipio g on g.id = a.id_municipio\n    inner join gestion.parroquia e on e.id = a.id_parroquia\n\t\twhere c.id_tipo_resolutorio in (1)\n\t\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\n\t\tand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\n\t\tand b.principal is true\n\t\tand a.id_estatus in (6) \n\t\tand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "GOB",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "transparent",
+              "mode": "fixed"
+            },
+            "decimals": 2,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 2,
+          "w": 2,
+          "x": 20,
+          "y": 19
+        },
+        "id": 45,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/^porcentaje$/",
+            "values": true
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "value"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / ( SELECT count(a.id)\n\t\t\t\t\t\t\t\t\t\t\t\tFROM gestion.caso a\n\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.resolutorio c on c.id = b.id_resolutorio\n\t\t\t\t\t\t\t\t\t\t\t\tinner join gestion.estado f on f.id = a.id_estado\n                        inner join gestion.municipio g on g.id = a.id_municipio\n                        inner join gestion.parroquia e on e.id = a.id_parroquia\n\t\t\t\t\t\t\t\t\t\t\t\twhere c.id_tipo_resolutorio in (2)\n\t\t\t\t\t\t\t\t\t\t\t\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\n\t\t\t\t\t\t\t\t\t\t\t\tand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\n\t\t\t\t\t\t\t\t\t\t\t\tand b.principal is true\n\t\t\t\t\t\t\t\t\t\t\t\tand a.id_estatus in (3,4,6,8))::Decimal, 2) as porcentaje\n\t\tFROM gestion.caso a\n\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\tinner join gestion.resolutorio c on c.id = b.id_resolutorio\n\t\tinner join gestion.estado f on f.id = a.id_estado\n    inner join gestion.municipio g on g.id = a.id_municipio\n    inner join gestion.parroquia e on e.id = a.id_parroquia\n\t\twhere c.id_tipo_resolutorio in (2)\n\t\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\n\t\tand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\n\t\tand b.principal is true\n\t\tand a.id_estatus in (6) \n\t\tand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ALCALDIAS",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 2,
+          "y": 21
+        },
+        "id": 47,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\n\tFROM gestion.caso a\n\tinner join gestion.responsable b on b.id_caso = a.id\n\tinner join gestion.estado f on f.id = a.id_estado\n\tinner join gestion.municipio g on g.id = a.id_municipio\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\n\twhere b.id_resolutorio in (387,388,389,390,391,392,393,394,395,396,397,398,399,400,401,402,403,405,358) \n\tand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\n\tand b.principal is true\tand a.id_estatus in (6) \n\tand (a.feedback >= 2   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-AGUAS",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 4,
+          "y": 21
+        },
+        "id": 49,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (353)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (6)\nand (a.feedback >= 2   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-ELECTRI",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 6,
+          "y": 21
+        },
+        "id": 55,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (371,374,404)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "TELECOM",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 8,
+          "y": 21
+        },
+        "id": 57,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (406)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "G-COMUNAL",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 10,
+          "y": 21
+        },
+        "id": 59,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (359)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "G-DIRECTO",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 12,
+          "y": 21
+        },
+        "id": 51,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (361)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (6)\nand (a.feedback >= 2   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "EDUCA-BASICA",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 14,
+          "y": 21
+        },
+        "id": 53,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "/.*/",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (369)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true and a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-UNIVERSI",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 16,
+          "y": 21
+        },
+        "id": 61,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere b.id_resolutorio in (357)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand b.principal is true\nand a.id_estatus in (6)\nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MIN-SALUD",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 18,
+          "y": 21
+        },
+        "id": 63,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.resolutorio c on c.id = b.id_resolutorio\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\t\nwhere c.id_tipo_resolutorio in (1)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\t\nand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\nand b.principal is true\nand a.id_estatus in (6) \nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "GOB",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "BimkX51Sz"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "#f5f5f5",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "text",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 2,
+          "x": 20,
+          "y": 21
+        },
+        "id": 65,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {
+            "valueSize": 35
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "SELECT count(a.id)\nFROM gestion.caso a\ninner join gestion.responsable b on b.id_caso =  a.id\ninner join gestion.resolutorio c on c.id = b.id_resolutorio\ninner join gestion.estado f on f.id = a.id_estado\ninner join gestion.municipio g on g.id = a.id_municipio\ninner join gestion.parroquia e on e.id = a.id_parroquia\nwhere c.id_tipo_resolutorio in (2)\nand f.nombre in ($estado) AND g.nombre in ($municipio) AND e.nombre in ($parroquia)\nand a.id_sub_categoria in (1,2,3,4,5,6,7,8)\nand b.principal is true\nand a.id_estatus in (6) \nand (a.feedback >= 3   or  a.verificado = 'SI')",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "ALCALDIAS",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 24
+        },
+        "id": 68,
+        "panels": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "BimkX51Sz"
+            },
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "left",
+                  "axisSoftMin": 0,
+                  "fillOpacity": 76,
+                  "gradientMode": "hue",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineWidth": 2,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "light-green"
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 16,
+              "w": 24,
+              "x": 0,
+              "y": 25
+            },
+            "id": 66,
+            "options": {
+              "barRadius": 0.05,
+              "barWidth": 0.97,
+              "colorByField": "total",
+              "groupWidth": 0.7,
+              "legend": {
+                "calcs": [],
+                "displayMode": "hidden",
+                "placement": "bottom"
+              },
+              "orientation": "auto",
+              "showValue": "auto",
+              "stacking": "none",
+              "text": {},
+              "tooltip": {
+                "mode": "multi",
+                "sort": "none"
+              },
+              "xTickLabelRotation": -30,
+              "xTickLabelSpacing": 0
+            },
+            "pluginVersion": "8.5.3",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "postgres",
+                  "uid": "BimkX51Sz"
+                },
+                "format": "table",
+                "group": [],
+                "metricColumn": "none",
+                "rawQuery": true,
+                "rawSql": "select  CONCAT(case when to_char(a.fecha, 'd') = '1' then 'DOMINGO'\r\n                    when to_char(a.fecha, 'd') = '2' then 'LUNES'\r\n                    when to_char(a.fecha, 'd') = '3' then 'MARTES'\r\n                    when to_char(a.fecha, 'd') = '4' then 'MIERCOLES'\r\n                    when to_char(a.fecha, 'd') = '5' then 'JUEVES'\r\n                    when to_char(a.fecha, 'd') = '6' then 'VIERNES'\r\n                    when to_char(a.fecha, 'd') = '7' then 'SABADO'\r\n                    end\r\n \r\n        ,CHR(13),to_char(a.fecha, 'dd-mm-YYYY')) as fecham,\r\n        to_char(a.fecha, 'YYYY-mm-dd')  as fechao , \r\n        count(a.fecha) as total\r\n  from gestion.caso a\r\n  inner join gestion.estado b on b.id = a.id_estado\r\n\tinner join gestion.municipio c on c.id = a.id_municipio\r\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\r\n  inner join gestion.estatus f on f.id = a.id_estatus\r\n  inner JOIN  gestion.category j ON j.id = a.id_sub_categoria\r\n  where $__timeFilter(a.fecha)\r\n\tand b.nombre in ($estado) AND c.nombre in ($municipio) AND e.nombre in ($parroquia)\r\n\tand j.name in ($subcategoria)\r\n\tand a.id_estatus = 5  --f.nombre in ($estatus)\r\n  group by fecham,fechao order by fechao",
+                "refId": "A",
+                "select": [
+                  [
+                    {
+                      "params": [
+                        "value"
+                      ],
+                      "type": "column"
+                    }
+                  ]
+                ],
+                "timeColumn": "time",
+                "where": [
+                  {
+                    "name": "$__timeFilter",
+                    "params": [],
+                    "type": "macro"
+                  }
+                ]
+              }
+            ],
+            "title": "HISTÓRICO DE CASOS DEVUELTO A VENAPP DESDE EL SISTEMA (ÚLTIMOS DÍAS)",
+            "transparent": true,
+            "type": "barchart"
+          }
+        ],
+        "title": "CASOS DEVUELTO A VENAPP ",
+        "type": "row"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "MIRANDA",
+            "value": "MIRANDA"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select nombre from gestion.estado",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Estado",
+          "multi": false,
+          "name": "estado",
+          "options": [],
+          "query": "select nombre from gestion.estado",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "allValue": "",
+          "current": {
+            "selected": true,
+            "text": [
+              "CHACAO"
+            ],
+            "value": [
+              "CHACAO"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Municipio",
+          "multi": true,
+          "name": "municipio",
+          "options": [],
+          "query": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "CHACAO"
+            ],
+            "value": [
+              "CHACAO"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Parroquia",
+          "multi": true,
+          "name": "parroquia",
+          "options": [],
+          "query": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "AGUA"
+            ],
+            "value": [
+              "AGUA"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select name from gestion.category  -- where id in (8)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Categoria",
+          "multi": true,
+          "name": "subcategoria",
+          "options": [],
+          "query": "select name from gestion.category  -- where id in (8)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "GENERADO",
+              "RECIBIDO",
+              "ASIGNADO",
+              "EN PROCESO",
+              "ATENDIDO",
+              "CONFIRMADO",
+              "POR SOLUCIONAR"
+            ],
+            "value": [
+              "GENERADO",
+              "RECIBIDO",
+              "ASIGNADO",
+              "EN PROCESO",
+              "ATENDIDO",
+              "CONFIRMADO",
+              "POR SOLUCIONAR"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "BimkX51Sz"
+          },
+          "definition": "select nombre from gestion.estatus where id!=5 --and id!=6",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Estatus",
+          "multi": true,
+          "name": "estatus",
+          "options": [],
+          "query": "select nombre from gestion.estatus where id!=5 --and id!=6",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-30d",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "HISTÓRICO DE CASOS RECIBIDO EN EL SISTEMA DESDE VENAPP",
+    "uid": "DOILULE4z",
+    "version": 5,
+    "weekStart": ""
+  }
