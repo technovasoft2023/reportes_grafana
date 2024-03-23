@@ -1,0 +1,282 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 522,
+    "iteration": 1711234835194,
+    "links": [],
+    "liveNow": true,
+    "panels": [
+      {
+        "datasource": {
+          "type": "postgres",
+          "uid": "guf17c1Sz"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "text",
+              "mode": "fixed"
+            },
+            "custom": {
+              "align": "right",
+              "displayMode": "color-text",
+              "filterable": false,
+              "inspect": false,
+              "minWidth": 4
+            },
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "dark-red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "MINISTERIOS E INSTITUCIONES"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "text",
+                    "mode": "fixed"
+                  }
+                },
+                {
+                  "id": "custom.align",
+                  "value": "auto"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 587
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "% EFECTIVIDAD %"
+              },
+              "properties": [
+                {
+                  "id": "decimals",
+                  "value": 2
+                },
+                {
+                  "id": "unit",
+                  "value": "percent"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 22,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "footer": {
+            "enablePagination": false,
+            "fields": [
+              "RECIBIDO",
+              "ATENDIDO",
+              "EN PROCESO",
+              "POR CONFIRMAR",
+              "ASIGNADO"
+            ],
+            "reducer": [
+              "sum"
+            ],
+            "show": true
+          },
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "% EFECTIVIDAD %"
+            }
+          ]
+        },
+        "pluginVersion": "8.5.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "postgres",
+              "uid": "guf17c1Sz"
+            },
+            "format": "table",
+            "group": [],
+            "metricColumn": "none",
+            "rawQuery": true,
+            "rawSql": "select z.nombre::Text \"MINISTERIOS E INSTITUCIONES\",\nsum(CASE WHEN a.id_estatus in (3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\nsum(CASE WHEN a.id_estatus in (3) THEN 1 ELSE 0 END) AS \"ASIGNADO\",\nsum(CASE WHEN a.id_estatus in (4,8) THEN 1 ELSE 0 END) AS \"EN PROCESO\",\nsum(CASE WHEN a.id_estatus in (6) AND ((a.feedback < 2 and a.verificado is null) or (a.feedback is null and a.verificado is null)) THEN 1 ELSE 0 END) AS \"POR CONFIRMAR\",\nsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", --, count(a.id) as \"TOTAL\"\ntrunc(sum(CASE WHEN a.id_estatus in (6) and z.id_tipo_resolutorio in (3,4) AND (a.feedback >= 2 or a.verificado = 'SI')\nTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\nfrom gestion.caso a\ninner join gestion.category c on c.id = a.id_sub_categoria\ninner join gestion.responsable e on e.id_caso =  a.id\ninner join gestion.resolutorio z on z.id =  e.id_resolutorio\ninner join gestion.estado b on b.id = a.id_estado\ninner join gestion.municipio mun on mun.id = a.id_municipio\ninner join gestion.parroquia par on par.id = a.id_parroquia\nwhere  a.id_estatus in (3,4,6,8)\nand z.id_tipo_resolutorio in (3,4)  and b.id < 25\nand e.principal is true \nand b.nombre in ($estado)\nand mun.nombre in ($municipio)\nand par.nombre in ($parroquia)\nand z.id in (478,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,595,596,598,354,553,561,597,563,566,599,503,453)\ngroup by z.nombre\nHAVING count(*) > 1\norder by \"% EFECTIVIDAD %\" desc",
+            "refId": "A",
+            "select": [
+              [
+                {
+                  "params": [
+                    "value"
+                  ],
+                  "type": "column"
+                }
+              ]
+            ],
+            "timeColumn": "time",
+            "where": [
+              {
+                "name": "$__timeFilter",
+                "params": [],
+                "type": "macro"
+              }
+            ]
+          }
+        ],
+        "title": "MINISTERIOS E INSTITUCIONES POR ESTADO ($estado) MUNICIPIO ($municipio) PARROQUIA ($parroquia))",
+        "type": "table"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "TACHIRA",
+            "value": "TACHIRA"
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "guf17c1Sz"
+          },
+          "definition": "SELECT nombre FROM gestion.estado where id = 19 order by id",
+          "hide": 0,
+          "includeAll": false,
+          "label": "Estado",
+          "multi": true,
+          "name": "estado",
+          "options": [],
+          "query": "SELECT nombre FROM gestion.estado where id = 19 order by id",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "guf17c1Sz"
+          },
+          "definition": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Municipio",
+          "multi": true,
+          "name": "municipio",
+          "options": [],
+          "query": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "datasource": {
+            "type": "postgres",
+            "uid": "guf17c1Sz"
+          },
+          "definition": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "Parroquia",
+          "multi": true,
+          "name": "parroquia",
+          "options": [],
+          "query": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "2022-11-02T13:40:10.016Z",
+      "to": "2022-11-02T14:00:10.016Z"
+    },
+    "timepicker": {
+      "hidden": false,
+      "refresh_intervals": [
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "MINISTERIOS E INSTUTUCIONES POR ESTADOS Y MUNICIPIO V3",
+    "uid": "QM6qzk97k1911",
+    "version": 3,
+    "weekStart": "monday"
+  }
