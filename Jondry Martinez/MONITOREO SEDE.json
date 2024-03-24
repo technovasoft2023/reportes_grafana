@@ -1,0 +1,1055 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 560,
+  "iteration": 1711303244028,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "axisSoftMin": 0,
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.84,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right"
+        },
+        "orientation": "vertical",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 20
+        },
+        "tooltip": {
+          "mode": "none",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "--Total de Casos por Fecha\nselect  to_char(a.fecha, 'dd-mm-YYYY') as fecham, to_char(a.fecha, 'YYYY-mm-dd') as fechao,\n\tcount(a.fecha) as total\n    from gestion.caso a\n        inner join gestion.historico d on d.id_caso = a.id  \n\twhere  a.fecha > CAST(now()::timestamp AS DATE) - CAST('15 days' AS INTERVAL)  \n\tand a.id_sub_categoria in (10,12,13, 5,6,7,8,9,11,16,17)--(1,2,3,4,5,7,8,9) \n\t--and d.active = 1\n\tand d.id_estatus in (1,2,3,4,6,7,8)\n        group by fecham, fechao\n        order by fechao",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "HISTÓRICO DE CASOS RECIBIDO EN EL SISTEMA DESDE LA VENAPP (ÚLTIMOS DÍAS)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "axisSoftMin": 0,
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 3,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.84,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right"
+        },
+        "orientation": "vertical",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 20
+        },
+        "tooltip": {
+          "mode": "none",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "--Total de Casos por Fecha\nselect  to_char(a.fecha, 'HH24') as fecham, to_char(a.fecha, 'YYYY-mm-dd') as fechao,\tcount(a.fecha) as total\n    from gestion.caso a\n        inner join gestion.historico d on d.id_caso = a.id  \n\twhere  to_char(a.fecha, 'YYYY-mm-dd') = to_char(CAST(now()::timestamp AS DATE), 'YYYY-mm-dd') --CAST(now()::timestamp AS DATE) - CAST('1 days' AS INTERVAL)  \n\tand a.id_sub_categoria in (10,12,13, 5,6,7,8,9,11,16,17)--(1,2,3,4,5,7,8,9) \n\t--and d.active = 1\n\tand d.id_estatus in (1,2,3,4,6,7,8)\n        group by fecham, fechao\n        order by fechao\n        limit 24;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "HISTÓRICO DE CASOS RECIBIDOS POR HORA PARA EL DIA $dia DE VENAPP ",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 12
+      },
+      "id": 5,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\t--INNER join public.session s on s.user_id::integer = us.id\n\t\t--INNERINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');*/\n\t\t",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "USUARIOS CONECTADOS PCP",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 8,
+        "y": 12
+      },
+      "id": 7,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');*/\n\t\t",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "USUARIOS CONECTADOS RESOLUTORES",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 15,
+        "y": 12
+      },
+      "id": 9,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor', 'operador','operador-nacional','coordinador','supervisor-especial');*/\n\t\t",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL USUARIOS CONECTADOS ",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 17
+      },
+      "id": 11,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');*/",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL DE SESIONES  USUARIOS PCP",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 8,
+        "y": 17
+      },
+      "id": 13,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');*/",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL DE SESIONES  USUARIOS RESOLUTORES",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 15,
+        "y": 17
+      },
+      "id": 15,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial','resolutor-nacional', 'resolutor');*/",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL DE SESIONES  USUARIOS ",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "id": 19,
+      "panels": [],
+      "title": "DETALLE USUARIO ACTIVO EN EL SISTEMA 1X10",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TOTAL SESIONES"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NUM"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 75
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 17,
+      "options": {
+        "footer": {
+          "enablePagination": true,
+          "fields": [
+            "TOTAL"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "\r\n SELECT \r\n ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\",\r\n  UPPER(us.username)::Text \"USUARIO\",\r\n    UPPER(us.first_name  || ' ' || us.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\t  UPPER(r.nombre)::TEXT \"ROL\",\r\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL SESIONES\"\r\nFROM public.user us \r\ninner join public.user_rol ur  on us.id= ur.id_usuario\r\ninner join public.rol r on r.id = ur.id_role\r\nLEFT join gestion.resolutorio res on res.id  = us.id_resolutorio\r\n\tGROUP BY us.username, r.nombre, \"NOMBRE Y APELLIDO\", res.nombre\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc;\r\n\r\n/*SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", \r\n    UPPER(u.username)::Text \"USUARIO\",\r\n    UPPER(usd.name || ' ' || usd.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\t  UPPER(c.item_name)::TEXT \"ROL\",\r\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL SESIONES\"\r\n\t\tFROM public.session us\r\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\r\n\t\tinner join public.user u on u.id = usd.user_id\r\n\t\tLEFT join gestion.resolutorio res on res.id = usd.id_resolutorio\r\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\r\n\t\twhere --res.nombre is not null\r\n\t\tc.item_name in ('operador','operador-nacional','coordinador','coordinador-especial','supervisor-especial', 'resolutor','resolutor-nacional')\r\n\t\tGROUP BY us.user_id, c.item_name, \"USUARIO\", \"NOMBRE Y APELLIDO\", u.username, res.nombre\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc*/",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "CANTIDAD DE USUARIOS CONECTADOS",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 22,
+      "panels": [],
+      "title": "CANTIDAD DE CASOS RECIBIDOS POR SUB-CATEGORIA. $dia",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "xgyvEJJSk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "axisSoftMin": 0,
+            "fillOpacity": 60,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 20,
+      "options": {
+        "barRadius": 0.3,
+        "barWidth": 0.59,
+        "colorByField": "SUB-CATEGORIA",
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right"
+        },
+        "orientation": "horizontal",
+        "showValue": "auto",
+        "stacking": "none",
+        "text": {
+          "valueSize": 18
+        },
+        "tooltip": {
+          "mode": "none",
+          "sort": "none"
+        },
+        "xField": "SUB-CATEGORIA",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "xgyvEJJSk"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "--Total de Casos por Fecha\n  select  sc.name::text \"SUB-CATEGORIA\", count(*) as total\n  from gestion.caso a\n  inner join gestion.historico d on d.id_caso = a.id  \n  inner join gestion.category sc on sc.id = a.id_sub_categoria\n\twhere  to_char(a.fecha, 'YYYY-mm-dd') = to_char(CAST(now()::timestamp AS DATE), 'YYYY-mm-dd')   \n\t/*and d.active = 1*/ and d.id_estatus in (1,2,3,4,6,7,8)\n\tand a.id_sub_categoria in (SELECT  c.id FROM gestion.category c\n                 inner join gestion.category cc on cc.id = c.parent where cc.parent is null and c.id <= 17\n                 order by c.id asc) \n        group by sc.name\n        order by count(*) desc\n        limit 24;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "HISTÓRICO DE CASOS RECIBIDO POR HORA PARA EL DIA $dia DE VENAPP POR CATEGORIA",
+      "type": "barchart"
+    }
+  ],
+  "refresh": "15m",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "24-03-2024",
+          "value": "24-03-2024"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "xgyvEJJSk"
+        },
+        "definition": "SELECT to_char(CAST(now()::timestamp AS DATE), 'dd-MM-YYYY')",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "dia",
+        "options": [],
+        "query": "SELECT to_char(CAST(now()::timestamp AS DATE), 'dd-MM-YYYY')",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "MONITOREO CASO SEDE V3",
+  "uid": "LMKaiRDIz",
+  "version": 5,
+  "weekStart": ""
+}
