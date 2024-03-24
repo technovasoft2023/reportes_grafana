@@ -1,0 +1,631 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 563,
+  "iteration": 1711250901962,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "hR8Azx1Iz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cedula"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "codigo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 105
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "telefono"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "estado"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "municipio"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "estatus"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "asunto"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fechacreacion"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ASUNTO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 175
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTATUS"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 64
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTADO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 78
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CEDULA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 84
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FECHA ACT"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESPONSABLE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 160
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MUNICIPIO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 89
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELF. DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELF. RESPONSABLE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELEFONO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 73
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CATEGORIA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "EXTCATEG"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 171
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO CASO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SUBCATEG"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 71
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DESCRIP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 91
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CATEG ADI"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 77
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "INSTITUCION"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 471
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO CASO S"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 49
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQ"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LATITUD"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              },
+              {
+                "id": "decimals",
+                "value": 10
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LONGITUD"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              },
+              {
+                "id": "decimals",
+                "value": 10
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "hR8Azx1Iz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "    SELECT  a.nombre::Text \"CODIGO CASO\",\n            a.titulo as \"ASUNTO\",\n            a.descripcion::TEXT \"DESCRIP\", \n    \t\t    e.cedula::Text \"CEDULA DENUNCIANTE\",\n    \t\t    e.nombre::TEXT \"NOMBRE DENUNCIANTE\",\n    \t\t\t  e.telefono::Text \"TELEFONO\",\n    \t\t\t  e.telefono_alt::Text \"TELEFONO ALT\",\n    \t\t\t  b.nombre::Text \"ESTADO\", \n    \t\t\t  c.nombre::Text \"MUNICIPIO\",\n    \t\t\t  d.nombre::Text \"PARROQ\", \n    \t\t\t  a.latitud::decimal \"LATITUD\",\n\t  \t      a.longitud::decimal \"LONGITUD\",\n\t  \t      a.direccion::Text \"DIRECCION\", \n    \t\t\t  f.name::Text \"CATEGORIA\", \n    \t\t\t  g.name::Text \"SUBCATEG\",\n    \t\t\t  case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \n            case when n.name is null then 'Sin Categ Adi' else n.name end::Text \"CATEG ADI\",\n    \t\t\t  i.nombre::Text \"ESTATUS\",\n    \t\t\t  to_char(a.fecha,'dd-mm-YY hh:mm:ss') as \"FECHA CREACION\",\n    \t\t\t  to_char(a.fecha_registro,'dd-mm-YY hh:mm:ss') as \"FECHA ESTATUS\",\n            case when k.nombre is null then 'Analizando' else k.nombre end::Text \"INSTITUCION\",\n            case when w.username is null then 'Analizando' else (w.first_name || ' ' || w.last_name ) end::Text \"RESPONSABLE\",\n    \t\t\t  w.phone::Text \"TELF. RESP\"\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id     \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id and j.principal is true\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n            LEFT JOIN  gestion.category n ON n.id = a.id_adicional_categoria\n            where a.id_estatus in (3,4,8)\n            and $__timeFilter(a.fecha)\n            and a.nombre in ($estado) \n            and c.nombre in ($municipio) \n            and d.nombre in ($parroquia)\n            and i.nombre in ($estatus)\n            order by a.nombre desc;",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "LISTADO DE CASOS POR ESTADO",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "CARACAS",
+          "value": "CARACAS"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "hR8Azx1Iz"
+        },
+        "definition": "SELECT nombre FROM gestion.estado where id < 26 order by id",
+        "hide": 0,
+        "includeAll": false,
+        "label": "ESTADO",
+        "multi": true,
+        "name": "estado",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.estado where id < 26 order by id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "LIBERTADOR"
+          ],
+          "value": [
+            "LIBERTADOR"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "hR8Azx1Iz"
+        },
+        "definition": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "MUNICIPIO",
+        "multi": true,
+        "name": "municipio",
+        "options": [],
+        "query": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "LA VEGA"
+          ],
+          "value": [
+            "LA VEGA"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "hR8Azx1Iz"
+        },
+        "definition": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "PARROQUIA",
+        "multi": true,
+        "name": "parroquia",
+        "options": [],
+        "query": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "ASIGNADO"
+          ],
+          "value": [
+            "ASIGNADO"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "hR8Azx1Iz"
+        },
+        "definition": "SELECT nombre FROM gestion.estatus where id in (3,4,8)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ESTATUS",
+        "multi": true,
+        "name": "estatus",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.estatus where id in (3,4,8)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5y",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "REPORTE - DETALLADOS - POR - ESTADOS",
+  "uid": "H54cJYAIz",
+  "version": 3,
+  "weekStart": ""
+}
