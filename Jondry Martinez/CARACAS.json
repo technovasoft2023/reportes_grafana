@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 453,
-  "iteration": 1710724757225,
+  "iteration": 1711310506906,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -497,7 +497,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT COUNT(*)\nfrom (SELECT id_caso,count(*)\n      FROM gestion.responsable\n      where id_caso in (select a.id\n                        from gestion.caso a\n                        inner join gestion.categry g on g.id = a.id_categoria\n                        inner join gestion.historico d on d.id_caso = a.id\n                        inner join gestion.responsable e on e.id_caso = a.id\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\n                        where r.id in (SELECT id \n\t\t\t\t\t\t\t\t\t\t\t                 FROM gestion.resolutorio\n\t\t\t\t\t\t\t\t\t\t\t                 where nombre in ($resolutorea)\n\t\t\t\t\t\t\t\t\t\t\t                 and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\n                        and g.name in ($subcateg)\n                        --and d.active = 1\n                        and e.principal is true\n                        and d.id_estatus in (3,4,6,8))\n      group by id_caso\n      HAVING count(id_caso) > 0) as Total",
+          "rawSql": "SELECT COUNT(*)\nfrom (SELECT id_caso,count(*)\n      FROM gestion.responsable\n      where id_caso in (select a.id\n                        from gestion.caso a\n                        inner join gestion.category g on g.id = a.id_categoria\n                        inner join gestion.historico d on d.id_caso = a.id\n                        inner join gestion.responsable e on e.id_caso = a.id\n                        inner join gestion.resolutorio r on r.id = e.id_resolutorio\n                        where r.id in (SELECT id \n\t\t\t\t\t\t\t\t\t\t\t                 FROM gestion.resolutorio\n\t\t\t\t\t\t\t\t\t\t\t                 where nombre in ($resolutorea)\n\t\t\t\t\t\t\t\t\t\t\t                 and id_estado in (SELECT id FROM gestion.resolutorio where nombre in ($resolutorg)))\n                        and g.name in ($subcateg)\n                        --and d.active = 1\n                        and e.principal is true\n                        and d.id_estatus in (3,4,6,8))\n      group by id_caso\n      HAVING count(id_caso) > 0) as Total",
           "refId": "A",
           "select": [
             [
@@ -1227,7 +1227,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT a.nombre ::Text \"GOBERNACION UNICOS\",\n    \te.cedula::Text \"CEDULA\",\n    \te.nombre::TEXT \"DENUNCIANTE\",\n    \te.telefono::Text \"TELEFONO\",\n    \t--b.nombre::Text \"ESTADO\",\n    \t--c.nombre::Text \"MUNICIPIO\",\n    \td.nombre::Text \"PARROQ\",\n    \ta.direccion::Text \"DIR\",\n      \ta.descripcion::TEXT \"DESCRIP\", \n\t  \tf.name /*f.nombre::Text*/ \"CATEGORIA\",\n\t  \t--f.name::Text \"SUBCATEG\",\n\t  \t--null /*z.latitud::decimal*/ \"LATITUD\",\n\t  \t--null /*z.longitud::decimal*/ \"LONGITUD\",\n\t  \tto_char(a.fecha,'dd-mm-YY') as \"FECHA GENERADO\",\n    \tto_char(h.fecha_registro,'dd-mm-YY') as \"FECHA ULTIMO ESTATUS\",\n\t  \t--null /*case when m.nombre is null then 'Sin ExtCateg' else m.nombre end::Text*/ \"EXTCATEG\", \n\t\ti.nombre::Text \"ESTATUS\"\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            --inner join gestion.sub_categoria g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.historico h ON h.id_caso = a.id\n            inner JOIN  gestion.estatus i ON h.id_estatus = i.id \n          --  inner join gestion.ubicacion z on z.id_caso = a.id\n            LEFT JOIN  gestion.responsable j ON j.id_caso = h.id_caso --and j.id_user is not null\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            --LEFT JOIN  public.user_detail v ON w.id = v.user_id\n            --LEFT JOIN  gestion.extra_categoria m ON m.id = a.id_extra_categoria\n      where -- h.active = 1\n\t\t\t k.nombre in ($resolutorg)\n\t\t\tand f.name in ($subcateg)\n\t\t\tand j.principal is true\n\t\t\tand h.id_estatus in (3,4,6,7,8)",
+          "rawSql": "SELECT a.nombre ::Text \"GOBERNACION UNICOS\",\n    \te.cedula::Text \"CEDULA\",\n    \te.nombre::TEXT \"DENUNCIANTE\",\n    \te.telefono::Text \"TELEFONO\",\n    \tb.nombre::Text \"ESTADO\",\n    \tc.nombre::Text \"MUNICIPIO\",\n    \td.nombre::Text \"PARROQ\",\n    \ta.direccion::Text \"DIR\",\n      \ta.descripcion::TEXT \"DESCRIP\", \n\t  \tf.name /*f.nombre::Text*/ \"CATEGORIA\",\n\t  \tg.name::Text \"SUBCATEG\",\n\t  \t--null /*z.latitud::decimal*/ \"LATITUD\",\n\t  \t--null /*z.longitud::decimal*/ \"LONGITUD\",\n\t  \tto_char(a.fecha,'dd-mm-YY') as \"FECHA GENERADO\",\n    \tto_char(h.fecha_registro,'dd-mm-YY') as \"FECHA ULTIMO ESTATUS\",\n\t   case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \n\t\ti.nombre::Text \"ESTATUS\"\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.historico h ON h.id_caso = a.id\n            inner JOIN  gestion.estatus i ON h.id_estatus = i.id \n          --  inner join gestion.ubicacion z on z.id_caso = a.id\n            LEFT JOIN  gestion.responsable j ON j.id_caso = h.id_caso --and j.id_user is not null\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            --LEFT JOIN  public.user_detail v ON w.id = v.user_id\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n      where -- h.active = 1\n\t\t\t k.nombre in ($resolutorg)\n\t\t\tand f.name in ($subcateg)\n\t\t\tand j.principal is true\n\t\t\tand h.id_estatus in (3,4,6,7,8)",
           "refId": "GOB UNICOS",
           "select": [
             [
@@ -1258,7 +1258,7 @@
           "hide": false,
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT a.nombre::Text \"ALCALDIA UNICOS\",\n    \te.cedula::Text \"CEDULA\",\n    \te.nombre::TEXT \"DENUNCIANTE\",\n    \te.telefono::Text \"TELEFONO\",\n    --\tb.nombre::Text \"ESTADO\",\n    --\tc.nombre::Text \"MUNICIPIO\",\n    \td.nombre::Text \"PARROQ\",\n    \ta.direccion::Text \"DIR\",\n    \ta.descripcion::TEXT \"DESCRIP\", \n\t  \tf.name::Text \"CATEGORIA\",\n\t  --\tg.nombre::Text \"SUBCATEG\",\n\t  \t--z.latitud::decimal \"LATITUD\",\n\t  --\tz.longitud::decimal \"LONGITUD\",\n\t  \tto_char(a.fecha,'dd-mm-YY') as \"FECHA GENERADO\",\n    \tto_char(h.fecha_registro,'dd-mm-YY') as \"FECHA ULTIMO ESTATUS\",\n\t  --\tcase when m.nombre is null then 'Sin ExtCateg' else m.nombre end::Text \"EXTCATEG\", \n\t\ti.nombre::Text \"ESTATUS\"\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            --inner join gestion.sub_categoria g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.historico h ON h.id_caso = a.id\n            inner JOIN  gestion.estatus i ON h.id_estatus = i.id\n            --inner join gestion.ubicacion z on z.id_caso = a.id\n            inner JOIN  gestion.responsable j ON j.id_caso = h.id_caso --and j.id_user is not null\n            inner JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n\t\t\tinner JOIN  gestion.resolutorio kk ON kk.id_estado = k.id_estado \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            --LEFT JOIN  public.user_detail v ON w.id = v.user_id\n            --LEFT JOIN  gestion.extra_categoria m ON m.id = a.id_extra_categoria\n      where  /*h.active = 1\n\t\t\tand*/ k.nombre in ($resolutorea) and kk.nombre in ($resolutorg)\n\t\t\tand f.name in ($subcateg)\n\t\t\tand j.principal is true\n\t\t\tand h.id_estatus in (3,4,6,7,8)\n      --and h.active = 1",
+          "rawSql": "SELECT a.nombre::Text \"ALCALDIA UNICOS\",\n    \te.cedula::Text \"CEDULA\",\n    \te.nombre::TEXT \"DENUNCIANTE\",\n    \te.telefono::Text \"TELEFONO\",\n    \tb.nombre::Text \"ESTADO\",\n    \tc.nombre::Text \"MUNICIPIO\",\n    \td.nombre::Text \"PARROQ\",\n    \ta.direccion::Text \"DIR\",\n    \ta.descripcion::TEXT \"DESCRIP\", \n\t  \tf.name::Text \"CATEGORIA\",\n\t    g.name::Text \"SUBCATEG\",\n\t  \t--z.latitud::decimal \"LATITUD\",\n\t  --\tz.longitud::decimal \"LONGITUD\",\n\t  \tto_char(a.fecha,'dd-mm-YY') as \"FECHA GENERADO\",\n    \tto_char(h.fecha_registro,'dd-mm-YY') as \"FECHA ULTIMO ESTATUS\",\n\t  case when m.name is null then 'Sin ExtCateg' else m.name end::Text \"EXTCATEG\", \n\t\ti.nombre::Text \"ESTATUS\"\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.historico h ON h.id_caso = a.id\n            inner JOIN  gestion.estatus i ON h.id_estatus = i.id\n            --inner join gestion.ubicacion z on z.id_caso = a.id\n            inner JOIN  gestion.responsable j ON j.id_caso = h.id_caso --and j.id_user is not null\n            inner JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n\t\t\tinner JOIN  gestion.resolutorio kk ON kk.id_estado = k.id_estado \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            --LEFT JOIN  public.user_detail v ON w.id = v.user_id\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n      where  /*h.active = 1\n\t\t\tand*/ k.nombre in ($resolutorea) and kk.nombre in ($resolutorg)\n\t\t\tand f.name in ($subcateg)\n\t\t\tand j.principal is true\n\t\t\tand h.id_estatus in (3,4,6,7,8)\n      --and h.active = 1",
           "refId": "ALCALDIA UNICO",
           "select": [
             [
@@ -1444,7 +1444,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "dark-red",
@@ -1579,7 +1580,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "dark-red",
@@ -1792,6 +1794,6 @@
   "timezone": "",
   "title": "CARACAS V3",
   "uid": "ZbRN7hR4z",
-  "version": 8,
+  "version": 10,
   "weekStart": ""
 }

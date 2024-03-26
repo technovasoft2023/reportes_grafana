@@ -25,7 +25,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 560,
-  "iteration": 1711303244028,
+  "iteration": 1711417786833,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -308,7 +308,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\t--INNER join public.session s on s.user_id::integer = us.id\n\t\t--INNERINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');*/\n\t\t",
+          "rawSql": "  SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role\ninner join public.session s on s.id_usuario = us.id ;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\t--INNER join public.session s on s.user_id::integer = us.id\n\t\t--INNERINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');*/\n\t\t",
           "refId": "A",
           "select": [
             [
@@ -390,7 +390,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');*/\n\t\t",
+          "rawSql": "  SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role\ninner join public.session s on s.id_usuario = us.id ;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');*/\n\t\t",
           "refId": "A",
           "select": [
             [
@@ -472,7 +472,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor', 'operador','operador-nacional','coordinador','supervisor-especial');*/\n\t\t",
+          "rawSql": "  SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role\ninner join public.session s on s.id_usuario = us.id ;\n\n/*SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor', 'operador','operador-nacional','coordinador','supervisor-especial');*/\n\t\t",
           "refId": "A",
           "select": [
             [
@@ -554,7 +554,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": " SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');*/",
+          "rawSql": "  SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role \ninner join public.session s on s.id_usuario = us.id;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');*/",
           "refId": "A",
           "select": [
             [
@@ -636,7 +636,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": " SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');*/",
+          "rawSql": "  SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role\ninner join public.session s on s.id_usuario = us.id ;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');*/",
           "refId": "A",
           "select": [
             [
@@ -718,7 +718,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": " SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial','resolutor-nacional', 'resolutor');*/",
+          "rawSql": "  SELECT count(*) AS \"TOTAL\" \n\t\tFROM public.user us \ninner join public.user_rol ur  on us.id= ur.id_usuario\ninner join public.rol r on r.id = ur.id_role\ninner join public.session s on s.id_usuario = us.id ;\n\n/*SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial','resolutor-nacional', 'resolutor');*/",
           "refId": "A",
           "select": [
             [
@@ -815,6 +815,18 @@
                 "value": "center"
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESOLUTOR"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 251
+              }
+            ]
           }
         ]
       },
@@ -850,7 +862,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "\r\n SELECT \r\n ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\",\r\n  UPPER(us.username)::Text \"USUARIO\",\r\n    UPPER(us.first_name  || ' ' || us.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\t  UPPER(r.nombre)::TEXT \"ROL\",\r\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL SESIONES\"\r\nFROM public.user us \r\ninner join public.user_rol ur  on us.id= ur.id_usuario\r\ninner join public.rol r on r.id = ur.id_role\r\nLEFT join gestion.resolutorio res on res.id  = us.id_resolutorio\r\n\tGROUP BY us.username, r.nombre, \"NOMBRE Y APELLIDO\", res.nombre\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc;\r\n\r\n/*SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", \r\n    UPPER(u.username)::Text \"USUARIO\",\r\n    UPPER(usd.name || ' ' || usd.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\t  UPPER(c.item_name)::TEXT \"ROL\",\r\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL SESIONES\"\r\n\t\tFROM public.session us\r\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\r\n\t\tinner join public.user u on u.id = usd.user_id\r\n\t\tLEFT join gestion.resolutorio res on res.id = usd.id_resolutorio\r\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\r\n\t\twhere --res.nombre is not null\r\n\t\tc.item_name in ('operador','operador-nacional','coordinador','coordinador-especial','supervisor-especial', 'resolutor','resolutor-nacional')\r\n\t\tGROUP BY us.user_id, c.item_name, \"USUARIO\", \"NOMBRE Y APELLIDO\", u.username, res.nombre\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc*/",
+          "rawSql": "\r\n SELECT \r\n ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\",\r\n  UPPER(us.username)::Text \"USUARIO\",\r\n    UPPER(us.first_name  || ' ' || us.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\t  UPPER(r.nombre)::TEXT \"ROL\",\r\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", \r\n    count(*) as \"TOTAL SESIONES\"\r\nFROM public.session ss\r\ninner join public.user us on us.id = ss.id_usuario\r\ninner join public.user_rol ur  on us.id= ur.id_usuario\r\ninner join public.rol r on r.id = ur.id_role\r\nLEFT join gestion.resolutorio res on res.id  = us.id_resolutorio\r\n\tGROUP BY us.username, r.nombre, \"NOMBRE Y APELLIDO\", res.nombre\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc;\r\n\r\n/*SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", \r\n    UPPER(u.username)::Text \"USUARIO\",\r\n    UPPER(usd.name || ' ' || usd.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\t  UPPER(c.item_name)::TEXT \"ROL\",\r\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL SESIONES\"\r\n\t\tFROM public.session us\r\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\r\n\t\tinner join public.user u on u.id = usd.user_id\r\n\t\tLEFT join gestion.resolutorio res on res.id = usd.id_resolutorio\r\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\r\n\t\twhere --res.nombre is not null\r\n\t\tc.item_name in ('operador','operador-nacional','coordinador','coordinador-especial','supervisor-especial', 'resolutor','resolutor-nacional')\r\n\t\tGROUP BY us.user_id, c.item_name, \"USUARIO\", \"NOMBRE Y APELLIDO\", u.username, res.nombre\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc*/",
           "refId": "A",
           "select": [
             [
@@ -1011,8 +1023,8 @@
       {
         "current": {
           "selected": false,
-          "text": "24-03-2024",
-          "value": "24-03-2024"
+          "text": "25-03-2024",
+          "value": "25-03-2024"
         },
         "datasource": {
           "type": "postgres",
@@ -1050,6 +1062,6 @@
   "timezone": "",
   "title": "MONITOREO CASO SEDE V3",
   "uid": "LMKaiRDIz",
-  "version": 5,
+  "version": 8,
   "weekStart": ""
 }
