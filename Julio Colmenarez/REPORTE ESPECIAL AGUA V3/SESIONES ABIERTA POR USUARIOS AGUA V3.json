@@ -1,0 +1,245 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 570,
+  "iteration": 1711469159888,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "W3GTq-1Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TOTAL"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "USUARIOS"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 143
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESOLUTOR"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 255
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NUM"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 104
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NUM"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DESCRIPCIÓN"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 854
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 27,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "TOTAL"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "W3GTq-1Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", u.username::TEXT \"USUARIOS\",\n    UPPER(u.first_name || ' ' || u.last_name)::TEXT \"NOMBRE APELLIDO\" ,UPPER(res.nombre)::TEXT \"RESOLUTOR\", \n    u.address::TEXT \"DESCRIPCIÓN\",\n    count(*) as \"TOTAL\"\n\t\tFROM public.user u\n\t\tinner join gestion.resolutorio res on res.id = u.id_resolutorio\n\t\twhere res.nombre in ($ministerio)\n\t\t GROUP BY u.id, \"NOMBRE APELLIDO\", res.nombre, u.address,  u.username\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL DE SESIONES ABIERTA GENERAL (POR BUSQUEDA)",
+      "type": "table"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "W3GTq-1Sz"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio WHERE  id_tipo_resolutorio in (3,4) AND id in (358, 387, 388, 389,390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 405);",
+        "hide": 0,
+        "includeAll": true,
+        "label": "AGUA",
+        "multi": false,
+        "name": "ministerio",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio WHERE  id_tipo_resolutorio in (3,4) AND id in (358, 387, 388, 389,390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 405);",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "SESIONES ABIERTA POR USUARIOS AGUA V3",
+  "uid": "J8zJs3uVk",
+  "version": 6,
+  "weekStart": ""
+}

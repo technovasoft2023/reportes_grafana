@@ -1,0 +1,794 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 378,
+  "iteration": 1711469366364,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "KjP58Kr7k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "UBCH"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 448
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Nombres Apellidos"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 290
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Correo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 203
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Jefe Comunidad Indigena"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 252
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Comunidad Indigena"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 361
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Pueblo Indigena"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 265
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Telefono"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 157
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cedula"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 96
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Telefono Alt"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 111
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "\nSELECT d.nombre::Text \"Nombres Apellidos\", d.cedula::Text \"Cedula\", d.correo::Text \"Correo\", d.telefono::Text \"Telefono\", \n\t   d.telefono_alt::Text \"Telefono Alt\", p.nombre::Text \"Pueblo Indigena\", c.nombre::Text \"Comunidad Indigena\", \n\t   jefe_comunidad_indigena::Text \"Jefe Comunidad Indigena\"\n\t   FROM gestion.denunciante d\n\tleft join gestion.pueblo_indigena p on d.pueblo_indigena_id = p.id\n\tleft join gestion.comunidad_indigena c on c.id = d.comunidad_indigena_id\n\tleft join lista.ubch u on d.cedula ilike '%u.cedula%' \n\twhere d.cedula ilike '%$cedula%' LIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "DATOS DENUNCIANTE 1X10",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "KjP58Kr7k"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 6,
+      "options": {
+        "content": "<BR>\n<center>\nUBCH\n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "8.5.3",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "KjP58Kr7k"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "UBCH"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 342
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CEDULA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 127
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NOMBRE APELLIDO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 257
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 16,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT dni::Text \"CEDULA\", fullname::Text \"NOMBRE APELLIDO\", state::Text \"ESTADO\", municipality::Text \"MUNICIPIO\", parish::Text \"PARROQUIA\", ubch::Text \"UBCH\", \n\t\tphone::Text \"TELEFONO\", gender::Text \"GENERO\", cruce_cne::Text \"CNE\"\n\tFROM psuv.ubch_structures \n\tWHERE dni ILIKE '%$cedula%' LIMIT 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ESTRUCTURA UBCH",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "KjP58Kr7k"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 14,
+      "options": {
+        "content": "<BR>\n<center>\nCARNET DE LA PATRIA \n</center>",
+        "mode": "html"
+      },
+      "pluginVersion": "8.5.3",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 4,
+        "x": 0,
+        "y": 10
+      },
+      "id": 11,
+      "options": {
+        "autoPlay": true,
+        "controls": true,
+        "height": 0,
+        "heightMode": "auto",
+        "name": "foto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT foto\n  FROM public.partner_card \n  WHERE ci ilike '%$cedula%' limit 1 ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "FOTO CDLP",
+      "transparent": true,
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Nombres Apellidos"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 271
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cedula"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Municipio"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 217
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 20,
+        "x": 4,
+        "y": 10
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT  p.ci::Text \"Cedula\",  CONCAT(p.name, ' ', p.name2, ' ', p.apellido1, ' ', p.apellido2)::Text \"Nombres Apellidos\", \n      p.fecha_nacimiento::Text \"Fecha Nacimiento\", p.movil1::Text \"Telefono\", s.name::Text \"Estado\", r.name::Text \"Municipio\", z.name::Text \"Parroquia\",\n      CONCAT('Urbanismo: ', p.urbanismo, ', Bloque/Edificio: ', p.bloque, ', Barrio/Sector: ', p.sector_barrio, ', Casa: ', p.casa)::Text \"Direccion\", p.serial_ciudadano::Text \"Num Carnet\"\n  FROM public.partner_card p, res_country_state s, res_city r, res_parish z\n  WHERE \n  p.state_id = s.id\n  and  p.city_id = r.id\n  and z.id =  p.parish_id\n  and p.ci ILIKE '%$cedula%' limit 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "CDLP",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "KjP58Kr7k"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 7,
+      "options": {
+        "content": "<BR>\n<center>\nCARNET PSUV\n</center>",
+        "mode": "markdown"
+      },
+      "pluginVersion": "8.5.3",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "jhCv3HVIk"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 4,
+        "x": 0,
+        "y": 23
+      },
+      "id": 12,
+      "options": {
+        "autoPlay": false,
+        "controls": false,
+        "height": 0,
+        "heightMode": "auto",
+        "name": "foto",
+        "toolbar": true,
+        "width": 0,
+        "widthMode": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "jhCv3HVIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT foto\n  FROM public.partner_card \n  WHERE ci ILIKE '%$cedula%' limit 1 ",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "FOTO PSUV",
+      "transparent": true,
+      "type": "volkovlabs-image-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "UBCH"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 574
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 20,
+        "x": 4,
+        "y": 23
+      },
+      "id": 13,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT  p.ci::Text \"Cedula\",  CONCAT(p.name, ' ', p.name2, ' ', p.apellido1, ' ', p.apellido2)::Text \"Nombres Apellidos\", \n      p.fecha_nacimiento::Text \"Fecha Nacimiento\", p.movil1::Text \"Telefono\", s.name::Text \"Estado\", r.name::Text \"Municipio\", \n      p.direccion::Text \"Direccion\",p.serial_ciudadano::Text \"Num Carnet\"\n  FROM public.partner_card p\n  left join res_country_state s on  p.state_id = s.id\n  left join res_city r on p.city_id = r.id\n  WHERE  p.ci ILIKE '%$cedula%' limit 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "PSUV",
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "v18424409",
+          "value": "v18424409"
+        },
+        "hide": 0,
+        "label": "CEDULA",
+        "name": "cedula",
+        "options": [
+          {
+            "selected": true,
+            "text": "v18424409",
+            "value": "v18424409"
+          }
+        ],
+        "query": "v18424409",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "BUSQUEDA DETALLE DE DENUNCIANTE  1X10  EN CDLP Y PSUV V3",
+  "uid": "Q52VDaUVk17",
+  "version": 8,
+  "weekStart": ""
+}

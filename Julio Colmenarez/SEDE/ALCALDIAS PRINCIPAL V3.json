@@ -1,0 +1,396 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 375,
+  "iteration": 1711469255461,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ALCALDIAS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTADOS"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "auto"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 19,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO",
+            "POR CONFIRMAR"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "% EFECTIVIDAD %"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select --row_number() OVER (ORDER BY m.nombre) AS \"NUM\", \r\n    es.nombre::Text \"ESTADOS\",\r\n    m.nombre::Text \"ALCALDIAS\",\r\n\t\tsum(CASE WHEN a.id_estatus in (1,2,3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\n\t\tsum(CASE WHEN a.id_estatus in (6) AND ((a.feedback < 2 and a.verificado is null) or (a.feedback is null and a.verificado is null)) THEN 1 ELSE 0 END) AS \"POR CONFIRMAR\", \r\n\t\tsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", \r\n\t\ttrunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\n\t\tfrom gestion.caso a\r\n\t\tinner join gestion.estado es on es.id = a.id_estado\r\n\t\tinner join gestion.responsable e on e.id_caso =  a.id\r\n\t\tinner join gestion.resolutorio z on z.id =  e.id_resolutorio\r\n\t\tinner join gestion.resolutorio zz on zz.id =  z.id_estado\r\n\t\tinner join gestion.municipio m on m.id = z.id_municipio\r\n\t\twhere a.id_estatus in (1,2,3,4,6,8)\r\n\t\tand z.id_tipo_resolutorio in (2)\r\n\t\tand z.nombre in ($alcaldia) and zz.nombre in ($gobernaciones)\r\n\t\tand e.principal is true\r\n\t\tgroup by m.nombre, es.nombre order by \"% EFECTIVIDAD %\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ALCALDIAS ($gobernaciones)",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQUIAS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "left"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 5,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO",
+            "POR CONFIRMAR"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "EFECTIVIDAD %"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select --row_number() OVER (ORDER BY m.nombre) AS \"NUM\", \r\n\t\tm.nombre::Text \"PARROQUIAS\",\r\n\t\tsum(CASE WHEN a.id_estatus in (1,2,3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\n\t\tsum(CASE WHEN a.id_estatus in (6) AND ((a.feedback < 2 and a.verificado is null) or (a.feedback is null and a.verificado is null)) THEN 1 ELSE 0 END) AS \"POR CONFIRMAR\", \r\n\t\tsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", \r\n\t\ttrunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\n\t\tfrom gestion.caso a\r\n\t\tinner join gestion.parroquia m on m.id = a.id_parroquia\r\n\t\tinner join gestion.responsable e on e.id_caso =  a.id\r\n\t\tinner join gestion.resolutorio z on z.id =  e.id_resolutorio\r\n\t\tinner join gestion.resolutorio zz on zz.id =  z.id_estado\r\n\t\twhere a.id_estatus in (1,2,3,4,6,8)\r\n\t\t--and e.id_resolutorio = 125 \r\n\t\tand z.nombre in ($alcaldia) and zz.nombre in ($gobernaciones)\r\n\t\tand e.principal = true\r\n\t\tgroup by m.nombre order by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "PARROQUIAS ($alcaldia)",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "GOBERNACION DE MIRANDA",
+          "value": "GOBERNACION DE MIRANDA"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 ORDER BY nombre ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "GOBERNACIONES",
+        "multi": false,
+        "name": "gobernaciones",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 ORDER BY nombre ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT a.nombre FROM gestion.resolutorio a\ninner join gestion.resolutorio aa ON aa.id = a.id_estado\nwhere a.id_tipo_resolutorio = 2 AND aa.nombre in ($gobernaciones) ;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ALCALDIA",
+        "multi": false,
+        "name": "alcaldia",
+        "options": [],
+        "query": "SELECT a.nombre FROM gestion.resolutorio a\ninner join gestion.resolutorio aa ON aa.id = a.id_estado\nwhere a.id_tipo_resolutorio = 2 AND aa.nombre in ($gobernaciones) ;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "ALCALDIAS PRINCIPAL V3",
+  "uid": "6kitwVyVz",
+  "version": 4,
+  "weekStart": ""
+}

@@ -1,0 +1,914 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 529,
+  "iteration": 1711468919641,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "7H2fI51Sz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "GOBERNACION"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              },
+              {
+                "id": "custom.width",
+                "value": 126
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ELECTRICIDAD"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 123
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "AGUA",
+            "ELECTRICIDAD",
+            "GAS DOMESTICO",
+            "SALUD",
+            "TELECOM",
+            "GAS COMUNAL",
+            "GAS DIRECTO",
+            "EDUCACION",
+            "EDU. BÁSICA",
+            "EDU. UNIVER.",
+            "TOTAL",
+            "TRANSP. PÚB",
+            "METRO CSC",
+            "HURACANES"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "7H2fI51Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select b.nombre::Text \"GOBERNACION\",\nsum(CASE WHEN a.id_sub_categoria in (10) THEN 1 ELSE 0 END) AS \"AGUA\",\nsum(CASE WHEN a.id_sub_categoria in (8) THEN 1 ELSE 0 END) AS \"ELECTRICIDAD\",\nsum(CASE WHEN a.id_sub_categoria in (11) THEN 1 ELSE 0 END) AS \"GAS DOMESTICO\",\nsum(CASE WHEN a.id_sub_categoria in (13) THEN 1 ELSE 0 END) AS \"SALUD\",\nsum(CASE WHEN a.id_sub_categoria in (7) THEN 1 ELSE 0 END) AS \"TRANSP. PÚB\",\nsum(CASE WHEN a.id_sub_categoria in (9) THEN 1 ELSE 0 END) AS \"TELECOM\",\nsum(CASE WHEN a.id_sub_categoria in (16) THEN 1 ELSE 0 END) AS \"METRO CSC\",\nsum(CASE WHEN a.id_sub_categoria in (17) THEN 1 ELSE 0 END) AS \"HURACANES\",\nsum(CASE WHEN a.id_sub_categoria in (5) THEN 1 ELSE 0 END) AS \"GAS COMUNAL\",\nsum(CASE WHEN a.id_sub_categoria in (6) THEN 1 ELSE 0 END) AS \"GAS DIRECTO\",\nsum(CASE WHEN a.id_sub_categoria in (12) THEN 1 ELSE 0 END) AS \"EDUCACION\",\nsum(CASE WHEN a.id_sub_categoria in (14) THEN 1 ELSE 0 END) AS \"EDU. BÁSICA\",\nsum(CASE WHEN a.id_sub_categoria in (15) THEN 1 ELSE 0 END) AS \"EDU. UNIVER.\",\ncount(*)AS \"TOTAL\"\nfrom gestion.caso a\ninner join gestion.category c on c.id = a.id_sub_categoria\ninner join gestion.responsable e on e.id_caso =  a.id\ninner join gestion.resolutorio z on z.id =  e.id_resolutorio\ninner join gestion.estado b on b.id = z.id_estado\ninner join gestion.estatus est on est.id = a.id_estatus\nwhere  a.id_estatus in (3,4,6,8)\n--and a.id_sub_categoria in (1,2,3,4,5,7,10,11,12,13)\nand z.id_tipo_resolutorio in (1)  and b.id < 25\nand e.principal is true and z.nombre in ($gobernaciones)\nand est.nombre in ($estatus)\ngroup by b.nombre\nHAVING count(*) > 1\n--order by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "GOBERNACION ($gobernaciones)",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "7H2fI51Sz"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ALCALDIAS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 6,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "AGUA",
+            "ELECTRICIDAD",
+            "SALUD",
+            "TELECOM",
+            "GAS COMUNAL",
+            "GAS DIRECTO",
+            "EDUCACION",
+            "GAS DOMESTICO",
+            "EDU. BÁSICA",
+            "EDU. UNIVER.",
+            "TOTAL",
+            "TRANSP. PÚB",
+            "METRO CSC",
+            "HURACANES"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "% EFECTIVIDAD %"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "7H2fI51Sz"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select --row_number() OVER (ORDER BY m.nombre) AS \"NUM\", \n    m.nombre::Text \"ALCALDIAS\",\n\t sum(CASE WHEN a.id_sub_categoria in (1) THEN 1 ELSE 0 END) AS \"AGUA\",\n    sum(CASE WHEN a.id_sub_categoria in (3) THEN 1 ELSE 0 END) AS \"ELECTRICIDAD\",\n    sum(CASE WHEN a.id_sub_categoria in (4) THEN 1 ELSE 0 END) AS \"GAS DOMESTICO\",\n    sum(CASE WHEN a.id_sub_categoria in (5) THEN 1 ELSE 0 END) AS \"SALUD\",\n    sum(CASE WHEN a.id_sub_categoria in (6) THEN 1 ELSE 0 END) AS \"TRANSP. PÚB\",\n    sum(CASE WHEN a.id_sub_categoria in (7) THEN 1 ELSE 0 END) AS \"TELECOM\",\n    sum(CASE WHEN a.id_sub_categoria in (8) THEN 1 ELSE 0 END) AS \"METRO CSC\",\n    sum(CASE WHEN a.id_sub_categoria in (9) THEN 1 ELSE 0 END) AS \"HURACANES\",\n    sum(CASE WHEN a.id_sub_categoria in (10) THEN 1 ELSE 0 END) AS \"GAS COMUNAL\",\n    sum(CASE WHEN a.id_sub_categoria in (11) THEN 1 ELSE 0 END) AS \"GAS DIRECTO\",\n    sum(CASE WHEN a.id_sub_categoria in (2) THEN 1 ELSE 0 END) AS \"EDUCACION\",\n    sum(CASE WHEN a.id_sub_categoria in (12) THEN 1 ELSE 0 END) AS \"EDU. BÁSICA\",\n    sum(CASE WHEN a.id_sub_categoria in (13) THEN 1 ELSE 0 END) AS \"EDU. UNIVER.\",\n    count(*)AS \"TOTAL\"\n\t\tfrom gestion.caso a\n\t\tinner join gestion.responsable e on e.id_caso =  a.id\n\t\tinner join gestion.resolutorio z on z.id =  e.id_resolutorio\n\t\tinner join gestion.resolutorio zz on zz.id =  z.id_estado\n\t\tinner join gestion.municipio m on m.id = z.id_municipio\n\t\tinner join gestion.estatus est on est.id = a.id_estatus\n\t\twhere a.id_estatus in (3,4,6,8)\n\t\tand z.id_tipo_resolutorio in (2)\n\t\tand z.nombre in ($alcaldia) and zz.nombre in ($gobernaciones)\n\t\tand est.nombre in ($estatus)\n\t\tand e.principal is true\n\t\tgroup by m.nombre \n\t\t--order by \"% EFECTIVIDAD %\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ALCALDIAS ($gobernaciones)",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 10,
+      "panels": [],
+      "title": "CASOS DETALLADOS EN PROCESOS",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "7H2fI51Sz"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cedula"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "codigo"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 105
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "telefono"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "estado"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "municipio"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "estatus"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "asunto"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 115
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fechacreacion"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 119
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ASUNTO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 271
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTATUS"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTADO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 123
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CEDULA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 184
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 211
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FECHA ACT"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESPONSABLE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 451
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MUNICIPIO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 135
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELF. DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELF. RESPONSABLE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 90
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELEFONO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 199
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CATEGORIA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 97
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "EXTCATEG"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 179
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO CASO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SUBCATEG"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DESCRIP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 215
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CATEG ADI"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 126
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 277
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "INSTITUCION"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 211
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO CASO S"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 49
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQ"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 92
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 26,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 8,
+      "options": {
+        "footer": {
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "RESPONSABLE"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "7H2fI51Sz"
+          },
+          "format": "table",
+          "group": [],
+          "hide": false,
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": " SELECT a.nombre::Text \"CODIGO\",\n    \te.cedula::Text \"CEDULA\",\n    \te.nombre::TEXT \"DENUNCIANTE\",\n    \te.telefono::Text \"TELEFONO\",\n    \tk.nombre::Text \"RESPONSABLE\",\n    \tto_char(a.fecha,'dd-mm-YY') as \"FECHA\"\n        FROM gestion.caso a\n            inner join gestion.estado b on b.id = a.id_estado\n            inner join gestion.municipio c on c.id = a.id_municipio\n            inner join gestion.parroquia d on d.id = a.id_parroquia\n            inner join gestion.denunciante e on e.id = a.id_denunciante\n            inner join gestion.category f on f.id = a.id_categoria\n            inner join gestion.category g on g.id = a.id_sub_categoria\n            inner JOIN  gestion.estatus i ON a.id_estatus = i.id            \n            LEFT JOIN  gestion.responsable j ON j.id_caso = a.id and j.principal is true\n            LEFT JOIN  gestion.resolutorio k ON k.id = j.id_resolutorio \n            LEFT join gestion.resolutorio zz on zz.id =  k.id_estado \n            LEFT JOIN  public.user w ON w.id = j.id_user\n            LEFT JOIN  gestion.category m ON m.id = a.id_extra_categoria\n      \t\twhere k.nombre in ($gobernaciones, $alcaldia) and zz.nombre in ($gobernaciones)\n      \t\t     and j.principal is true and a.id_estatus in (3,4,8) \n      \t\t   ",
+          "refId": "GOB UNICOS",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "LISTADO DE CASOS EN PROCESO",
+      "type": "table"
+    }
+  ],
+  "refresh": "1h",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "GOBERNACION DE YARACUY",
+          "value": "GOBERNACION DE YARACUY"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "7H2fI51Sz"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 AND id_estado =  21 ORDER BY nombre ",
+        "hide": 0,
+        "includeAll": false,
+        "label": "GOBERNACIONES",
+        "multi": true,
+        "name": "gobernaciones",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 AND id_estado =  21 ORDER BY nombre ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "7H2fI51Sz"
+        },
+        "definition": "SELECT a.nombre FROM gestion.resolutorio a\ninner join gestion.resolutorio aa ON aa.id = a.id_estado\nwhere a.id_tipo_resolutorio = 2 AND aa.nombre in ($gobernaciones) ;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ALCALDIA",
+        "multi": false,
+        "name": "alcaldia",
+        "options": [],
+        "query": "SELECT a.nombre FROM gestion.resolutorio a\ninner join gestion.resolutorio aa ON aa.id = a.id_estado\nwhere a.id_tipo_resolutorio = 2 AND aa.nombre in ($gobernaciones) ;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "ASIGNADO",
+            "EN PROCESO",
+            "ATENDIDO",
+            "POR SOLUCIONAR"
+          ],
+          "value": [
+            "ASIGNADO",
+            "EN PROCESO",
+            "ATENDIDO",
+            "POR SOLUCIONAR"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "7H2fI51Sz"
+        },
+        "definition": "SELECT nombre FROM gestion.estatus Where id in (3,4,6,8)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "ESTATUS",
+        "multi": true,
+        "name": "estatus",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.estatus Where id in (3,4,6,8)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "GOBERNACIONES Y ALCALDIAS POR CATEGORIAS V3",
+  "uid": "6kitwVyVz111",
+  "version": 3,
+  "weekStart": ""
+}

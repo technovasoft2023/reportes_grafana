@@ -1,0 +1,1612 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 403,
+  "iteration": 1711469758493,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#be3cff",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "count"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "/^TOTAL$/",
+          "values": true
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select count(*) as \"TOTAL\"\r\nfrom gestion.caso a\r\ninner join gestion.category c on c.id = a.id_sub_categoria\r\ninner join gestion.estado b on b.id = a.id_estado\r\ninner join gestion.municipio mun on mun.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\r\ninner join gestion.denunciante de on de.id = a.id_denunciante\r\ninner join psuv.ubch_structures ub on ub.dni = de.cedula\r\nwhere b.id < 25 \r\nand b.nombre in ($estado) \r\nand mun.nombre in ($municipio)\r\nAND e.nombre in ($parroquia)\r\nand c.name in ($sub_categoria)\r\nAND a.id_estatus in (1,2,3,4,6,8)\r\norder by \"TOTAL\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "RECIBIDOS POR VENAPP",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "count"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 6,
+        "y": 0
+      },
+      "id": 27,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select (select count(*) as \"TOTAL\"\r\nfrom gestion.caso a\r\ninner join gestion.category c on c.id = a.id_sub_categoria\r\ninner join gestion.estado b on b.id = a.id_estado\r\ninner join gestion.municipio mun on mun.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\r\ninner join gestion.denunciante de on de.id = a.id_denunciante\r\ninner join psuv.ubch_structures ub on ub.dni = de.cedula\r\nwhere b.id < 25 \r\nand b.nombre in ($estado) \r\nand mun.nombre in ($municipio)\r\nAND e.nombre in ($parroquia)\r\nand c.name in ($sub_categoria)\r\nAND a.id_estatus in (1,2,3,4,6,8))\r\n-\r\n(SELECT count(a.id)\r\n\tFROM gestion.caso a\r\n\t--inner JOIN  gestion.estatus i ON d.id_estatus = i.id \r\n\tinner join gestion.category c on c.id = a.id_sub_categoria\r\n\tinner join gestion.estado b on b.id = a.id_estado\r\n\tinner join gestion.municipio mun on mun.id = a.id_municipio\r\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\r\n\tinner join gestion.denunciante de on de.id = a.id_denunciante\r\n  inner join psuv.ubch_structures ub on ub.dni = de.cedula\r\n\twhere\r\n\tb.nombre in ($estado) \r\n\tand mun.nombre in ($municipio)\r\n\tAND e.nombre in ($parroquia)\r\n\tand c.name in ($sub_categoria)\r\n\tand a.id_estatus in (6) and (a.feedback >= 2   or  a.verificado = 'SI')) as total",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "POR ATENDER",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ffffff",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "count"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 11,
+        "y": 0
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT count(a.id)\r\n\tFROM gestion.caso a\r\n\t--inner JOIN  gestion.estatus i ON d.id_estatus = i.id \r\n\tinner join gestion.category c on c.id = a.id_sub_categoria\r\n\tinner join gestion.estado b on b.id = a.id_estado\r\n\tinner join gestion.municipio mun on mun.id = a.id_municipio\r\n\tinner join gestion.parroquia e on e.id = a.id_parroquia\r\n\tinner join gestion.denunciante de on de.id = a.id_denunciante\r\n  inner join psuv.ubch_structures ub on ub.dni = de.cedula\r\n\twhere\r\n\tb.nombre in ($estado) \r\n\tand mun.nombre in ($municipio)\r\n\tAND e.nombre in ($parroquia)\r\n\tand c.name in ($sub_categoria) \r\n\tand a.id_estatus in (6) and (a.feedback >= 2   or  a.verificado = 'SI')",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL CASOS ATENDIDOS ",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "transparent",
+            "mode": "fixed"
+          },
+          "decimals": 2,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 5,
+        "x": 16,
+        "y": 0
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^porcentaje$/",
+          "values": true
+        },
+        "text": {},
+        "textMode": "value"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT trunc(count(a.id)::Decimal * 100 / (select count(*) as \"TOTAL\"\r\n                                            from gestion.caso a\r\n                                            inner JOIN  gestion.estatus i ON a.id_estatus = i.id \r\n                                            inner join gestion.category c on c.id = a.id_sub_categoria\r\n                                            inner join gestion.estado b on b.id = a.id_estado\r\n                                            inner join gestion.municipio mun on mun.id = a.id_municipio\r\n                                            inner join gestion.parroquia e on e.id = a.id_parroquia\r\n                                            inner join gestion.denunciante de on de.id = a.id_denunciante\r\n                                            inner join psuv.ubch_structures ub on ub.dni = de.cedula\r\n                                            where b.id < 25 \r\n                                            and b.nombre in ($estado) \r\n                                            and mun.nombre in ($municipio)\r\n                                            AND e.nombre in ($parroquia)\r\n                                            and c.name in ($sub_categoria)\r\n                                            AND a.id_estatus in (1,2,3,4,6,8))::Decimal, 2) as porcentaje\r\n\t\tFROM gestion.caso a\r\n\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id \r\n\t\tinner join gestion.category c on c.id = a.id_sub_categoria\r\n\t\tinner join gestion.estado f on f.id = a.id_estado\r\n\t\tinner join gestion.municipio mun on mun.id = a.id_municipio\r\n\t\tinner join gestion.parroquia e on e.id = a.id_parroquia\r\n\t\tinner join gestion.denunciante de on de.id = a.id_denunciante\r\n  \tinner join psuv.ubch_structures ub on ub.dni = de.cedula\r\n\t\twhere \r\n\t\tf.nombre in ($estado)\r\n\t\tand mun.nombre in ($municipio)\r\n\t\tAND e.nombre in ($parroquia)\r\n\t\tand c.name in ($sub_categoria)\r\n\t\tand a.id_estatus in (6) \r\n\t\tand (a.feedback >= 2 or  a.verificado = 'SI')",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL  %",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "Muy poco satisfecho"
+                },
+                "2": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "Poco satisfecho"
+                },
+                "3": {
+                  "color": "yellow",
+                  "index": 2,
+                  "text": "Satisfecho"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 4,
+                "result": {
+                  "color": "green",
+                  "index": 3,
+                  "text": "Muy satisfecho"
+                },
+                "to": 5
+              },
+              "type": "range"
+            }
+          ],
+          "max": 5,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              },
+              {
+                "color": "super-light-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 21,
+        "y": 0
+      },
+      "id": 21,
+      "options": {
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Average$/",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT round(avg(a.feedback))::Text \"Average\" \r\n\t\t\tFROM gestion.caso a \r\n\t\t\tinner JOIN  gestion.estatus i ON a.id_estatus = i.id \r\n\t\t\tinner join gestion.category c on c.id = a.id_sub_categoria\r\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\r\n\t\t\tinner join gestion.estado f on f.id = a.id_estado\r\n\t\t\tinner join gestion.municipio mun on mun.id = a.id_municipio\r\n\t\t\tinner join gestion.parroquia e on e.id = a.id_parroquia\r\n\t\t\tinner join gestion.denunciante de on de.id = a.id_denunciante\r\n  \t\tinner join psuv.ubch_structures ub on ub.dni = de.cedula\r\n\t\t\twhere \r\n\t\t\tf.nombre in ($estado) \r\n\t\t\tand mun.nombre in ($municipio)\r\n\t\t  and e.nombre in ($parroquia)\r\n\t\t  and c.name in ($sub_categoria)\r\n\t\t\tand a.id_estatus in (6) and a.feedback is not null",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "SATISFACCIÓN",
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RANKING"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 1,
+        "x": 0,
+        "y": 4
+      },
+      "id": 6,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select id as \"RANKING\"\r\nfrom gestion.estado\r\nwhere  id < 25\r\norder by id asc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "  ",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RECIBIDO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 102
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ATENDIDO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 85
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 6,
+        "x": 1,
+        "y": 4
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select b.nombre::Text \"ESTADO\",\r\nsum(CASE WHEN a.id_estatus in (1,2,3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\nsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", --, count(a.id) as \"TOTAL\"\r\ntrunc(sum(CASE WHEN a.id_estatus in (6) and (a.feedback >= 2 or a.verificado = 'SI')\r\nTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\nfrom gestion.caso a\r\ninner JOIN  gestion.estatus i ON a.id_estatus = i.id \r\ninner join gestion.category c on c.id = a.id_sub_categoria\r\ninner join gestion.estado b on b.id = a.id_estado\r\ninner join gestion.municipio mun on mun.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\r\ninner join gestion.denunciante de on de.id = a.id_denunciante\r\ninner join psuv.ubch_structures ub on ub.dni = de.cedula\r\nwhere b.id < 25 \r\nand b.nombre in ($estado)\r\nand mun.nombre in ($municipio)\r\nAND e.nombre in ($parroquia)\r\nand c.name in ($sub_categoria)\r\nAND a.id_estatus in (1,2,3,4,6,8)\r\ngroup by b.nombre\r\norder by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ESTADO",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-purple",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RANKING"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 1,
+        "x": 7,
+        "y": 4
+      },
+      "id": 7,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "REGION"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select id as \"RANKING\"\r\nfrom gestion.estado\r\nwhere  id < 25\r\norder by id asc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "  ",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MUNICIPIOS"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 310
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      "id": 3,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select mun.nombre || ' (' || b.nombre || ')' ::Text \"MUNICIPIOS\",\r\nsum(CASE WHEN a.id_estatus in (1,2,3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\nsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", --, count(a.id) as \"TOTAL\"\r\ntrunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\nTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\nfrom gestion.caso a\r\ninner JOIN  gestion.estatus i ON a.id_estatus = i.id \r\ninner join gestion.category c on c.id = a.id_sub_categoria\r\ninner join gestion.estado b on b.id = a.id_estado\r\ninner join gestion.municipio mun on mun.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\r\ninner join gestion.denunciante de on de.id = a.id_denunciante\r\ninner join psuv.ubch_structures ub on ub.dni = de.cedula\r\nwhere a.id_estatus in (1,2,3,4,6,8)\r\nand b.nombre in ($estado)\r\nand mun.nombre in ($municipio)\r\nAND e.nombre in ($parroquia)\r\nand c.name in ($sub_categoria)\r\nand b.id < 25 \r\ngroup by mun.nombre, b.nombre\r\norder by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "MUNICIPIO",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-purple",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RANKING"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 1,
+        "x": 16,
+        "y": 4
+      },
+      "id": 25,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "REGION"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select id as \"RANKING\"\r\nfrom gestion.estado\r\nwhere  id < 25\r\norder by id asc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "  ",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MUNICIPIOS"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 310
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQUIA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 196
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 7,
+        "x": 17,
+        "y": 4
+      },
+      "id": 24,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "RECIBIDO"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select e.nombre || ' (' || b.nombre || ')' ::Text \"PARROQUIA\",\r\nsum(CASE WHEN a.id_estatus in (1,2,3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\r\nsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", --, count(a.id) as \"TOTAL\"\r\ntrunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\nTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\nfrom gestion.caso a\r\ninner JOIN  gestion.estatus i ON a.id_estatus = i.id \r\ninner join gestion.category c on c.id = a.id_sub_categoria\r\ninner join gestion.estado b on b.id = a.id_estado\r\ninner join gestion.municipio mun on mun.id = a.id_municipio\r\ninner join gestion.parroquia e on e.id = a.id_parroquia\r\ninner join gestion.denunciante de on de.id = a.id_denunciante\r\ninner join psuv.ubch_structures ub on ub.dni = de.cedula\r\nwhere a.id_estatus in (1,2,3,4,6,8)\r\nand b.nombre in ($estado)\r\nand mun.nombre in ($municipio)\r\nAND e.nombre in ($parroquia)\r\nand c.name in ($sub_categoria)\r\nand b.id < 25 \r\ngroup by e.nombre, b.nombre\r\norder by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "PARROQUIA",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 29,
+      "panels": [],
+      "title": "CASOS DETALLADO",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CANTV"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 122
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CEDULA"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 107
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DENUNCIANTE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 135
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TELEFONO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 125
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTADO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 94
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "MUNICIPIO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 118
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CODIGO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DESCRIP"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 110
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PARROQ"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 138
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESPONSABLES"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 178
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "UBCH"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-reds"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 545
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 18,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 9,
+      "options": {
+        "footer": {
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "     SELECT\r\n      \ta.descripcion::TEXT \"DESCRIP\",\r\n      \ta.nombre::Text \"CODIGO\",\r\n      \te.cedula::Text \"CEDULA\",\r\n      \te.nombre::TEXT \"DENUNCIANTE\",\r\n\t    \tub.state || ' - ' || ub.municipality || ' - ' || ub.parish || ' - ' || ub.ubch as \"UBCH\",\r\n      \te.telefono::Text \"TELEFONO\",\r\n      \tb.nombre::Text \"ESTADO\",\r\n      \tc.nombre::Text \"MUNICIPIO\",\r\n      \td.nombre::Text \"PARROQ\",\r\n  \t\t  re.nombre::Text \"RESPONSABLES\",\r\n\t\t  est.nombre::Text \"ESTATUS\",\r\n  \t  \ta.fecha::Text \"FECHA CREACION\"\r\n\t  \tFROM gestion.caso a\r\n            inner join gestion.estado b on b.id = a.id_estado\r\n            --inner JOIN  gestion.estatus i ON d.id_estatus = i.id \r\n            inner join gestion.category g on g.id = a.id_sub_categoria\r\n            inner join gestion.municipio c on c.id = a.id_municipio\r\n            inner join gestion.parroquia d on d.id = a.id_parroquia\r\n            inner join gestion.denunciante e on e.id = a.id_denunciante\r\n      \t\t\tinner join psuv.ubch_structures ub on ub.dni = e.cedula\r\n\t\t\t\t    inner join gestion.estatus est on est.id = a.id_estatus \r\n      \t\t\tleft join gestion.responsable r on r.id_caso = a.id and r.principal is true\r\n      \t\t\tleft join gestion.resolutorio re on re.id = r.id_resolutorio\r\n      \twhere a.id_estatus in (1,2,3,4,6,8)\r\n    \t\t\tand b.nombre in ($estado)\r\n    \t\t\tand c.nombre in ($municipio)\r\n    \t\t\tAND d.nombre in ($parroquia)\r\n    \t\t\tand g.name in ($sub_categoria)",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "CASOS DETALLADOS (UBCH)",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.estado where id < 26 order by id",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Estado",
+        "multi": false,
+        "name": "estado",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.estado where id < 26 order by id",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Municipio",
+        "multi": false,
+        "name": "municipio",
+        "options": [],
+        "query": "SELECT a.nombre  FROM gestion.municipio a inner join gestion.estado b on a.id_estado = b.id where  b.nombre in ($estado) ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Parroquia",
+        "multi": false,
+        "name": "parroquia",
+        "options": [],
+        "query": "SELECT a.nombre FROM gestion.parroquia a \n\tinner join gestion.municipio b on a.id_municipio = b.id \n\tinner join gestion.estado c on c.id = b.id_estado\n\twhere  c.nombre in ($estado)  and b.nombre in ($municipio)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT name FROM gestion.category WHERE id  in (1,2,3,4,5,6,7)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "CATEGORIA",
+        "multi": false,
+        "name": "sub_categoria",
+        "options": [],
+        "query": "SELECT name FROM gestion.category WHERE id  in (1,2,3,4,5,6,7)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "ESTADOS, MUNICIPIOS Y PARROQUIA CON UBCH V3",
+  "uid": "ufNpkMsVz1",
+  "version": 2,
+  "weekStart": ""
+}

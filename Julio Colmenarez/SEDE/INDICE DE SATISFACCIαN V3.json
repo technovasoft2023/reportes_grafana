@@ -1,0 +1,3709 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 408,
+  "iteration": 1711470072944,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 10,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 1
+          },
+          "id": 12,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "hide": false,
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n                                      \t\t\tand r.nombre in ($ministerio) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\t\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true and r.id_tipo_resolutorio in (3,4)\n\t\t\tand a.id_estatus in (6) and a.feedback >= 3.5 \t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY SATISFECHO%",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 1
+          },
+          "id": 13,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n                                      \t\t\tand r.nombre in ($ministerio) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.feedback < 3.5 and a.feedback >= 2.5 \t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "SATISFECHO%",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "red",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 8,
+            "y": 1
+          },
+          "id": 14,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n                                      \t\t\tand r.nombre in ($ministerio) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\t\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.feedback < 2.5 and a.feedback >= 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INSATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "red",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 1
+          },
+          "id": 15,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a \n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n                                      \t\t\tand r.nombre in ($ministerio) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.feedback < 1.5 and a.verificado = 'SI' \t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY POCO SATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "blue",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 1
+          },
+          "id": 16,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a \n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n                                      \t\t\tand r.nombre in ($ministerio) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.verificado = 'SI'\tand a.feedback is null",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CONFIRMADOS-SIN VALORACIÓN %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "light-yellow",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 1
+          },
+          "id": 43,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n                                      \t\t\tand r.nombre in ($ministerio) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) \n\t\t\tand ((a.verificado = 'SI'\tand a.feedback is null) or (a.feedback < 2.5 and a.verificado = 'SI'))",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "REVISADO POR OPERADORES %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#ffffff",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 4
+          },
+          "id": 28,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.feedback >= 3.5 \t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY SATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#ffffff",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 4
+          },
+          "id": 29,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.feedback < 3.5 and a.feedback\t>= 2.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "SATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 8,
+            "y": 4
+          },
+          "id": 30,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) \n\t\t\tand (a.feedback < 2.5 and a.feedback >= 1.5) and a.verificado = 'SI'\n\t\t\t\n\t\t\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INSATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 4
+          },
+          "id": 31,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.feedback < 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY POCO SATISFECHO ",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 4
+          },
+          "id": 32,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.verificado = 'SI' and a.feedback is null",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CONFIRMADOS-SIN VALORACIÓN",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "yellow",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 4
+          },
+          "id": 44,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (3,4)\n\t\t\tand r.nombre in ($ministerio) and b.principal is true\n\t\t\tand a.id_estatus in (6) \n\t\t\tand ((a.verificado = 'SI'\tand a.feedback is null) or (a.feedback < 2.5 and a.verificado = 'SI'))\n\t\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "REVISADO POR OPERADORES ",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "MINISTERIO E INSTITUCCIÓN"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 530
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "PROMEDIO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 23,
+            "w": 24,
+            "x": 0,
+            "y": 7
+          },
+          "id": 2,
+          "options": {
+            "footer": {
+              "fields": [
+                "MUY POCO SATISFACHO",
+                "INSATISFECHO",
+                "SATISFECHO",
+                "MUY SATISFECHO",
+                "SIN VALORACIÓN Y CONFIRMADO",
+                "TOTAL ATENDIDO"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "MUY SATISFECHO"
+              }
+            ]
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \n      r.nombre as \"MINISTERIO E INSTITUCCIÓN\", \n      sum(CASE WHEN a.feedback >= 3.5 THEN 1 ELSE 0 END) AS \"MUY SATISFECHO\",\n      sum(CASE WHEN a.feedback < 3.5 and a.feedback >= 2.5 THEN 1 ELSE 0 END) AS \"SATISFECHO\",\n      sum(CASE WHEN a.feedback < 2.5 and a.feedback >= 1.5 THEN 1 ELSE 0 END) AS \"INSATISFECHO\",\n\t\t\tsum(CASE WHEN a.feedback < 1.5 THEN 1 ELSE 0 END) AS \"MUY POCO SATISFACHO\",\n\t\t  CONCAT(case when round(avg(a.feedback)) = 1 then 'MUY POCO SATISFACHO'\n                  when round(avg(a.feedback)) = 2 then 'INSATISFECHO'\n                  when round(avg(a.feedback)) = 3 then 'SATISFECHO'\n                  when round(avg(a.feedback)) > 3 then 'MUY SATISFECHO'\n                  when round(avg(a.feedback)) is null then 'SIN VALORACIÓN'\n                  end) as \"PROMEDIO\",\n      sum(CASE WHEN (a.feedback is null and a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"SIN VALORACIÓN Y CONFIRMADO\",\n      count(*) AS \"TOTAL ATENDIDO\"\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro)\n\t\t\t--AND b.id_resolutorio in (478,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,595,596,598,453,553,561,597,563,566,354,503,599)\n\t\t\tand r.nombre in ($ministerio)\n\t\t\tand r.id_tipo_resolutorio in (3,4)\n\t\t\tand b.principal is true\n\t\t\tand a.id_estatus in (6) and ((a.feedback >= 2.5) or (a.verificado = 'SI'))\t\n\t\t\tgroup by r.nombre ORDER BY \"MUY SATISFECHO\" desc\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INDICE DE SATISFACCIÓN MINISTERIO E INSTITUCCIÓN ($ministerio)",
+          "type": "table"
+        }
+      ],
+      "title": "INDICE DE SATISFACCIÓN MINISTERIO E INSTITUCCIÓN",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 8,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 2
+          },
+          "id": 17,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a \n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n                                      \t\t\tand r.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 1\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback >= 3.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY SATISFECHO%",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 2
+          },
+          "id": 18,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n                                      \t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback < 3.5\tAND a.feedback >= 2.5\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "SATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "red",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 8,
+            "y": 2
+          },
+          "id": 19,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a \n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n                                      \t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback < 2.5\tAND a.feedback >= 1.5\tand a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INSATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "red",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 2
+          },
+          "id": 20,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n                                      \t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback < 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY POCO SATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "blue",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 2
+          },
+          "id": 21,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n                                      \t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n\t\t\tand a.id_estatus in (6) and a.verificado = 'SI'\tand a.feedback is null",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CONFIRMADOS-SIN VALORACIÓN %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "light-yellow",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 2
+          },
+          "id": 45,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (1)\n                                      \t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) \n                                      \t\t\tand ((a.feedback >= 2.5) or (a.verificado = 'SI'))\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (1)\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n\t\t\tand a.id_estatus in (6) \n\t\t\tand ((a.verificado = 'SI'\tand a.feedback is null) or (a.feedback < 2.5 and a.verificado = 'SI'))",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "REVISADO POR OPERADORES %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#ebebeb",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 5
+          },
+          "id": 33,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\t    SELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback >= 3.5\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY SATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#ffffff",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 5
+          },
+          "id": 34,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "      SELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback < 3.5\tAND a.feedback >= 2.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "SATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 8,
+            "y": 5
+          },
+          "id": 35,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\t    SELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback < 2.5\tAND a.feedback >= 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INSATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 5
+          },
+          "id": 36,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.feedback < 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY POCO SATISFECHO ",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 5
+          },
+          "id": 37,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\t  SELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) and a.verificado = 'SI'\tand a.feedback is null",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CONFIRMADOS-SIN VALORACIÓN",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "yellow",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 5
+          },
+          "id": 46,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio in (1)\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n\t\t\tand a.id_estatus in (6) \n\t\t\tand ((a.verificado = 'SI'\tand a.feedback is null) or (a.feedback < 2.5 and a.verificado = 'SI'))\n\t\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "REVISADO POR OPERADORES ",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "MINISTERIO E INSTITUCCIÓN"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 530
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "PROMEDIO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "GOBERNACIÓN"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 267
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "MUY SATISFECHO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 166
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "SATISFECHO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 134
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "INSATISFECHO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 164
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "SIN VALORACIÓN Y CONFIRMADO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 300
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 24,
+            "x": 0,
+            "y": 8
+          },
+          "id": 3,
+          "options": {
+            "footer": {
+              "fields": [
+                "MUY POCO SATISFACHO",
+                "INSATISFECHO",
+                "SATISFECHO",
+                "MUY SATISFECHO",
+                "SIN VALORACIÓN Y CONFIRMADO",
+                "TOTAL ATENDIDO"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \n      --ROW_NUMBER (),\n      r.nombre as \"GOBERNACIÓN\", \n      sum(CASE WHEN a.feedback >= 3.5 THEN 1 ELSE 0 END) AS \"MUY SATISFECHO\",\n      sum(CASE WHEN a.feedback < 3.5 and a.feedback >= 2.5 THEN 1 ELSE 0 END) AS \"SATISFECHO\",\n      sum(CASE WHEN a.feedback < 2.5 and a.feedback >= 1.5 and a.verificado = 'SI' THEN 1 ELSE 0 END) AS \"INSATISFECHO\",\n\t\t\tsum(CASE WHEN a.feedback < 1.5 and a.verificado = 'SI' THEN 1 ELSE 0 END) AS \"MUY POCO SATISFACHO\",\n\t\t  CONCAT(case when round(avg(a.feedback)) = 1 then 'MUY POCO SATISFACHO'\n                  when round(avg(a.feedback)) = 2 then 'INSATISFECHO'\n                  when round(avg(a.feedback)) = 3 then 'SATISFECHO'\n                  when round(avg(a.feedback)) > 3 then 'MUY SATISFECHO'\n                  when round(avg(a.feedback)) is null then 'SIN VALORACIÓN'\n                  end) as \"PROMEDIO\",\n      sum(CASE WHEN (a.feedback is null and a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"SIN VALORACIÓN Y CONFIRMADO\",\n      count(*) AS \"TOTAL ATENDIDO\"\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\twhere \n\t\t\t$__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 1\n\t\t\tand r.nombre in ($gobernaciones) and b.principal is true\n\t\t\tand a.id_estatus in (6) \n\t\t\tand (a.feedback >= 2.5 or a.verificado = 'SI')\t\n\t\t\tgroup by r.nombre ORDER BY \"MUY SATISFECHO\" desc\n",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INDICE DE SATISFACCIÓN GOBERNACIONES",
+          "type": "table"
+        }
+      ],
+      "title": "INDICE DE SATISFACCIÓN GOBERNACIONES",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 6,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 3
+          },
+          "id": 22,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true\n                                      \t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback >= 3.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY SATISFECHO%",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "green",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 3
+          },
+          "id": 23,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n                                      \t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback < 3.5 AND  a.feedback >= 2.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "SATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "red",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 8,
+            "y": 3
+          },
+          "id": 24,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a \n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 2\n                                      \t\t\tand rr.nombre in ($gobernaciones) and b.principal is true\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true\n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback < 2.5 AND a.feedback >= 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INSATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "red",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 3
+          },
+          "id": 25,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 2\n                                      \t\t\tand rr.nombre in ($gobernaciones) and b.principal is true \n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback < 1.5 and a.verificado = 'SI'\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY POCO SATISFECHO %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "blue",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 3
+          },
+          "id": 26,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n                                      \t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) and a.verificado = 'SI'\tand a.feedback is null",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CONFIRMADOS-SIN VALORACIÓN %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "yellow",
+                "mode": "fixed"
+              },
+              "decimals": 2,
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 3
+          },
+          "id": 47,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "center",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^porcentaje$/",
+              "values": true
+            },
+            "text": {},
+            "textMode": "value"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\n\t\tSELECT \n       ROUND(count(a.id)::Decimal * 100 / ( SELECT \n                                             count(a.id)\n                                      \t\t\tFROM gestion.caso a\n                                      \t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n                                      \t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n                                      \t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n                                      \t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n                                      \t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n                                      \t\t\tand a.id_estatus in (6) and (a.feedback >= 2.5 or a.verificado = 'SI')\n                                             )::Decimal, 2) as porcentaje\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) \n\t\t\t\tand ((a.verificado = 'SI'\tand a.feedback is null) or (a.feedback < 2.5 and a.verificado = 'SI'))",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "REVISADO POR OPERADORES %",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#ffffff",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 0,
+            "y": 6
+          },
+          "id": 38,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback >= 3.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY SATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "#ffffff",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 4,
+            "y": 6
+          },
+          "id": 39,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\t\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback < 3.5 AND  a.feedback >= 2.5",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "SATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 8,
+            "y": 6
+          },
+          "id": 40,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\t   \tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback < 2.5 AND a.feedback >= 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INSATISFECHO",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 12,
+            "y": 6
+          },
+          "id": 41,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) AND a.feedback < 1.5 and a.verificado = 'SI'",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "MUY POCO SATISFECHO ",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "transparent",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 16,
+            "y": 6
+          },
+          "id": 42,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a\n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) and a.verificado = 'SI'\tand a.feedback is null",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CONFIRMADOS-SIN VALORACIÓN",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "yellow",
+                "mode": "fixed"
+              },
+              "mappings": [],
+              "noValue": "0",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text"
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 4,
+            "x": 20,
+            "y": 6
+          },
+          "id": 48,
+          "options": {
+            "colorMode": "background",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "text": {},
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "\tSELECT \n       count(a.id)\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id \n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\twhere $__timeFilter(a.fecha_registro) and b.principal is true \n\t\t\tand rr.nombre in ($gobernaciones) and r.id_tipo_resolutorio = 2\n\t\t\tand a.id_estatus in (6) \n\t\t  and ((a.verificado = 'SI'\tand a.feedback is null) or (a.feedback < 2.5 and a.verificado = 'SI'))",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "REVISADO POR OPERADORES ",
+          "transparent": true,
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "MINISTERIO E INSTITUCCIÓN"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 530
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "PROMEDIO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "GOBERNACIÓN"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 354
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 26,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "id": 4,
+          "options": {
+            "footer": {
+              "fields": [
+                "MUY POCO SATISFACHO",
+                "INSATISFECHO",
+                "SATISFECHO",
+                "MUY SATISFECHO",
+                "SIN VALORACIÓN Y CONFIRMADO",
+                "TOTAL ATENDIDO"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "MUY SATISFECHO"
+              }
+            ]
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "ud7n-MJIk"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT \n      --ROW_NUMBER (),\n      r.nombre || ' (' || es.nombre || ')' as \"GOBERNACIÓN\", \n      sum(CASE WHEN a.feedback >= 3.5 THEN 1 ELSE 0 END) AS \"MUY SATISFECHO\",\n      sum(CASE WHEN a.feedback < 3.5 and a.feedback >= 2.5 THEN 1 ELSE 0 END) AS \"SATISFECHO\",\n      sum(CASE WHEN a.feedback < 2.5 and a.feedback >= 1.5 THEN 1 ELSE 0 END) AS \"INSATISFECHO\",\n\t\t\tsum(CASE WHEN a.feedback < 1.5 THEN 1 ELSE 0 END) AS \"MUY POCO SATISFACHO\",\n      CONCAT(case when round(avg(a.feedback)) = 1 then 'MUY POCO SATISFACHO'\n                  when round(avg(a.feedback)) = 2 then 'INSATISFECHO'\n                  when round(avg(a.feedback)) = 3 then 'SATISFECHO'\n                  when round(avg(a.feedback)) > 3 then 'MUY SATISFECHO'\n                  when round(avg(a.feedback)) is null then 'SIN VALORACIÓN'\n                  end) as \"PROMEDIO\",\n      sum(CASE WHEN (a.feedback is null and a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"SIN VALORACIÓN Y CONFIRMADO\",\n      count(*) AS \"TOTAL ATENDIDO\"\n\t\t\tFROM gestion.caso a \n\t\t\tinner join gestion.responsable b on b.id_caso =  a.id\n\t\t\tinner join gestion.resolutorio r on r.id = b.id_resolutorio\n\t\t\tinner join gestion.resolutorio rr on rr.id_estado = r.id_estado\n\t\t\tinner join gestion.estado es on es.id = r.id_estado\n\t\t\twhere \n\t\t\t$__timeFilter(a.fecha_registro) and r.id_tipo_resolutorio = 2\n\t\t\tand rr.nombre in ($gobernaciones) and b.principal is true \n\t\t\tand a.id_estatus in (6) \n\t\t  and (a.feedback >= 2.5 or  a.verificado = 'SI')\n\t\t\tgroup by r.nombre, es.nombre ORDER BY \"MUY SATISFECHO\" desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "INDICE DE SATISFACCIÓN ALCALDIAS",
+          "type": "table"
+        }
+      ],
+      "title": "INDICE DE SATISFACCIÓN ALCALDÍAS",
+      "type": "row"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio\n\twhere id_tipo_resolutorio in (3,4)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "MINISTERIO E INSTITUCIÓN",
+        "multi": true,
+        "name": "ministerio",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio\n\twhere id_tipo_resolutorio in (3,4)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 ORDER BY nombre ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "GOBERNACIONES",
+        "multi": false,
+        "name": "gobernaciones",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 ORDER BY nombre ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2y",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "INDICE DE SATISFACCIÓN V3",
+  "uid": "53wbpk9Vk",
+  "version": 5,
+  "weekStart": ""
+}

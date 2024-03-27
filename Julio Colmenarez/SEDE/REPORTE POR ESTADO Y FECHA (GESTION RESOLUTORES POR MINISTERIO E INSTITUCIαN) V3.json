@@ -1,0 +1,308 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 410,
+  "iteration": 1711470174168,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "KjP58Kr7k"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RANKING"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select id as \"RANKING\"\r\nfrom gestion.estado\r\nwhere  id < 25\r\norder by id asc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "  ",
+      "transparent": true,
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-text",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 22,
+        "x": 2,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "ASIGNADOS",
+            "ATENDIDO",
+            "EN PROCESO",
+            "VERIFICADO",
+            "CASOS RECIBIDO"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select b.nombre::Text \"ESTADO\",\r\nsum(CASE WHEN a.id_estatus in (3,4,6,8) THEN 1 ELSE 0 END) AS \"CASOS RECIBIDO\",\r\nsum(CASE WHEN a.id_estatus in (3) THEN 1 ELSE 0 END) AS \"ASIGNADOS\",\r\nsum(CASE WHEN a.id_estatus in (4,8) THEN 1 ELSE 0 END) AS \"EN PROCESO\",\r\nsum(CASE WHEN a.id_estatus in (6) THEN 1 ELSE 0 END) AS \"ATENDIDO\",\r\nsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"VERIFICADO\", --, count(a.id) as \"TOTAL\"\r\ntrunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\r\nTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\r\nfrom gestion.caso a\r\ninner join gestion.responsable e on e.id_caso =  a.id\r\ninner join gestion.resolutorio z on z.id =  e.id_resolutorio\r\ninner join gestion.estado b on b.id = a.id_estado\r\nwhere $__timeFilter(a.fecha_registro) and a.id_estatus in (3,4,6,8)\r\nand b.id < 25 and e.principal is true and z.nombre in ($ministerio)\r\ngroup by b.nombre\r\nHAVING count(*) > 0\r\norder by \"% EFECTIVIDAD %\" desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ESTADOS",
+      "transparent": true,
+      "type": "table"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "MINISTERIO DEL PODER POPULAR PARA EL TRANSPORTE",
+          "value": "MINISTERIO DEL PODER POPULAR PARA EL TRANSPORTE"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio\nwhere id_tipo_resolutorio in (3,4) \nand id in (478,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,\n595,596,598,354,553,561,597,563, 566,599,503,453)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "MINISTERIO",
+        "multi": true,
+        "name": "ministerio",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio\nwhere id_tipo_resolutorio in (3,4) \nand id in (478,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,\n595,596,598,354,553,561,597,563, 566,599,503,453)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-24h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "REPORTE POR ESTADO Y FECHA (GESTION RESOLUTORES POR MINISTERIO E INSTITUCIÓN) V3",
+  "uid": "ufNpkMsV22",
+  "version": 2,
+  "weekStart": ""
+}

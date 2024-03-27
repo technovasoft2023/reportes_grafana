@@ -1,0 +1,505 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 376,
+  "iteration": 1711469317579,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "color-background",
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "text",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RANKING"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 94,
+        "w": 1,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select id as \"RANKING\"\r\nfrom gestion.municipio\r\nwhere  id < 101\r\norder by id asc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": " ",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "text",
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "color-text",
+            "filterable": true,
+            "inspect": false,
+            "minWidth": 4
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              },
+              {
+                "color": "text",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ALCALDIAS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "% EFECTIVIDAD %"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "text",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background-solid"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ESTADOS"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "auto"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "SIT. POLITICA"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "OTROS"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "auto"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ATENDIDO"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background-solid"
+              },
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NUM"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 145
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 94,
+        "w": 23,
+        "x": 1,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "RECIBIDO",
+            "ATENDIDO",
+            "POR ATENDER"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "ATENDIDO"
+          }
+        ]
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "select --row_number() OVER (ORDER BY m.nombre) AS \"NUM\", \n    m.nombre::Text \"ALCALDIAS\",\n    es.nombre::Text \"ESTADOS\",\n    z.politica::Text \"SIT. POLITICA\",\n    z.otros::Text \"OTROS\",\n\t\tsum(CASE WHEN a.id_estatus in (1,2,3,4,6,8) THEN 1 ELSE 0 END) AS \"RECIBIDO\",\n\t\tsum(CASE WHEN a.id_estatus in (3,4,8) THEN 1 ELSE 0 END) AS \"POR ATENDER\", \n\t\tsum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI') THEN 1 ELSE 0 END) AS \"ATENDIDO\", \n\t\ttrunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) AS \"% EFECTIVIDAD %\"\n\t\tfrom gestion.caso a\n\t\tinner join gestion.responsable e on e.id_caso =  a.id\n\t\tinner join gestion.resolutorio z on z.id =  e.id_resolutorio\n\t\tinner join gestion.resolutorio zz on zz.id =  z.id_estado\n\t\tinner join gestion.municipio m on m.id = z.id_municipio\n\t\tinner join gestion.estado es on es.id = a.id_estado and es.id = z.id_estado\n\t\twhere a.id_estatus in (1,2,3,4,6,8)\n\t\tand z.id_tipo_resolutorio in (2)\n\t\tand z.nombre in ($alcaldia) and zz.nombre in ($gobernaciones)\n\t\tand e.principal is true\n\t\tand z.otros in ($otros)\n\t\tgroup by m.nombre, es.nombre, z.politica, z.otros\n\t\tHAVING trunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) >= $mayor\n\t\tand trunc(sum(CASE WHEN a.id_estatus in (6) AND (a.feedback >= 2 or a.verificado = 'SI')\n\t\tTHEN 1 ELSE 0 END)::decimal*100/count(*)::decimal,2) <= $menor\n\t\torder by \"% EFECTIVIDAD %\" DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "ALCALDIAS ($gobernaciones)",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 ORDER BY nombre ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "GOBERNACIONES",
+        "multi": false,
+        "name": "gobernaciones",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio where id_tipo_resolutorio = 1 ORDER BY nombre ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT a.nombre FROM gestion.resolutorio a\ninner join gestion.resolutorio aa ON aa.id = a.id_estado\nwhere a.id_tipo_resolutorio = 2 AND aa.nombre in ($gobernaciones) ;",
+        "hide": 0,
+        "includeAll": true,
+        "label": "ALCALDIA",
+        "multi": false,
+        "name": "alcaldia",
+        "options": [],
+        "query": "SELECT a.nombre FROM gestion.resolutorio a\ninner join gestion.resolutorio aa ON aa.id = a.id_estado\nwhere a.id_tipo_resolutorio = 2 AND aa.nombre in ($gobernaciones) ;",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT distinct a.otros FROM gestion.resolutorio a\nwhere a.id_tipo_resolutorio = 2 ",
+        "hide": 0,
+        "includeAll": true,
+        "label": "OTROS",
+        "multi": true,
+        "name": "otros",
+        "options": [],
+        "query": "SELECT distinct a.otros FROM gestion.resolutorio a\nwhere a.id_tipo_resolutorio = 2 ",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "100",
+          "value": "100"
+        },
+        "hide": 0,
+        "label": "PROCENTAJE MENOR A",
+        "name": "menor",
+        "options": [
+          {
+            "selected": true,
+            "text": "100",
+            "value": "100"
+          }
+        ],
+        "query": "100",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "0",
+          "value": "0"
+        },
+        "hide": 0,
+        "label": "PROCENTAJE MAYOR A",
+        "name": "mayor",
+        "options": [
+          {
+            "selected": true,
+            "text": "0",
+            "value": "0"
+          }
+        ],
+        "query": "0",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2y",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "ALCALDIAS V3",
+  "uid": "6kitwVyVz11",
+  "version": 6,
+  "weekStart": ""
+}

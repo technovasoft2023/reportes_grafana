@@ -1,0 +1,1683 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 411,
+  "iteration": 1711470200044,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 19,
+      "panels": [],
+      "title": "BUSQUEDA POR RESOLUTORES",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "ud7n-MJIk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "TOTAL"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "USUARIOS"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 297
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "RESOLUTOR"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 582
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NUM"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "custom.width",
+                "value": 104
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NUM"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "center"
+              },
+              {
+                "id": "max"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "NOMBRE Y APELLIDO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 428
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "USUARIO"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 121
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "footer": {
+          "enablePagination": false,
+          "fields": [
+            "TOTAL"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": true
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "ud7n-MJIk"
+          },
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", \n    UPPER(u.username)::Text \"USUARIO\",\n    UPPER(usd.name || ' ' || usd.last_name)::TEXT \"NOMBRE Y APELLIDO\",\n    UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on u.id = usd.user_id\n\t\tinner join gestion.resolutorio res on res.id = usd.id_resolutorio\n\t\twhere res.nombre in ($ministerio)\n\t\t GROUP BY us.user_id, \"USUARIO\", \"NOMBRE Y APELLIDO\", res.nombre\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "timeColumn": "time",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "title": "TOTAL DE SESIONES ABIERTA POR ROLES GENERAL (POR BUSQUEDA)",
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 17,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 8,
+            "x": 0,
+            "y": 2
+          },
+          "id": 13,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^TOTAL$/",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');\n\t\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "USUARIOS CONECTADOS PCP",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 7,
+            "x": 8,
+            "y": 2
+          },
+          "id": 14,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^TOTAL$/",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');\n\t\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "USUARIOS CONECTADOS RESOLUTORES",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 9,
+            "x": 15,
+            "y": 2
+          },
+          "id": 15,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^TOTAL$/",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(distinct us.id) AS \"TOTAL\" \n\t\tFROM public.user us \n\t\tINNER join public.session s on s.user_id::integer = us.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = us.id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor', 'operador','operador-nacional','coordinador','supervisor-especial');\n\t\t",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "TOTAL USUARIOS CONECTADOS ",
+          "type": "gauge"
+        }
+      ],
+      "title": "TOTAL DE USUARIOS CONECTADOS",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 22,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 8,
+            "x": 0,
+            "y": 3
+          },
+          "id": 20,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^TOTAL$/",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial');",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "TOTAL DE SESIONES  USUARIOS PCP",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 7,
+            "x": 8,
+            "y": 3
+          },
+          "id": 23,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^TOTAL$/",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('resolutor-nacional', 'resolutor');",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "TOTAL DE SESIONES  USUARIOS RESOLUTORES",
+          "type": "gauge"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 5,
+            "w": 9,
+            "x": 15,
+            "y": 3
+          },
+          "id": 24,
+          "options": {
+            "orientation": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^TOTAL$/",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT count(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial','resolutor-nacional', 'resolutor');",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "TOTAL DE SESIONES  USUARIOS RESOLUTORES",
+          "type": "gauge"
+        }
+      ],
+      "title": "TOTAL DE SESIONES  ACTIVAS ",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 8,
+      "panels": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "USUARIO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 140
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "USUARIOS"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 162
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NOMBRES APELLIDOS"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 322
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 54
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 12,
+            "x": 0,
+            "y": 4
+          },
+          "id": 9,
+          "options": {
+            "footer": {
+              "enablePagination": false,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": " SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\",  UPPER(c.item_name)::Text \"USUARIOS ROLES\", count(*) as \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name not in ('admin')\n\t\t GROUP BY c.item_name\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "TOTAL DE SESIONES ABIERTA POR ROLES GENERAL",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 75
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "MINISTERIO E INSTITUCION"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 588
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 12,
+            "x": 12,
+            "y": 4
+          },
+          "id": 2,
+          "options": {
+            "footer": {
+              "enablePagination": false,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": " SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", res.nombre::Text \"MINISTERIO E INSTITUCION\", count(*) as \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\tinner join gestion.resolutorio res on res.id = usd.id_resolutorio\n\t\twhere --c.item_name in ('operador','operador-nacional','coordinador')\n\t\tres.id_tipo_resolutorio IN (3,4)\n\t\t GROUP BY res.nombre\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CANTIDAD DE SESIONES ABIERTAS POR MINISTERIOS E INSTITUCIONES",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 42
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 15
+          },
+          "id": 3,
+          "options": {
+            "footer": {
+              "enablePagination": false,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": " SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", UPPER(c.item_name)::Text \"USUARIOS ROLES\", count(*) as \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial')\n\t\t GROUP BY c.item_name\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CANTIDAD DE SESIONES ABIERTAS POR ROLES EN PCP",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  },
+                  {
+                    "id": "unit"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "USUARIO"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 127
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 41
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 15
+          },
+          "id": 10,
+          "options": {
+            "footer": {
+              "enablePagination": false,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "  SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", UPPER(u.username)::Text \"USUARIO\", UPPER(usd.name) || ' ' || UPPER(usd.last_name)::Text \"NOMBRE APELLIDO\", UPPER(c.item_name)::TEXT \"ROL\", \n \t\tcount(*) AS \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\twhere c.item_name in ('operador','operador-nacional','coordinador','supervisor-especial')\n\t\tGROUP BY u.username, \"NOMBRE APELLIDO\", c.item_name\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CANTIDAD DE SESIONES ABIERTAS POR USUARIOS EN PCP",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 75
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 0,
+            "y": 24
+          },
+          "id": 5,
+          "options": {
+            "footer": {
+              "enablePagination": false,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": " SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\",  res.nombre::Text \"GOBERNACIONES\", count(*) as \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\tinner join gestion.resolutorio res on res.id = usd.id_resolutorio\n\t\twhere --c.item_name in ('operador','operador-nacional','coordinador')\n\t\tres.id_tipo_resolutorio IN (1)\n\t\t GROUP BY res.nombre\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CANTIDAD DE SESIONES ABIERTAS POR GOBERNACIONES",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 72
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 12,
+            "x": 12,
+            "y": 24
+          },
+          "id": 6,
+          "options": {
+            "footer": {
+              "enablePagination": false,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": " SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", res.nombre || ' (' || es.nombre || ')'::Text \"ALCADIAS\", count(*) as \"TOTAL\"\n\t\tFROM public.session us\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\n\t\tinner join public.user u on us.user_id::integer = u.id\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\n\t\tinner join gestion.resolutorio res on res.id = usd.id_resolutorio\n\t\tinner join gestion.estado es on es.id = res.id_estado\n\t\twhere --c.item_name in ('operador','operador-nacional','coordinador')\n\t\tres.id_tipo_resolutorio IN (2)\n\t\t GROUP BY res.nombre, es.nombre\n\t   HAVING (COUNT(*) > 0) \n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CANTIDAD DE SESIONES ABIERTAS POR ALCALDÍAS",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "KjP58Kr7k"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "TOTAL"
+                },
+                "properties": [
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "NUM"
+                },
+                "properties": [
+                  {
+                    "id": "custom.width",
+                    "value": 75
+                  },
+                  {
+                    "id": "custom.align",
+                    "value": "center"
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 33
+          },
+          "id": 11,
+          "options": {
+            "footer": {
+              "enablePagination": true,
+              "fields": [
+                "TOTAL"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": []
+          },
+          "pluginVersion": "8.5.3",
+          "targets": [
+            {
+              "datasource": {
+                "type": "postgres",
+                "uid": "KjP58Kr7k"
+              },
+              "format": "table",
+              "group": [],
+              "metricColumn": "none",
+              "rawQuery": true,
+              "rawSql": "SELECT ROW_NUMBER () OVER (ORDER BY count(*) desc) as \"NUM\", \r\n    UPPER(u.username)::Text \"USUARIO\",\r\n    UPPER(usd.name || ' ' || usd.last_name)::TEXT \"NOMBRE Y APELLIDO\",\r\n\tUPPER(c.item_name)::TEXT \"ROL\"\r\n   -- UPPER(res.nombre)::TEXT \"RESOLUTOR\", count(*) as \"TOTAL\"\r\n\t\tFROM public.session us\r\n\t\tinner join public.user_detail usd on us.user_id::integer = usd.user_id\r\n\t\tinner join public.user u on u.id = usd.user_id\r\n\t\t--inner join gestion.resolutorio res on res.id = usd.id_resolutorio\r\n\t\tINNER join public.auth_assignment c on c.user_id::integer = usd.user_id\r\n\t\twhere --res.nombre is not null\r\n\t\tc.item_name in ('operador','operador-nacional','coordinador','coordinador-especial','supervisor-especial', 'resolutor','resolutor-nacional')\r\n\t\tGROUP BY us.user_id, c.item_name, \"USUARIO\", \"NOMBRE Y APELLIDO\", u.username\r\n\t   HAVING (COUNT(*) > 0) \r\n\t   order by count(*) desc",
+              "refId": "A",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "column"
+                  }
+                ]
+              ],
+              "timeColumn": "time",
+              "where": [
+                {
+                  "name": "$__timeFilter",
+                  "params": [],
+                  "type": "macro"
+                }
+              ]
+            }
+          ],
+          "title": "CANTIDAD DE USUARIOS CONECTADOS",
+          "type": "table"
+        }
+      ],
+      "title": "REPORTES GENERAL DE SESIONES",
+      "type": "row"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "ud7n-MJIk"
+        },
+        "definition": "SELECT nombre FROM gestion.resolutorio\n\twhere id_tipo_resolutorio in (3,4)\nand id in (478,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,\n595,596,598,354,553,561,597,563, 566,599,503,453)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "ministerio",
+        "options": [],
+        "query": "SELECT nombre FROM gestion.resolutorio\n\twhere id_tipo_resolutorio in (3,4)\nand id in (478,579,580,581,582,583,584,585,586,587,588,589,590,591,592,593,594,\n595,596,598,354,553,561,597,563, 566,599,503,453)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "SESIONES ABIERTA POR USUARIOS Y ROLES V3 DEFINIR TABLA SESIONES EN ESQUEMA PUBLIC",
+  "uid": "J8zJs3uVk",
+  "version": 3,
+  "weekStart": ""
+}
